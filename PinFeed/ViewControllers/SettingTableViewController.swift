@@ -5,32 +5,43 @@ import SwiftyJSON
 class SettingTableViewController: UITableViewController {
     
     @IBOutlet weak var userId: UITextField!
-    @IBOutlet weak var apiToken: UITextField!
+    @IBOutlet weak var password: UITextField!
+    
+    var apiTokenURL: String {
+        get {
+            return String(
+                format: "https://%@:%@@api.pinboard.in/v1/user/api_token/?format=json",
+                Setting.sharedInstance.userId,
+                Setting.sharedInstance.password
+            )
+        }
+    }
     
     var secretTokenURL: String {
         get {
             return String(
-                format: "https://api.pinboard.in/v1/user/secret/?format=json&auth_token=%@",
-                Setting.sharedInstance.apiToken
+                format: "https://%@:%@@api.pinboard.in/v1/user/secret/?format=json",
+                Setting.sharedInstance.userId,
+                Setting.sharedInstance.password
             )
         }
     }
     
     enum SettingTableViewCellType: Int {
         case UserId = 0
-        case APIToken = 1
-        case PinboardSettingPage = 2
-        case AppVersion = 3
+        case Password = 1
+        case AppVersion = 2
+        case GitHubRepository = 3
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         userId.delegate = self
-        apiToken.delegate = self
+        password.delegate = self
 
         userId.text = Setting.sharedInstance.userId
-        apiToken.text = Setting.sharedInstance.apiToken
+        password.text = Setting.sharedInstance.password
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -48,15 +59,15 @@ class SettingTableViewController: UITableViewController {
         case .UserId:
             cell.editing = true
             break
-        case .APIToken:
+        case .Password:
             cell.editing = true
             break
-        case .PinboardSettingPage:
+        case .GitHubRepository:
             guard let webViewController = storyboard.instantiateViewControllerWithIdentifier("WebViewController") as? WebViewController else {
                 return
             }
 
-            webViewController.url = NSURL(string: "https://pinboard.in/settings/password")
+            webViewController.url = NSURL(string: "https://github.com/1000ch/PinFeed")
             webViewController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(webViewController, animated: true)
         case .AppVersion:
@@ -71,8 +82,27 @@ extension SettingTableViewController: UITextFieldDelegate {
         case userId:
             Setting.sharedInstance.userId = textField.text ?? ""
             break
-        case apiToken:
-            Setting.sharedInstance.apiToken = textField.text ?? ""
+        case password:
+            Setting.sharedInstance.password = textField.text ?? ""
+            break
+        default:
+            break
+        }
+        
+        let userIdString = Setting.sharedInstance.userId
+        let passwordString = Setting.sharedInstance.password
+        
+        if !userIdString.isEmpty && !passwordString.isEmpty {
+            Alamofire
+                .request(.GET, apiTokenURL)
+                .responseJSON { response in
+                    guard let data = response.result.value else {
+                        return
+                    }
+
+                    Setting.sharedInstance.apiToken = JSON(data)["result"].stringValue
+                }
+                
             Alamofire
                 .request(.GET, secretTokenURL)
                 .responseJSON { response in
@@ -81,11 +111,9 @@ extension SettingTableViewController: UITextFieldDelegate {
                     }
                     
                     Setting.sharedInstance.secretToken = JSON(data)["result"].stringValue
-            }
-            break
-        default:
-            break
+                }
         }
+
         return true
     }
 }

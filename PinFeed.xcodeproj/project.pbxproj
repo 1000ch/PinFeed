@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		136FA1F91C833819002569D8 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136FA1F81C833819002569D8 /* SettingTableViewController.swift */; };
+		139D50021C874DD4008F672B /* BookmarkEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139D50011C874DD4008F672B /* BookmarkEditViewController.swift */; };
 		52B3CBE26508F9850F37E7A2 /* Pods_PinFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 644D325D02A85EFD3B16AC1D /* Pods_PinFeed.framework */; };
 		C72B65621C7F23A10061E6EE /* BookmarkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C72B65611C7F23A10061E6EE /* BookmarkCell.xib */; };
 		C72B65641C7F240C0061E6EE /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B65631C7F240C0061E6EE /* BookmarkCell.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		136FA1F81C833819002569D8 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		139D50011C874DD4008F672B /* BookmarkEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkEditViewController.swift; sourceTree = "<group>"; };
 		5E6553A0D4C638A7D101CA52 /* Pods-PinFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinFeed.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PinFeed/Pods-PinFeed.debug.xcconfig"; sourceTree = "<group>"; };
 		644D325D02A85EFD3B16AC1D /* Pods_PinFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PinFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C72B65611C7F23A10061E6EE /* BookmarkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarkCell.xib; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				C7D3F04B1C7C935B00FDF058 /* BookmarkViewController.swift */,
 				C7D3F0531C7C93A900FDF058 /* SettingViewController.swift */,
 				136FA1F81C833819002569D8 /* SettingTableViewController.swift */,
+				139D50011C874DD4008F672B /* BookmarkEditViewController.swift */,
 				C7D3F0591C7C976200FDF058 /* WebViewController.swift */,
 			);
 			path = ViewControllers;
@@ -305,6 +308,7 @@
 				C72B65641C7F240C0061E6EE /* BookmarkCell.swift in Sources */,
 				C7D3F05A1C7C976200FDF058 /* WebViewController.swift in Sources */,
 				136FA1F91C833819002569D8 /* SettingTableViewController.swift in Sources */,
+				139D50021C874DD4008F672B /* BookmarkEditViewController.swift in Sources */,
 				C7D3F0541C7C93A900FDF058 /* SettingViewController.swift in Sources */,
 				C7E439BF1C815A910097B508 /* Setting.xcdatamodeld in Sources */,
 				C72B65661C7FEB070061E6EE /* Bookmark.swift in Sources */,

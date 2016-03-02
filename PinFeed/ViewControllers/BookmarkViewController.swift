@@ -50,6 +50,18 @@ class BookmarkViewController: UIViewController {
 }
 
 extension BookmarkViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let editAction = UITableViewRowAction(style: .Normal, title: "Bookmark") { (rowAction, indexPath) -> Void in
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let bookmarkEditVC = storyboard.instantiateViewControllerWithIdentifier("BookmarkEditViewController") as? BookmarkEditViewController else {
+                return
+            }
+            bookmarkEditVC.bookmark = self.bookmark[indexPath.row]
+            self.navigationController?.pushViewController(bookmarkEditVC, animated: true)
+        }
+        editAction.backgroundColor = UIColor.lightGrayColor()
+        return [editAction]
+    }
 }
 
 extension BookmarkViewController: UITableViewDataSource {

@@ -10,6 +10,7 @@ class Setting {
     
     enum SettingKey: String {
         case userId = "userId"
+        case password = "password"
         case apiToken = "apiToken"
         case secretToken = "secretToken"
     }
@@ -25,6 +26,19 @@ class Setting {
             userDefaults.synchronize()
         }
     }
+
+    var password: String {
+        get {
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            return userDefaults.valueForKey(SettingKey.password.rawValue) as? String ?? ""
+        }
+        set {
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            userDefaults.setValue(newValue, forKey: SettingKey.password.rawValue)
+            userDefaults.synchronize()
+        }
+    }
+    
     var apiToken: String {
         get {
             let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -36,6 +50,7 @@ class Setting {
             userDefaults.synchronize()
         }
     }
+
     var secretToken: String {
         get {
             let userDefaults = NSUserDefaults.standardUserDefaults()
