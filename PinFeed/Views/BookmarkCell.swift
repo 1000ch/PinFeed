@@ -8,4 +8,3 @@ class BookmarkCell: UITableViewCell {
     
     @IBOutlet weak var dateTimeLabel: UILabel!
 }
-

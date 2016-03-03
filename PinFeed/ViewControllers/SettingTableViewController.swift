@@ -5,28 +5,9 @@ import SwiftyJSON
 class SettingTableViewController: UITableViewController {
     
     @IBOutlet weak var userId: UITextField!
+
     @IBOutlet weak var password: UITextField!
-    
-    var apiTokenURL: String {
-        get {
-            return String(
-                format: "https://%@:%@@api.pinboard.in/v1/user/api_token/?format=json",
-                Setting.sharedInstance.userId,
-                Setting.sharedInstance.password
-            )
-        }
-    }
-    
-    var secretTokenURL: String {
-        get {
-            return String(
-                format: "https://%@:%@@api.pinboard.in/v1/user/secret/?format=json",
-                Setting.sharedInstance.userId,
-                Setting.sharedInstance.password
-            )
-        }
-    }
-    
+        
     enum SettingTableViewCellType: Int {
         case UserId = 0
         case Password = 1
@@ -53,8 +34,6 @@ class SettingTableViewController: UITableViewController {
             return
         }
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
         switch cellType {
         case .UserId:
             cell.editing = true
@@ -63,12 +42,11 @@ class SettingTableViewController: UITableViewController {
             cell.editing = true
             break
         case .GitHubRepository:
-            guard let webViewController = storyboard.instantiateViewControllerWithIdentifier("WebViewController") as? WebViewController else {
+            guard let webViewController = UIStoryboard.instantiateViewController("Main", identifier: "WebViewController") as? WebViewController else {
                 return
             }
 
             webViewController.url = NSURL(string: "https://github.com/1000ch/PinFeed")
-            webViewController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(webViewController, animated: true)
         case .AppVersion:
             break
@@ -94,7 +72,7 @@ extension SettingTableViewController: UITextFieldDelegate {
         
         if !userIdString.isEmpty && !passwordString.isEmpty {
             Alamofire
-                .request(.GET, apiTokenURL)
+                .request(.GET, PinboardURLProvider.apiToken ?? "")
                 .responseJSON { response in
                     guard let data = response.result.value else {
                         return
@@ -104,7 +82,7 @@ extension SettingTableViewController: UITextFieldDelegate {
                 }
                 
             Alamofire
-                .request(.GET, secretTokenURL)
+                .request(.GET, PinboardURLProvider.secretToken ?? "")
                 .responseJSON { response in
                     guard let data = response.result.value else {
                         return

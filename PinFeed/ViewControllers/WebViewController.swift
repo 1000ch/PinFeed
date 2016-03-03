@@ -1,6 +1,7 @@
 import UIKit
 import WebKit
-import SafariServices
+import Alamofire
+import SwiftyJSON
 
 class WebViewController: UIViewController {
     
@@ -24,7 +25,71 @@ class WebViewController: UIViewController {
             progressView.hidden = true
         }
     }
+    @IBOutlet weak var toolbar: UIToolbar!
+    
+    @IBAction func reloadWebView(sender: UIBarButtonItem) {
+        webView.reload()
+    }
+    
+    @IBAction func showEditView(sender: UIBarButtonItem) {
+        guard let bookmarkEditTableVC = UIStoryboard.instantiateViewController("Main", identifier: "BookmarkEditTableViewController") as? BookmarkEditTableViewController else {
+            return
+        }
         
+        guard let URL = webView.URL else {
+            return
+        }
+        
+        guard let title = webView.title else {
+            return
+        }
+        
+        let urlString = URL.absoluteString
+        guard let requestString = PinboardURLProvider.getPost(nil, dt: nil, url: urlString, meta: nil) else {
+            return
+        }
+        
+        Alamofire
+            .request(.GET, requestString)
+            .responseJSON { response in
+                guard let data = response.result.value else {
+                    return
+                }
+                
+                if let post = JSON(data)["posts"].arrayValue.first {
+                    bookmarkEditTableVC.bookmark.url = post["href"].stringValue
+                    bookmarkEditTableVC.bookmark.title = post["description"].stringValue
+                    bookmarkEditTableVC.bookmark.tags = post["tags"].stringValue
+                    bookmarkEditTableVC.bookmark.description = post["extended"].stringValue
+                    bookmarkEditTableVC.bookmark.isPrivate = post["shared"].stringValue == "no"
+                    bookmarkEditTableVC.bookmark.isReadLater = post["toread"].stringValue == "yes"
+                } else {
+                    bookmarkEditTableVC.bookmark.url = URL.absoluteString
+                    bookmarkEditTableVC.bookmark.title = title
+                }
+                
+                self.navigationController?.pushViewController(bookmarkEditTableVC, animated: true)
+        }
+    }
+    
+    @IBAction func showActivityView(sender: UIBarButtonItem) {
+        guard let text = webView.title else {
+            return
+        }
+
+        guard let url = webView.URL else {
+            return
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: [text, url], applicationActivities: nil)
+        presentViewController(activityVC, animated: true, completion: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        hidesBottomBarWhenPushed = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,13 +106,13 @@ class WebViewController: UIViewController {
         let leftConstraint = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: 0)
         let rightConstraint = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: 0)
         let topConstraint = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
-        let bottomConstraint = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0)
+        let bottomConstraint = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: toolbar, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
         
         view.addConstraint(leftConstraint)
         view.addConstraint(rightConstraint)
         view.addConstraint(topConstraint)
         view.addConstraint(bottomConstraint)
-        view.bringSubviewToFront(progressView)
+        view.sendSubviewToBack(webView)
         view.layoutIfNeeded()
         
         if url != nil {
@@ -68,16 +133,16 @@ class WebViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        tabBarController?.tabBar.hidden = true
         navigationController?.hidesBarsOnSwipe = true
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.translucent = true
-        
         webViewPropertyObserver = WebViewPropertyObserver(webView: webView, handler: handleWebViewPropertyChange)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         webViewPropertyObserver = nil
     }
     
@@ -94,7 +159,6 @@ class WebViewController: UIViewController {
     
     private func updateProgressView(progress: Float) {
         if 0.0 < progress && progress < 1.0 {
-            
             UIView.animateWithDuration(0.2) { [weak self] in
                 self?.progressView?.hidden = false
                 self?.progressView?.progress = progress
@@ -102,8 +166,6 @@ class WebViewController: UIViewController {
             }
         } else if progress == 1.0 {
             progressView?.progress = progress
-            
-            // Wait 0.2 seconds and hide progress view to let a user know that progress becomes 100%
             let delay = 0.2 * Double(NSEC_PER_SEC)
             let time  = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
             dispatch_after(time, dispatch_get_main_queue()) { [weak self] in
@@ -119,7 +181,6 @@ class WebViewController: UIViewController {
 }
 
 extension WebViewController: WKNavigationDelegate {}
-
 
 extension WebViewController: WKUIDelegate {
     func webView(webView: WKWebView, createWebViewWithConfiguration configuration: WKWebViewConfiguration, forNavigationAction navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {

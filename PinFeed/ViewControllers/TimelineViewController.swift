@@ -6,22 +6,12 @@ class TimelineViewController: UIViewController {
 
     @IBOutlet weak var timelineTableView: UITableView!
     
-    var timelineURL: String {
-        get {
-            return String(
-                format: "https://feeds.pinboard.in/json/secret:%@/u:%@/network/?count=400",
-                Setting.sharedInstance.secretToken,
-                Setting.sharedInstance.userId
-            )
-        }
-    }
     var timeline: [Bookmark] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Timeline"
-        
         timelineTableView.delegate = self
         timelineTableView.dataSource = self
         timelineTableView.registerNib(
@@ -30,7 +20,7 @@ class TimelineViewController: UIViewController {
         )
         
         Alamofire
-            .request(.GET, timelineURL)
+            .request(.GET, PinboardURLProvider.network ?? "")
             .responseJSON { response in
                 guard let data = response.result.value else {
                     return
@@ -51,14 +41,40 @@ class TimelineViewController: UIViewController {
 
 extension TimelineViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let editAction = UITableViewRowAction(style: .Normal, title: "Bookmark") { (rowAction, indexPath) -> Void in
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let bookmarkEditVC = storyboard.instantiateViewControllerWithIdentifier("BookmarkEditViewController") as? BookmarkEditViewController else {
+        let editAction = UITableViewRowAction(style: .Normal, title: "★") { (rowAction, indexPath) -> Void in
+            guard let bookmarkEditTableVC = UIStoryboard.instantiateViewController("Main", identifier: "BookmarkEditTableViewController") as? BookmarkEditTableViewController else {
                 return
             }
-            bookmarkEditVC.bookmark = self.timeline[indexPath.row]
-            self.navigationController?.pushViewController(bookmarkEditVC, animated: true)
+            
+            let bookmark = self.timeline[indexPath.row]
+            let urlString = bookmark.url.absoluteString
+            guard let requestString = PinboardURLProvider.getPost(nil, dt: nil, url: urlString, meta: nil) else {
+                return
+            }
+            
+            Alamofire
+                .request(.GET, requestString)
+                .responseJSON { response in
+                    guard let data = response.result.value else {
+                        return
+                    }
+                    
+                    if let post = JSON(data)["posts"].arrayValue.first {
+                        bookmarkEditTableVC.bookmark.url = post["href"].stringValue
+                        bookmarkEditTableVC.bookmark.title = post["description"].stringValue
+                        bookmarkEditTableVC.bookmark.tags = post["tags"].stringValue
+                        bookmarkEditTableVC.bookmark.description = post["extended"].stringValue
+                        bookmarkEditTableVC.bookmark.isPrivate = post["shared"].stringValue == "no"
+                        bookmarkEditTableVC.bookmark.isReadLater = post["toread"].stringValue == "yes"
+                    } else {
+                        bookmarkEditTableVC.bookmark.url = bookmark.url.absoluteString
+                        bookmarkEditTableVC.bookmark.title = bookmark.title
+                    }
+                    
+                    self.navigationController?.pushViewController(bookmarkEditTableVC, animated: true)
+            }
         }
+
         editAction.backgroundColor = UIColor.lightGrayColor()
         return [editAction]
     }
@@ -82,14 +98,11 @@ extension TimelineViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        guard let webViewController = storyboard.instantiateViewControllerWithIdentifier("WebViewController") as? WebViewController else {
+        guard let webViewController = UIStoryboard.instantiateViewController("Main", identifier: "WebViewController") as? WebViewController else {
             return
         }
 
         webViewController.url = timeline[indexPath.row].url
-        webViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(webViewController, animated: true)
     }
 }

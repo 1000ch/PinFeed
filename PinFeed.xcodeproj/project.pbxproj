@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		136FA1F91C833819002569D8 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136FA1F81C833819002569D8 /* SettingTableViewController.swift */; };
-		139D50021C874DD4008F672B /* BookmarkEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139D50011C874DD4008F672B /* BookmarkEditViewController.swift */; };
+		139D50021C874DD4008F672B /* BookmarkEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139D50011C874DD4008F672B /* BookmarkEditTableViewController.swift */; };
+		13CCBE731C88AE7100E6600F /* PinboardURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CCBE721C88AE7100E6600F /* PinboardURLProvider.swift */; };
 		52B3CBE26508F9850F37E7A2 /* Pods_PinFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 644D325D02A85EFD3B16AC1D /* Pods_PinFeed.framework */; };
-		C72B65621C7F23A10061E6EE /* BookmarkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C72B65611C7F23A10061E6EE /* BookmarkCell.xib */; };
 		C72B65641C7F240C0061E6EE /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B65631C7F240C0061E6EE /* BookmarkCell.swift */; };
 		C72B65661C7FEB070061E6EE /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B65651C7FEB070061E6EE /* Bookmark.swift */; };
+		C75A2DBB1C88130200BF04CE /* UIStoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75A2DBA1C88130200BF04CE /* UIStoryboardExtension.swift */; };
+		C75A2DBD1C8823D100BF04CE /* BookmarkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75A2DBC1C8823D100BF04CE /* BookmarkCell.xib */; };
 		C75E23A01C7AD73D00EBF80A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75E239F1C7AD73D00EBF80A /* AppDelegate.swift */; };
 		C75E23A71C7AD73D00EBF80A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C75E23A51C7AD73D00EBF80A /* Main.storyboard */; };
 		C75E23A91C7AD73D00EBF80A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C75E23A81C7AD73D00EBF80A /* Assets.xcassets */; };
@@ -30,12 +32,14 @@
 
 /* Begin PBXFileReference section */
 		136FA1F81C833819002569D8 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
-		139D50011C874DD4008F672B /* BookmarkEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkEditViewController.swift; sourceTree = "<group>"; };
+		139D50011C874DD4008F672B /* BookmarkEditTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkEditTableViewController.swift; sourceTree = "<group>"; };
+		13CCBE721C88AE7100E6600F /* PinboardURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinboardURLProvider.swift; sourceTree = "<group>"; };
 		5E6553A0D4C638A7D101CA52 /* Pods-PinFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinFeed.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PinFeed/Pods-PinFeed.debug.xcconfig"; sourceTree = "<group>"; };
 		644D325D02A85EFD3B16AC1D /* Pods_PinFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PinFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C72B65611C7F23A10061E6EE /* BookmarkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarkCell.xib; sourceTree = "<group>"; };
 		C72B65631C7F240C0061E6EE /* BookmarkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
 		C72B65651C7FEB070061E6EE /* Bookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
+		C75A2DBA1C88130200BF04CE /* UIStoryboardExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtension.swift; sourceTree = "<group>"; };
+		C75A2DBC1C8823D100BF04CE /* BookmarkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarkCell.xib; sourceTree = "<group>"; };
 		C75E239C1C7AD73D00EBF80A /* PinFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PinFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C75E239F1C7AD73D00EBF80A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C75E23A61C7AD73D00EBF80A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -85,6 +89,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C75A2DB91C8812E300BF04CE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C75A2DBA1C88130200BF04CE /* UIStoryboardExtension.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		C75E23931C7AD73C00EBF80A = {
 			isa = PBXGroup;
 			children = (
@@ -108,9 +120,8 @@
 		C75E239E1C7AD73D00EBF80A /* PinFeed */ = {
 			isa = PBXGroup;
 			children = (
-				C7D3F04E1C7C936D00FDF058 /* Controllers */,
+				C75A2DB91C8812E300BF04CE /* Extensions */,
 				C7D3F04F1C7C936D00FDF058 /* Helpers */,
-				C7D3F0501C7C936D00FDF058 /* Managers */,
 				C7D3F0511C7C936D00FDF058 /* Models */,
 				C7D3F0521C7C936D00FDF058 /* Views */,
 				C7D3F0491C7C935B00FDF058 /* ViewControllers */,
@@ -119,7 +130,6 @@
 				C75E23A81C7AD73D00EBF80A /* Assets.xcassets */,
 				C75E23AA1C7AD73D00EBF80A /* LaunchScreen.storyboard */,
 				C75E23AD1C7AD73D00EBF80A /* Info.plist */,
-				C72B65611C7F23A10061E6EE /* BookmarkCell.xib */,
 				C7E439BD1C815A910097B508 /* Setting.xcdatamodeld */,
 			);
 			path = PinFeed;
@@ -132,32 +142,19 @@
 				C7D3F04B1C7C935B00FDF058 /* BookmarkViewController.swift */,
 				C7D3F0531C7C93A900FDF058 /* SettingViewController.swift */,
 				136FA1F81C833819002569D8 /* SettingTableViewController.swift */,
-				139D50011C874DD4008F672B /* BookmarkEditViewController.swift */,
+				139D50011C874DD4008F672B /* BookmarkEditTableViewController.swift */,
 				C7D3F0591C7C976200FDF058 /* WebViewController.swift */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		C7D3F04E1C7C936D00FDF058 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		C7D3F04F1C7C936D00FDF058 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				C7D3F05B1C7C97A200FDF058 /* WebViewPropertyObserver.swift */,
+				13CCBE721C88AE7100E6600F /* PinboardURLProvider.swift */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		C7D3F0501C7C936D00FDF058 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Managers;
 			sourceTree = "<group>";
 		};
 		C7D3F0511C7C936D00FDF058 /* Models */ = {
@@ -173,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				C72B65631C7F240C0061E6EE /* BookmarkCell.swift */,
+				C75A2DBC1C8823D100BF04CE /* BookmarkCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -238,10 +236,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C72B65621C7F23A10061E6EE /* BookmarkCell.xib in Resources */,
 				C75E23AC1C7AD73D00EBF80A /* LaunchScreen.storyboard in Resources */,
 				C75E23A91C7AD73D00EBF80A /* Assets.xcassets in Resources */,
 				C75E23A71C7AD73D00EBF80A /* Main.storyboard in Resources */,
+				C75A2DBD1C8823D100BF04CE /* BookmarkCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7E439C11C815ABC0097B508 /* Setting.swift in Sources */,
+				13CCBE731C88AE7100E6600F /* PinboardURLProvider.swift in Sources */,
 				C7D3F05C1C7C97A200FDF058 /* WebViewPropertyObserver.swift in Sources */,
 				C7D3F04D1C7C935B00FDF058 /* BookmarkViewController.swift in Sources */,
 				C75E23A01C7AD73D00EBF80A /* AppDelegate.swift in Sources */,
@@ -308,7 +307,8 @@
 				C72B65641C7F240C0061E6EE /* BookmarkCell.swift in Sources */,
 				C7D3F05A1C7C976200FDF058 /* WebViewController.swift in Sources */,
 				136FA1F91C833819002569D8 /* SettingTableViewController.swift in Sources */,
-				139D50021C874DD4008F672B /* BookmarkEditViewController.swift in Sources */,
+				C75A2DBB1C88130200BF04CE /* UIStoryboardExtension.swift in Sources */,
+				139D50021C874DD4008F672B /* BookmarkEditTableViewController.swift in Sources */,
 				C7D3F0541C7C93A900FDF058 /* SettingViewController.swift in Sources */,
 				C7E439BF1C815A910097B508 /* Setting.xcdatamodeld in Sources */,
 				C72B65661C7FEB070061E6EE /* Bookmark.swift in Sources */,

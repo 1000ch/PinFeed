@@ -7,8 +7,7 @@ class SettingViewController: UIViewController {
         
         title = "Setting"
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let settingTableViewController = storyboard.instantiateViewControllerWithIdentifier("SettingTableViewController") as? UITableViewController else {
+        guard let settingTableViewController = UIStoryboard.instantiateViewController("Main", identifier: "SettingTableViewController") else {
             return
         }
         
