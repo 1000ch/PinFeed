@@ -25,7 +25,6 @@
 		C7D3F05A1C7C976200FDF058 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D3F0591C7C976200FDF058 /* WebViewController.swift */; };
 		C7D3F05C1C7C97A200FDF058 /* WebViewPropertyObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D3F05B1C7C97A200FDF058 /* WebViewPropertyObserver.swift */; };
 		C7D3F05E1C7CA22600FDF058 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D3F05D1C7CA22600FDF058 /* WebKit.framework */; };
-		C7D3F0621C7CAE6200FDF058 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D3F0611C7CAE6200FDF058 /* SafariServices.framework */; };
 		C7E439BF1C815A910097B508 /* Setting.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7E439BD1C815A910097B508 /* Setting.xcdatamodeld */; };
 		C7E439C11C815ABC0097B508 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E439C01C815ABC0097B508 /* Setting.swift */; };
 /* End PBXBuildFile section */
@@ -63,7 +62,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7D3F0621C7CAE6200FDF058 /* SafariServices.framework in Frameworks */,
 				C7D3F05E1C7CA22600FDF058 /* WebKit.framework in Frameworks */,
 				52B3CBE26508F9850F37E7A2 /* Pods_PinFeed.framework in Frameworks */,
 			);
@@ -210,6 +208,7 @@
 				TargetAttributes = {
 					C75E239B1C7AD73D00EBF80A = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = NZR22QGKNQ;
 					};
 				};
 			};
@@ -425,14 +424,17 @@
 			baseConfigurationReference = 5E6553A0D4C638A7D101CA52 /* Pods-PinFeed.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
 				);
 				INFOPLIST_FILE = PinFeed/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.1000ch.PinFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -441,14 +443,17 @@
 			baseConfigurationReference = F3791CECCBB519976862F604 /* Pods-PinFeed.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
 				);
 				INFOPLIST_FILE = PinFeed/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.1000ch.PinFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
