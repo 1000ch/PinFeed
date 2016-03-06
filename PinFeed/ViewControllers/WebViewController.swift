@@ -44,32 +44,10 @@ class WebViewController: UIViewController {
             return
         }
         
-        let urlString = URL.absoluteString
-        guard let requestString = PinboardURLProvider.getPost(nil, dt: nil, url: urlString, meta: nil) else {
-            return
-        }
-        
-        Alamofire
-            .request(.GET, requestString)
-            .responseJSON { response in
-                guard let data = response.result.value else {
-                    return
-                }
-                
-                if let post = JSON(data)["posts"].arrayValue.first {
-                    bookmarkEditTableVC.bookmark.url = post["href"].stringValue
-                    bookmarkEditTableVC.bookmark.title = post["description"].stringValue
-                    bookmarkEditTableVC.bookmark.tags = post["tags"].stringValue
-                    bookmarkEditTableVC.bookmark.description = post["extended"].stringValue
-                    bookmarkEditTableVC.bookmark.isPrivate = post["shared"].stringValue == "no"
-                    bookmarkEditTableVC.bookmark.isReadLater = post["toread"].stringValue == "yes"
-                } else {
-                    bookmarkEditTableVC.bookmark.url = URL.absoluteString
-                    bookmarkEditTableVC.bookmark.title = title
-                }
-                
-                self.navigationController?.pushViewController(bookmarkEditTableVC, animated: true)
-        }
+        bookmarkEditTableVC.urlString = URL.absoluteString
+        bookmarkEditTableVC.titleString = title
+
+        navigationController?.pushViewController(bookmarkEditTableVC, animated: true)
     }
     
     @IBAction func showActivityView(sender: UIBarButtonItem) {

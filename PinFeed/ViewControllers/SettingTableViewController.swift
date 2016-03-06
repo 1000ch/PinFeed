@@ -7,6 +7,8 @@ class SettingTableViewController: UITableViewController {
     @IBOutlet weak var userId: UITextField!
 
     @IBOutlet weak var password: UITextField!
+    
+    @IBOutlet weak var appVersion: UILabel!
         
     enum SettingTableViewCellType: Int {
         case UserId = 0
@@ -23,6 +25,7 @@ class SettingTableViewController: UITableViewController {
 
         userId.text = Setting.sharedInstance.userId
         password.text = Setting.sharedInstance.password
+        appVersion.text = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -55,6 +58,35 @@ class SettingTableViewController: UITableViewController {
 }
 
 extension SettingTableViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        switch textField {
+        case userId:
+            Setting.sharedInstance.userId = textField.text ?? ""
+            break
+        case password:
+            Setting.sharedInstance.password = textField.text ?? ""
+            break
+        default:
+            break
+        }
+        
+        let userIdString = Setting.sharedInstance.userId
+        let passwordString = Setting.sharedInstance.password
+        
+        if !userIdString.isEmpty && !passwordString.isEmpty {
+            Alamofire
+                .request(.GET, PinboardURLProvider.secretToken ?? "")
+                .responseJSON { response in
+                    guard let data = response.result.value else {
+                        return
+                    }
+                    
+                    Setting.sharedInstance.secretToken = JSON(data)["result"].stringValue
+            }
+        }
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         switch textField {
         case userId:
@@ -72,16 +104,6 @@ extension SettingTableViewController: UITextFieldDelegate {
         
         if !userIdString.isEmpty && !passwordString.isEmpty {
             Alamofire
-                .request(.GET, PinboardURLProvider.apiToken ?? "")
-                .responseJSON { response in
-                    guard let data = response.result.value else {
-                        return
-                    }
-
-                    Setting.sharedInstance.apiToken = JSON(data)["result"].stringValue
-                }
-                
-            Alamofire
                 .request(.GET, PinboardURLProvider.secretToken ?? "")
                 .responseJSON { response in
                     guard let data = response.result.value else {
@@ -91,6 +113,8 @@ extension SettingTableViewController: UITextFieldDelegate {
                     Setting.sharedInstance.secretToken = JSON(data)["result"].stringValue
                 }
         }
+        
+        textField.resignFirstResponder()
 
         return true
     }

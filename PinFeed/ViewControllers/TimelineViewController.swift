@@ -6,36 +6,51 @@ class TimelineViewController: UIViewController {
 
     @IBOutlet weak var timelineTableView: UITableView!
     
-    var timeline: [Bookmark] = []
+    private var refreshControl = UIRefreshControl()
+    
+    private var timeline: [Bookmark] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Timeline"
+        title = "Recent bookmarks"
+        refreshControl.addTarget(self, action: Selector("refresh"), forControlEvents: UIControlEvents.ValueChanged)
         timelineTableView.delegate = self
         timelineTableView.dataSource = self
-        timelineTableView.registerNib(
-            UINib(nibName: "BookmarkCell", bundle: nil),
-            forCellReuseIdentifier: "data"
-        )
+        timelineTableView.registerNib(UINib(nibName: "BookmarkCell", bundle: nil), forCellReuseIdentifier: "data")
+        timelineTableView.alwaysBounceVertical = true
+        timelineTableView.addSubview(refreshControl)
         
-        Alamofire
-            .request(.GET, PinboardURLProvider.network ?? "")
-            .responseJSON { response in
-                guard let data = response.result.value else {
-                    return
-                }
-                
-                JSON(data).forEach { (_, json) in
-                    self.timeline.append(Bookmark(json: json))
-                }
-
-                self.timelineTableView.reloadData()
-        }
+        refresh()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    internal func refresh() {
+        Alamofire
+            .request(.GET, PinboardURLProvider.network ?? "")
+            .responseJSON { response in
+                guard let data = response.result.value else {
+                    if self.refreshControl.refreshing {
+                        self.refreshControl.endRefreshing()
+                    }
+                    return
+                }
+                
+                self.timeline.removeAll()
+                
+                JSON(data).forEach { (_, json) in
+                    self.timeline.append(Bookmark(json: json))
+                }
+                
+                self.timelineTableView.reloadData()
+                
+                if self.refreshControl.refreshing {
+                    self.refreshControl.endRefreshing()
+                }
+        }
     }
 }
 
@@ -47,32 +62,10 @@ extension TimelineViewController: UITableViewDelegate {
             }
             
             let bookmark = self.timeline[indexPath.row]
-            let urlString = bookmark.url.absoluteString
-            guard let requestString = PinboardURLProvider.getPost(nil, dt: nil, url: urlString, meta: nil) else {
-                return
-            }
-            
-            Alamofire
-                .request(.GET, requestString)
-                .responseJSON { response in
-                    guard let data = response.result.value else {
-                        return
-                    }
-                    
-                    if let post = JSON(data)["posts"].arrayValue.first {
-                        bookmarkEditTableVC.bookmark.url = post["href"].stringValue
-                        bookmarkEditTableVC.bookmark.title = post["description"].stringValue
-                        bookmarkEditTableVC.bookmark.tags = post["tags"].stringValue
-                        bookmarkEditTableVC.bookmark.description = post["extended"].stringValue
-                        bookmarkEditTableVC.bookmark.isPrivate = post["shared"].stringValue == "no"
-                        bookmarkEditTableVC.bookmark.isReadLater = post["toread"].stringValue == "yes"
-                    } else {
-                        bookmarkEditTableVC.bookmark.url = bookmark.url.absoluteString
-                        bookmarkEditTableVC.bookmark.title = bookmark.title
-                    }
-                    
-                    self.navigationController?.pushViewController(bookmarkEditTableVC, animated: true)
-            }
+            bookmarkEditTableVC.urlString = bookmark.url.absoluteString
+            bookmarkEditTableVC.titleString = bookmark.title
+
+            self.navigationController?.pushViewController(bookmarkEditTableVC, animated: true)
         }
 
         editAction.backgroundColor = UIColor.lightGrayColor()
