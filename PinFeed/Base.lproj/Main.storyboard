@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HOb-Lm-scB">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="72" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HOb-Lm-scB">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <sections/>
@@ -335,7 +335,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aBN-Tl-to8">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="72" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aBN-Tl-to8">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
@@ -383,25 +383,35 @@
                                     <constraint firstAttribute="height" constant="44" id="cDY-pq-Gp1"/>
                                 </constraints>
                                 <items>
+                                    <barButtonItem enabled="NO" image="ArrowLeft" id="URN-NR-tLI">
+                                        <connections>
+                                            <action selector="backWebView:" destination="Kgh-MK-0jg" id="SkF-NP-uwY"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="HXq-I1-u9g"/>
+                                    <barButtonItem enabled="NO" image="ArrowRight" id="Sfo-EO-69x">
+                                        <connections>
+                                            <action selector="forwardWebView:" destination="Kgh-MK-0jg" id="wG9-jH-Lgn"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="RQP-Kl-bk5"/>
                                     <barButtonItem systemItem="refresh" id="fBX-OM-ct1">
                                         <connections>
                                             <action selector="reloadWebView:" destination="Kgh-MK-0jg" id="TqC-yA-4Ef"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="OJF-Iw-Zck"/>
-                                    <barButtonItem systemItem="action" id="bCF-rl-B7r">
-                                        <connections>
-                                            <action selector="showActivityView:" destination="Kgh-MK-0jg" id="DaH-Ne-qAI"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="NfD-fK-1UZ"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Atk-7z-6AF"/>
                                     <barButtonItem systemItem="compose" id="fTS-2D-bvk">
                                         <connections>
                                             <action selector="showEditView:" destination="Kgh-MK-0jg" id="idI-EM-fQB"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Atk-7z-6AF"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="uSZ-g8-6rJ"/>
+                                    <barButtonItem systemItem="action" id="bCF-rl-B7r">
+                                        <connections>
+                                            <action selector="showActivityView:" destination="Kgh-MK-0jg" id="DaH-Ne-qAI"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -417,6 +427,8 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="backButton" destination="URN-NR-tLI" id="5Nl-fe-MUd"/>
+                        <outlet property="forwardButton" destination="Sfo-EO-69x" id="y8b-XE-vYr"/>
                         <outlet property="progressView" destination="bCl-fl-hg5" id="GeG-v1-VBA"/>
                         <outlet property="progressViewOffset" destination="H3O-33-pGk" id="lY4-mu-qUG"/>
                         <outlet property="toolbar" destination="5oM-87-g8f" id="Q3A-mq-tde"/>
@@ -655,6 +667,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ArrowLeft" width="24" height="24"/>
+        <image name="ArrowRight" width="24" height="24"/>
         <image name="bookmark" width="512" height="512"/>
     </resources>
 </document>

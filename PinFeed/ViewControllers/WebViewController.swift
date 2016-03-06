@@ -20,12 +20,26 @@ class WebViewController: UIViewController {
     private var webViewPropertyObserver: WebViewPropertyObserver!
     
     @IBOutlet weak var progressViewOffset: NSLayoutConstraint!
+
     @IBOutlet weak var progressView: UIProgressView! {
         didSet {
             progressView.hidden = true
         }
     }
+
     @IBOutlet weak var toolbar: UIToolbar!
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    
+    @IBOutlet weak var forwardButton: UIBarButtonItem!
+    
+    @IBAction func backWebView(sender: UIBarButtonItem) {
+        webView.goBack()
+    }
+    
+    @IBAction func forwardWebView(sender: UIBarButtonItem) {
+        webView.goForward()
+    }
     
     @IBAction func reloadWebView(sender: UIBarButtonItem) {
         webView.reload()
@@ -70,7 +84,7 @@ class WebViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         let config = WKWebViewConfiguration()
         config.processPool = WKProcessPool()
         webView = WKWebView(frame: CGRectZero, configuration: config)
@@ -130,6 +144,10 @@ class WebViewController: UIViewController {
             navigationItem.title = title
         case .EstimatedProgress(let progress):
             updateProgressView(progress)
+        case .CanGoBack(let canGoback):
+            backButton.enabled = canGoback
+        case .CanGoForward(let canGoForward):
+            forwardButton.enabled = canGoForward
         default:
             break
         }
