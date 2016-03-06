@@ -83,10 +83,22 @@ extension TimelineViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let data = timeline[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier("data", forIndexPath: indexPath) as! BookmarkCell
-        cell.titleLabel?.text = timeline[indexPath.row].title
-        cell.authorLabel?.text = timeline[indexPath.row].author
-        cell.dateTimeLabel?.text = timeline[indexPath.row].dateTime
+        cell.authorLabel?.text = data.author
+        cell.dateTimeLabel?.text = data.dateTime
+        cell.faviconImageView?.image = nil
+        if let faviconURL = NSURL(string: "https://www.google.com/s2/favicons?domain=\(data.url.absoluteString)") {
+            AsyncDispatcher.global {
+                if let faviconData = NSData(contentsOfURL: faviconURL) {
+                    AsyncDispatcher.main {
+                        cell.faviconImageView?.image = UIImage(data: faviconData)
+                    }
+                }
+            }
+        }
+        cell.descriptionLabel?.text = data.description
+        cell.titleLabel?.text = data.title
         return cell
     }
     

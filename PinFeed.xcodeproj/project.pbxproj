@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1303B8BD1C8C495300386FFD /* AsyncDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303B8BC1C8C495300386FFD /* AsyncDispatcher.swift */; };
 		136FA1F91C833819002569D8 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136FA1F81C833819002569D8 /* SettingTableViewController.swift */; };
 		139D50021C874DD4008F672B /* BookmarkEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139D50011C874DD4008F672B /* BookmarkEditTableViewController.swift */; };
 		13CCBE731C88AE7100E6600F /* PinboardURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CCBE721C88AE7100E6600F /* PinboardURLProvider.swift */; };
@@ -25,11 +26,11 @@
 		C7D3F05A1C7C976200FDF058 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D3F0591C7C976200FDF058 /* WebViewController.swift */; };
 		C7D3F05C1C7C97A200FDF058 /* WebViewPropertyObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D3F05B1C7C97A200FDF058 /* WebViewPropertyObserver.swift */; };
 		C7D3F05E1C7CA22600FDF058 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D3F05D1C7CA22600FDF058 /* WebKit.framework */; };
-		C7E439BF1C815A910097B508 /* Setting.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7E439BD1C815A910097B508 /* Setting.xcdatamodeld */; };
 		C7E439C11C815ABC0097B508 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E439C01C815ABC0097B508 /* Setting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1303B8BC1C8C495300386FFD /* AsyncDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncDispatcher.swift; sourceTree = "<group>"; };
 		136FA1F81C833819002569D8 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		139D50011C874DD4008F672B /* BookmarkEditTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkEditTableViewController.swift; sourceTree = "<group>"; };
 		13CCBE721C88AE7100E6600F /* PinboardURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinboardURLProvider.swift; sourceTree = "<group>"; };
@@ -52,7 +53,6 @@
 		C7D3F05B1C7C97A200FDF058 /* WebViewPropertyObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewPropertyObserver.swift; sourceTree = "<group>"; };
 		C7D3F05D1C7CA22600FDF058 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C7D3F0611C7CAE6200FDF058 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
-		C7E439BE1C815A910097B508 /* Setting.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Setting.xcdatamodel; sourceTree = "<group>"; };
 		C7E439C01C815ABC0097B508 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		F3791CECCBB519976862F604 /* Pods-PinFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinFeed.release.xcconfig"; path = "Pods/Target Support Files/Pods-PinFeed/Pods-PinFeed.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,7 +128,6 @@
 				C75E23A81C7AD73D00EBF80A /* Assets.xcassets */,
 				C75E23AA1C7AD73D00EBF80A /* LaunchScreen.storyboard */,
 				C75E23AD1C7AD73D00EBF80A /* Info.plist */,
-				C7E439BD1C815A910097B508 /* Setting.xcdatamodeld */,
 			);
 			path = PinFeed;
 			sourceTree = "<group>";
@@ -151,6 +150,7 @@
 			children = (
 				C7D3F05B1C7C97A200FDF058 /* WebViewPropertyObserver.swift */,
 				13CCBE721C88AE7100E6600F /* PinboardURLProvider.swift */,
+				1303B8BC1C8C495300386FFD /* AsyncDispatcher.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -302,6 +302,7 @@
 				C7D3F05C1C7C97A200FDF058 /* WebViewPropertyObserver.swift in Sources */,
 				C7D3F04D1C7C935B00FDF058 /* BookmarkViewController.swift in Sources */,
 				C75E23A01C7AD73D00EBF80A /* AppDelegate.swift in Sources */,
+				1303B8BD1C8C495300386FFD /* AsyncDispatcher.swift in Sources */,
 				C7D3F04C1C7C935B00FDF058 /* TimelineViewController.swift in Sources */,
 				C72B65641C7F240C0061E6EE /* BookmarkCell.swift in Sources */,
 				C7D3F05A1C7C976200FDF058 /* WebViewController.swift in Sources */,
@@ -309,7 +310,6 @@
 				C75A2DBB1C88130200BF04CE /* UIStoryboardExtension.swift in Sources */,
 				139D50021C874DD4008F672B /* BookmarkEditTableViewController.swift in Sources */,
 				C7D3F0541C7C93A900FDF058 /* SettingViewController.swift in Sources */,
-				C7E439BF1C815A910097B508 /* Setting.xcdatamodeld in Sources */,
 				C72B65661C7FEB070061E6EE /* Bookmark.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -479,19 +479,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		C7E439BD1C815A910097B508 /* Setting.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				C7E439BE1C815A910097B508 /* Setting.xcdatamodel */,
-			);
-			currentVersion = C7E439BE1C815A910097B508 /* Setting.xcdatamodel */;
-			path = Setting.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = C75E23941C7AD73C00EBF80A /* Project object */;
 }
