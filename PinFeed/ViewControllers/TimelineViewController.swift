@@ -23,6 +23,11 @@ class TimelineViewController: UIViewController {
         
         refresh()
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.hidesBarsOnSwipe = false
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
