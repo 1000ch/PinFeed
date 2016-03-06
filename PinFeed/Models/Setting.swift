@@ -39,18 +39,6 @@ class Setting {
         }
     }
     
-    var apiToken: String {
-        get {
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            return userDefaults.valueForKey(SettingKey.apiToken.rawValue) as? String ?? ""
-        }
-        set {
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            userDefaults.setValue(newValue, forKey: SettingKey.apiToken.rawValue)
-            userDefaults.synchronize()
-        }
-    }
-
     var secretToken: String {
         get {
             let userDefaults = NSUserDefaults.standardUserDefaults()
