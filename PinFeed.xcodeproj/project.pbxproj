@@ -12,9 +12,9 @@
 		139D50021C874DD4008F672B /* BookmarkEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139D50011C874DD4008F672B /* BookmarkEditTableViewController.swift */; };
 		13CCBE731C88AE7100E6600F /* PinboardURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CCBE721C88AE7100E6600F /* PinboardURLProvider.swift */; };
 		52B3CBE26508F9850F37E7A2 /* Pods_PinFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 644D325D02A85EFD3B16AC1D /* Pods_PinFeed.framework */; };
+		C712FE961C8EF7A9001DCB79 /* UIStoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C712FE951C8EF7A9001DCB79 /* UIStoryboardExtension.swift */; };
 		C72B65641C7F240C0061E6EE /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B65631C7F240C0061E6EE /* BookmarkCell.swift */; };
 		C72B65661C7FEB070061E6EE /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B65651C7FEB070061E6EE /* Bookmark.swift */; };
-		C75A2DBB1C88130200BF04CE /* UIStoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75A2DBA1C88130200BF04CE /* UIStoryboardExtension.swift */; };
 		C75A2DBD1C8823D100BF04CE /* BookmarkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C75A2DBC1C8823D100BF04CE /* BookmarkCell.xib */; };
 		C75E23A01C7AD73D00EBF80A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75E239F1C7AD73D00EBF80A /* AppDelegate.swift */; };
 		C75E23A71C7AD73D00EBF80A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C75E23A51C7AD73D00EBF80A /* Main.storyboard */; };
@@ -36,9 +36,9 @@
 		13CCBE721C88AE7100E6600F /* PinboardURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinboardURLProvider.swift; sourceTree = "<group>"; };
 		5E6553A0D4C638A7D101CA52 /* Pods-PinFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinFeed.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PinFeed/Pods-PinFeed.debug.xcconfig"; sourceTree = "<group>"; };
 		644D325D02A85EFD3B16AC1D /* Pods_PinFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PinFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C712FE951C8EF7A9001DCB79 /* UIStoryboardExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtension.swift; sourceTree = "<group>"; };
 		C72B65631C7F240C0061E6EE /* BookmarkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
 		C72B65651C7FEB070061E6EE /* Bookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
-		C75A2DBA1C88130200BF04CE /* UIStoryboardExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtension.swift; sourceTree = "<group>"; };
 		C75A2DBC1C8823D100BF04CE /* BookmarkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarkCell.xib; sourceTree = "<group>"; };
 		C75E239C1C7AD73D00EBF80A /* PinFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PinFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C75E239F1C7AD73D00EBF80A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,12 +87,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C75A2DB91C8812E300BF04CE /* Extensions */ = {
+		C712FE941C8EF7A9001DCB79 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C75A2DBA1C88130200BF04CE /* UIStoryboardExtension.swift */,
+				C712FE951C8EF7A9001DCB79 /* UIStoryboardExtension.swift */,
 			);
-			name = Extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C75E23931C7AD73C00EBF80A = {
@@ -118,7 +118,7 @@
 		C75E239E1C7AD73D00EBF80A /* PinFeed */ = {
 			isa = PBXGroup;
 			children = (
-				C75A2DB91C8812E300BF04CE /* Extensions */,
+				C712FE941C8EF7A9001DCB79 /* Extensions */,
 				C7D3F04F1C7C936D00FDF058 /* Helpers */,
 				C7D3F0511C7C936D00FDF058 /* Models */,
 				C7D3F0521C7C936D00FDF058 /* Views */,
@@ -303,11 +303,11 @@
 				C7D3F04D1C7C935B00FDF058 /* BookmarkViewController.swift in Sources */,
 				C75E23A01C7AD73D00EBF80A /* AppDelegate.swift in Sources */,
 				1303B8BD1C8C495300386FFD /* AsyncDispatcher.swift in Sources */,
+				C712FE961C8EF7A9001DCB79 /* UIStoryboardExtension.swift in Sources */,
 				C7D3F04C1C7C935B00FDF058 /* TimelineViewController.swift in Sources */,
 				C72B65641C7F240C0061E6EE /* BookmarkCell.swift in Sources */,
 				C7D3F05A1C7C976200FDF058 /* WebViewController.swift in Sources */,
 				136FA1F91C833819002569D8 /* SettingTableViewController.swift in Sources */,
-				C75A2DBB1C88130200BF04CE /* UIStoryboardExtension.swift in Sources */,
 				139D50021C874DD4008F672B /* BookmarkEditTableViewController.swift in Sources */,
 				C7D3F0541C7C93A900FDF058 /* SettingViewController.swift in Sources */,
 				C72B65661C7FEB070061E6EE /* Bookmark.swift in Sources */,
