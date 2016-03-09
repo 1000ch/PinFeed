@@ -49,7 +49,14 @@ class BookmarkEditTableViewController: UITableViewController {
             return
         }
 
-        guard let requestString = PinboardURLProvider.addPost(urlString, description: titleString, extended: pageDescription.text, tags: tags.text, dt: nil, replace: nil, isPrivate: isPrivate.on, isReadLater: isReadLater.on) else {
+        guard let requestString = PinboardURLProvider.addPost(
+            urlString,
+            description: titleString,
+            extended: pageDescription.text,
+            tags: tags.text,
+            dt: nil, replace: nil,
+            isPrivate: isPrivate.on,
+            isReadLater: isReadLater.on) else {
             return
         }
 
@@ -68,7 +75,11 @@ class BookmarkEditTableViewController: UITableViewController {
         url.text = urlString
         pageTitle.text = titleString
 
-        guard let requestString = PinboardURLProvider.getPost(nil, dt: nil, url: urlString, meta: nil) else {
+        guard let requestString = PinboardURLProvider.getPost(
+            nil,
+            dt: nil,
+            url: urlString,
+            meta: nil) else {
             return
         }
 
