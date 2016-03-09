@@ -2,6 +2,7 @@ import UIKit
 import WebKit
 import Alamofire
 import SwiftyJSON
+import MisterFusion
 
 class WebViewController: UIViewController {
     
@@ -88,22 +89,17 @@ class WebViewController: UIViewController {
         let config = WKWebViewConfiguration()
         config.processPool = WKProcessPool()
         webView = WKWebView(frame: CGRectZero, configuration: config)
-        view.addSubview(webView)
-        
         webView.UIDelegate = self
         webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.allowsBackForwardNavigationGestures = true
-        
-        let leftConstraint = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: 0)
-        let rightConstraint = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: 0)
-        let topConstraint = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
-        let bottomConstraint = NSLayoutConstraint(item: webView, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: toolbar, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
-        
-        view.addConstraint(leftConstraint)
-        view.addConstraint(rightConstraint)
-        view.addConstraint(topConstraint)
-        view.addConstraint(bottomConstraint)
+
+        view.addLayoutSubview(webView, andConstraints:
+            webView.Top,
+            webView.Right,
+            webView.Left,
+            webView.Bottom |==| toolbar.Top
+        )
         view.sendSubviewToBack(webView)
         view.layoutIfNeeded()
         

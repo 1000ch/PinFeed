@@ -1,4 +1,5 @@
 import UIKit
+import MisterFusion
 
 class SettingViewController: UIViewController {
     
@@ -11,20 +12,16 @@ class SettingViewController: UIViewController {
             return
         }
         
-        view.addSubview(settingTableViewController.view)
-        addChildViewController(settingTableViewController)
         settingTableViewController.didMoveToParentViewController(self)
         settingTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        let leftConstraint = NSLayoutConstraint(item: settingTableViewController.view, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0)
-        let rightConstraint = NSLayoutConstraint(item: settingTableViewController.view, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Right, multiplier: 1, constant: 0)
-        let topConstraint = NSLayoutConstraint(item: settingTableViewController.view, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
-        let bottomConstraint = NSLayoutConstraint(item: settingTableViewController.view, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0)
 
-        view.addConstraint(leftConstraint)
-        view.addConstraint(rightConstraint)
-        view.addConstraint(topConstraint)
-        view.addConstraint(bottomConstraint)
+        addChildViewController(settingTableViewController)
+        view.addLayoutSubview(settingTableViewController.view, andConstraints:
+            settingTableViewController.view.Top,
+            settingTableViewController.view.Right,
+            settingTableViewController.view.Left,
+            settingTableViewController.view.Bottom
+        )
     }
     
     override func didReceiveMemoryWarning() {
