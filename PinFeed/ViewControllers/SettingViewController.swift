@@ -13,7 +13,6 @@ class SettingViewController: UIViewController {
         }
         
         settingTableViewController.didMoveToParentViewController(self)
-        settingTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
 
         addChildViewController(settingTableViewController)
         view.addLayoutSubview(settingTableViewController.view, andConstraints:
