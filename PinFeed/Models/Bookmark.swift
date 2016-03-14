@@ -10,20 +10,27 @@ class Bookmark {
         case Description = "n"
     }
 
-    var title: String = ""
-    var tags: [String] = []
-    var url: NSURL = NSURL.init()
-    var date: NSDate = NSDate.init()
+    var title: String
+    var tags: [String]
+    var url: NSURL
+    var date: NSDate
     var dateTime: String {
-        get {
-            return outputFormatter.stringFromDate(date);
-        }
+        return outputFormatter.stringFromDate(date);
     }
-    var author: String = ""
-    var description: String = ""
+    var author: String
+    var description: String
     
-    let inputFormatter = NSDateFormatter()
-    let outputFormatter = NSDateFormatter()
+    let inputFormatter: NSDateFormatter = {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        return formatter
+    }()
+
+    let outputFormatter: NSDateFormatter = {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        return formatter
+    }()
     
     convenience init(json: JSON) {
         self.init(
@@ -37,33 +44,22 @@ class Bookmark {
     }
     
     init(title: String?, tag: String?, url: String?, dateTime: String?, author: String?, description: String?) {
-        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        outputFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+        self.title = title ?? ""
+        self.tags = tag?.componentsSeparatedByString(" ") ?? []
 
-        if let title = title {
-            self.title = title
-        }
-        
-        if let tag = tag {
-            self.tags = tag.componentsSeparatedByString(" ")
-        }
-
-        if let url = url {
-            if let u = NSURL(string: url) {
-                self.url = u
-            }
+        if let url = url, u = NSURL(string: url) {
+            self.url = u
+        } else {
+            self.url = NSURL()
         }
         
         if let dateTime = dateTime, date = inputFormatter.dateFromString(dateTime) {
             self.date = date
+        } else {
+            self.date = NSDate()
         }
         
-        if let author = author {
-            self.author = author
-        }
-        
-        if let description = description {
-            self.description = description
-        }
+        self.author = author ?? ""
+        self.description = description ?? ""
     }
 }
