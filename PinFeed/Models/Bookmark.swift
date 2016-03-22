@@ -10,16 +10,17 @@ class Bookmark {
         case Description = "n"
     }
 
-    var title: String
-    var tags: [String]
-    var url: NSURL
-    var date: NSDate
+    let title: String
+    let tags: [String]
+    let url: NSURL
+    let date: NSDate
+    let author: String
+    let description: String
+    
     var dateTime: String {
         return outputFormatter.stringFromDate(date);
     }
-    var author: String
-    var description: String
-    
+
     let inputFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
