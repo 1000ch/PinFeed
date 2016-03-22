@@ -14,14 +14,14 @@ class BookmarkViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Your bookmarks"
-        refreshControl.addTarget(self, action: Selector("refresh"), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh), forControlEvents: UIControlEvents.ValueChanged)
         bookmarkTableView.delegate = self
         bookmarkTableView.dataSource = self
         bookmarkTableView.registerNib(UINib(nibName: "BookmarkCell", bundle: nil), forCellReuseIdentifier: "data")
         bookmarkTableView.alwaysBounceVertical = true
         bookmarkTableView.addSubview(refreshControl)
         
-        refresh()
+        refresh(refreshControl)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -33,7 +33,7 @@ class BookmarkViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    internal func refresh() {
+    internal func refresh(control: UIControl?) {
         Alamofire
             .request(.GET, PinboardURLProvider.bookmark ?? "")
             .responseJSON { response in

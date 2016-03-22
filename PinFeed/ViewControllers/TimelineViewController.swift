@@ -14,14 +14,14 @@ class TimelineViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Recent bookmarks"
-        refreshControl.addTarget(self, action: Selector("refresh"), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh), forControlEvents: UIControlEvents.ValueChanged)
         timelineTableView.delegate = self
         timelineTableView.dataSource = self
         timelineTableView.registerNib(UINib(nibName: "BookmarkCell", bundle: nil), forCellReuseIdentifier: "data")
         timelineTableView.alwaysBounceVertical = true
         timelineTableView.addSubview(refreshControl)
         
-        refresh()
+        refresh(refreshControl)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -33,7 +33,7 @@ class TimelineViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    internal func refresh() {
+    internal func refresh(control: UIControl?) {
         Alamofire
             .request(.GET, PinboardURLProvider.network ?? "")
             .responseJSON { response in
