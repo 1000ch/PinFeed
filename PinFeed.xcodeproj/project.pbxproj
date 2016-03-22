@@ -12,6 +12,7 @@
 		139D50021C874DD4008F672B /* BookmarkEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139D50011C874DD4008F672B /* BookmarkEditTableViewController.swift */; };
 		13CCBE731C88AE7100E6600F /* PinboardURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CCBE721C88AE7100E6600F /* PinboardURLProvider.swift */; };
 		52B3CBE26508F9850F37E7A2 /* Pods_PinFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 644D325D02A85EFD3B16AC1D /* Pods_PinFeed.framework */; };
+		C706A58A1CA1680A0070908D /* credits.html in Resources */ = {isa = PBXBuildFile; fileRef = C706A5891CA1680A0070908D /* credits.html */; };
 		C712FE961C8EF7A9001DCB79 /* UIStoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C712FE951C8EF7A9001DCB79 /* UIStoryboardExtension.swift */; };
 		C72B65641C7F240C0061E6EE /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B65631C7F240C0061E6EE /* BookmarkCell.swift */; };
 		C72B65661C7FEB070061E6EE /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B65651C7FEB070061E6EE /* Bookmark.swift */; };
@@ -36,6 +37,7 @@
 		13CCBE721C88AE7100E6600F /* PinboardURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinboardURLProvider.swift; sourceTree = "<group>"; };
 		5E6553A0D4C638A7D101CA52 /* Pods-PinFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinFeed.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PinFeed/Pods-PinFeed.debug.xcconfig"; sourceTree = "<group>"; };
 		644D325D02A85EFD3B16AC1D /* Pods_PinFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PinFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C706A5891CA1680A0070908D /* credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = credits.html; sourceTree = "<group>"; };
 		C712FE951C8EF7A9001DCB79 /* UIStoryboardExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtension.swift; sourceTree = "<group>"; };
 		C72B65631C7F240C0061E6EE /* BookmarkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
 		C72B65651C7FEB070061E6EE /* Bookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
@@ -87,6 +89,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C706A5881CA1680A0070908D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C706A5891CA1680A0070908D /* credits.html */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		C712FE941C8EF7A9001DCB79 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +128,7 @@
 		C75E239E1C7AD73D00EBF80A /* PinFeed */ = {
 			isa = PBXGroup;
 			children = (
+				C706A5881CA1680A0070908D /* Resources */,
 				C712FE941C8EF7A9001DCB79 /* Extensions */,
 				C7D3F04F1C7C936D00FDF058 /* Helpers */,
 				C7D3F0511C7C936D00FDF058 /* Models */,
@@ -235,6 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C706A58A1CA1680A0070908D /* credits.html in Resources */,
 				C75E23AC1C7AD73D00EBF80A /* LaunchScreen.storyboard in Resources */,
 				C75E23A91C7AD73D00EBF80A /* Assets.xcassets in Resources */,
 				C75E23A71C7AD73D00EBF80A /* Main.storyboard in Resources */,

@@ -17,6 +17,8 @@ class WebViewController: UIViewController {
             webView?.loadRequest(NSURLRequest(URL: url))
         }
     }
+    
+    var hideToolbar: Bool = false
 
     private var webViewPropertyObserver: WebViewPropertyObserver!
     
@@ -92,13 +94,24 @@ class WebViewController: UIViewController {
         webView.UIDelegate = self
         webView.navigationDelegate = self
         webView.allowsBackForwardNavigationGestures = true
+        toolbar.hidden = hideToolbar
 
-        view.addLayoutSubview(webView, andConstraints:
-            webView.Top,
-            webView.Right,
-            webView.Left,
-            webView.Bottom |==| toolbar.Top
-        )
+        if hideToolbar {
+            view.addLayoutSubview(webView, andConstraints:
+                webView.Top,
+                webView.Right,
+                webView.Left,
+                webView.Bottom
+            )
+        } else {
+            view.addLayoutSubview(webView, andConstraints:
+                webView.Top,
+                webView.Right,
+                webView.Left,
+                webView.Bottom |==| toolbar.Top
+            )
+        }
+
         view.sendSubviewToBack(webView)
         view.layoutIfNeeded()
         

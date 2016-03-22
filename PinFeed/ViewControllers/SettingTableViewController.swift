@@ -14,7 +14,8 @@ class SettingTableViewController: UITableViewController {
         case UserId = 0
         case Password = 1
         case AppVersion = 2
-        case GitHubRepository = 3
+        case Credits = 3
+        case GitHubRepository = 4
     }
     
     override func viewDidLoad() {
@@ -49,6 +50,17 @@ class SettingTableViewController: UITableViewController {
         case .Password:
             cell.editing = true
             break
+        case .AppVersion:
+            break
+        case .Credits:
+            guard let webViewController = UIStoryboard.instantiateViewController("Main", identifier: "WebViewController") as? WebViewController else {
+                return
+            }
+            
+            webViewController.url = NSBundle.mainBundle().URLForResource("credits", withExtension: "html")
+            webViewController.hideToolbar = true
+            navigationController?.pushViewController(webViewController, animated: true)
+            break
         case .GitHubRepository:
             guard let webViewController = UIStoryboard.instantiateViewController("Main", identifier: "WebViewController") as? WebViewController else {
                 return
@@ -56,7 +68,6 @@ class SettingTableViewController: UITableViewController {
 
             webViewController.url = NSURL(string: "https://github.com/1000ch/PinFeed")
             navigationController?.pushViewController(webViewController, animated: true)
-        case .AppVersion:
             break
         }
     }
