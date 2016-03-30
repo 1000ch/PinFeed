@@ -687,8 +687,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ArrowLeft" width="24" height="24"/>
-        <image name="ArrowRight" width="24" height="24"/>
+        <image name="ArrowLeft" width="20" height="24"/>
+        <image name="ArrowRight" width="20" height="24"/>
         <image name="bookmark" width="512" height="512"/>
     </resources>
 </document>
