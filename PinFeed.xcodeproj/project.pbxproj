@@ -12,6 +12,7 @@
 		139D50021C874DD4008F672B /* BookmarkEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139D50011C874DD4008F672B /* BookmarkEditTableViewController.swift */; };
 		13CCBE731C88AE7100E6600F /* PinboardURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CCBE721C88AE7100E6600F /* PinboardURLProvider.swift */; };
 		52B3CBE26508F9850F37E7A2 /* Pods_PinFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 644D325D02A85EFD3B16AC1D /* Pods_PinFeed.framework */; };
+		C7036B121CAA5CC100C6538A /* UINibExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7036B111CAA5CC100C6538A /* UINibExtension.swift */; };
 		C706A58A1CA1680A0070908D /* credits.html in Resources */ = {isa = PBXBuildFile; fileRef = C706A5891CA1680A0070908D /* credits.html */; };
 		C712FE961C8EF7A9001DCB79 /* UIStoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C712FE951C8EF7A9001DCB79 /* UIStoryboardExtension.swift */; };
 		C72B65641C7F240C0061E6EE /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B65631C7F240C0061E6EE /* BookmarkCell.swift */; };
@@ -22,6 +23,9 @@
 		C75E23A91C7AD73D00EBF80A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C75E23A81C7AD73D00EBF80A /* Assets.xcassets */; };
 		C75E23AC1C7AD73D00EBF80A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C75E23AA1C7AD73D00EBF80A /* LaunchScreen.storyboard */; };
 		C77C96051CAA2F1A00C315CF /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77C96041CAA2F1A00C315CF /* NSDateExtension.swift */; };
+		C77C960A1CAA33DD00C315CF /* URLNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77C96081CAA33DD00C315CF /* URLNotificationView.swift */; };
+		C77C960B1CAA33DD00C315CF /* URLNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C77C96091CAA33DD00C315CF /* URLNotificationView.xib */; };
+		C77C960E1CAA368600C315CF /* URLNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77C960D1CAA368600C315CF /* URLNotificationManager.swift */; };
 		C7D3F04C1C7C935B00FDF058 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D3F04A1C7C935B00FDF058 /* TimelineViewController.swift */; };
 		C7D3F04D1C7C935B00FDF058 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D3F04B1C7C935B00FDF058 /* BookmarkViewController.swift */; };
 		C7D3F0541C7C93A900FDF058 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D3F0531C7C93A900FDF058 /* SettingViewController.swift */; };
@@ -38,6 +42,7 @@
 		13CCBE721C88AE7100E6600F /* PinboardURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinboardURLProvider.swift; sourceTree = "<group>"; };
 		5E6553A0D4C638A7D101CA52 /* Pods-PinFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinFeed.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PinFeed/Pods-PinFeed.debug.xcconfig"; sourceTree = "<group>"; };
 		644D325D02A85EFD3B16AC1D /* Pods_PinFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PinFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7036B111CAA5CC100C6538A /* UINibExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINibExtension.swift; sourceTree = "<group>"; };
 		C706A5891CA1680A0070908D /* credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = credits.html; sourceTree = "<group>"; };
 		C712FE951C8EF7A9001DCB79 /* UIStoryboardExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtension.swift; sourceTree = "<group>"; };
 		C72B65631C7F240C0061E6EE /* BookmarkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
@@ -50,6 +55,9 @@
 		C75E23AB1C7AD73D00EBF80A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C75E23AD1C7AD73D00EBF80A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C77C96041CAA2F1A00C315CF /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
+		C77C96081CAA33DD00C315CF /* URLNotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNotificationView.swift; sourceTree = "<group>"; };
+		C77C96091CAA33DD00C315CF /* URLNotificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = URLNotificationView.xib; sourceTree = "<group>"; };
+		C77C960D1CAA368600C315CF /* URLNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNotificationManager.swift; sourceTree = "<group>"; };
 		C7D3F04A1C7C935B00FDF058 /* TimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		C7D3F04B1C7C935B00FDF058 /* BookmarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		C7D3F0531C7C93A900FDF058 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				C712FE951C8EF7A9001DCB79 /* UIStoryboardExtension.swift */,
+				C7036B111CAA5CC100C6538A /* UINibExtension.swift */,
 				C77C96041CAA2F1A00C315CF /* NSDateExtension.swift */,
 			);
 			path = Extensions;
@@ -131,6 +140,7 @@
 		C75E239E1C7AD73D00EBF80A /* PinFeed */ = {
 			isa = PBXGroup;
 			children = (
+				C77C960C1CAA368600C315CF /* Managers */,
 				C706A5881CA1680A0070908D /* Resources */,
 				C712FE941C8EF7A9001DCB79 /* Extensions */,
 				C7D3F04F1C7C936D00FDF058 /* Helpers */,
@@ -144,6 +154,14 @@
 				C75E23AD1C7AD73D00EBF80A /* Info.plist */,
 			);
 			path = PinFeed;
+			sourceTree = "<group>";
+		};
+		C77C960C1CAA368600C315CF /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C77C960D1CAA368600C315CF /* URLNotificationManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		C7D3F0491C7C935B00FDF058 /* ViewControllers */ = {
@@ -181,6 +199,8 @@
 		C7D3F0521C7C936D00FDF058 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C77C96081CAA33DD00C315CF /* URLNotificationView.swift */,
+				C77C96091CAA33DD00C315CF /* URLNotificationView.xib */,
 				C72B65631C7F240C0061E6EE /* BookmarkCell.swift */,
 				C75A2DBC1C8823D100BF04CE /* BookmarkCell.xib */,
 			);
@@ -250,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C706A58A1CA1680A0070908D /* credits.html in Resources */,
+				C77C960B1CAA33DD00C315CF /* URLNotificationView.xib in Resources */,
 				C75E23AC1C7AD73D00EBF80A /* LaunchScreen.storyboard in Resources */,
 				C75E23A91C7AD73D00EBF80A /* Assets.xcassets in Resources */,
 				C75E23A71C7AD73D00EBF80A /* Main.storyboard in Resources */,
@@ -312,6 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C77C960E1CAA368600C315CF /* URLNotificationManager.swift in Sources */,
 				C7E439C11C815ABC0097B508 /* Setting.swift in Sources */,
 				13CCBE731C88AE7100E6600F /* PinboardURLProvider.swift in Sources */,
 				C7D3F05C1C7C97A200FDF058 /* WebViewPropertyObserver.swift in Sources */,
@@ -321,6 +343,8 @@
 				C712FE961C8EF7A9001DCB79 /* UIStoryboardExtension.swift in Sources */,
 				C7D3F04C1C7C935B00FDF058 /* TimelineViewController.swift in Sources */,
 				C72B65641C7F240C0061E6EE /* BookmarkCell.swift in Sources */,
+				C77C960A1CAA33DD00C315CF /* URLNotificationView.swift in Sources */,
+				C7036B121CAA5CC100C6538A /* UINibExtension.swift in Sources */,
 				C7D3F05A1C7C976200FDF058 /* WebViewController.swift in Sources */,
 				136FA1F91C833819002569D8 /* SettingTableViewController.swift in Sources */,
 				C77C96051CAA2F1A00C315CF /* NSDateExtension.swift in Sources */,

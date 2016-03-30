@@ -27,6 +27,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        guard let string = UIPasteboard.generalPasteboard().string else {
+            return
+        }
+        
+        guard let url = NSURL(string: string) else {
+            return
+        }
+        
+        guard UIApplication.sharedApplication().canOpenURL(url) else {
+            return
+        }
+        
+        URLNotificationManager.sharedInstance.emit(self, userInfo: ["url": url])
     }
 
     func applicationWillTerminate(application: UIApplication) {
