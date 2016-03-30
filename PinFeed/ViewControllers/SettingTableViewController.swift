@@ -57,6 +57,7 @@ class SettingTableViewController: UITableViewController {
                 return
             }
             
+            tableView.deselectRowAtIndexPath(indexPath, animated: false)
             webViewController.url = NSBundle.mainBundle().URLForResource("credits", withExtension: "html")
             webViewController.hideToolbar = true
             navigationController?.pushViewController(webViewController, animated: true)
@@ -66,6 +67,7 @@ class SettingTableViewController: UITableViewController {
                 return
             }
 
+            tableView.deselectRowAtIndexPath(indexPath, animated: false)
             webViewController.url = NSURL(string: "https://github.com/1000ch/PinFeed")
             navigationController?.pushViewController(webViewController, animated: true)
             break

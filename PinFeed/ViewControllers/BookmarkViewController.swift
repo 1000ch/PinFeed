@@ -171,6 +171,7 @@ extension BookmarkViewController: UITableViewDataSource {
             return
         }
         
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
         webViewController.url = bookmark[indexPath.row].url
         navigationController?.pushViewController(webViewController, animated: true)
     }

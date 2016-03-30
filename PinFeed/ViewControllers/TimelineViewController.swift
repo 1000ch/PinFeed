@@ -170,7 +170,8 @@ extension TimelineViewController: UITableViewDataSource {
         guard let webViewController = UIStoryboard.instantiateViewController("Main", identifier: "WebViewController") as? WebViewController else {
             return
         }
-
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
         webViewController.url = timeline[indexPath.row].url
         navigationController?.pushViewController(webViewController, animated: true)
     }
