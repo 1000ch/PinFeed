@@ -95,6 +95,7 @@ class WebViewController: UIViewController {
         webView.navigationDelegate = self
         webView.allowsBackForwardNavigationGestures = true
         toolbar.hidden = hideToolbar
+        progressView.hidden = hideToolbar
 
         if hideToolbar {
             view.addLayoutSubview(webView, andConstraints:
@@ -162,6 +163,10 @@ class WebViewController: UIViewController {
     }
     
     private func updateProgressView(progress: Float) {
+        if hideToolbar {
+            return
+        }
+
         if 0.0 < progress && progress < 1.0 {
             UIView.animateWithDuration(0.2) { [weak self] in
                 self?.progressView?.hidden = false

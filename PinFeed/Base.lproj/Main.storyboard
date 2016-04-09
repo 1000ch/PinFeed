@@ -372,7 +372,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bCl-fl-hg5">
-                                <rect key="frame" x="0.0" y="20" width="320" height="2"/>
+                                <rect key="frame" x="0.0" y="522" width="320" height="2"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="Ser-Qy-SSN"/>
                                 </constraints>
@@ -423,7 +423,13 @@
                             <constraint firstAttribute="trailing" secondItem="bCl-fl-hg5" secondAttribute="trailing" id="YCw-8A-hzc"/>
                             <constraint firstItem="bCl-fl-hg5" firstAttribute="leading" secondItem="xiq-D3-Cg8" secondAttribute="leading" id="iB5-xJ-Bdw"/>
                             <constraint firstItem="5oM-87-g8f" firstAttribute="leading" secondItem="xiq-D3-Cg8" secondAttribute="leading" id="rr0-Zq-uQ6"/>
+                            <constraint firstItem="5oM-87-g8f" firstAttribute="top" secondItem="bCl-fl-hg5" secondAttribute="bottom" id="svH-dR-EYC"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="H3O-33-pGk"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
