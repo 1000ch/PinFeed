@@ -1,6 +1,4 @@
 import UIKit
-import Alamofire
-import SwiftyJSON
 import MisterFusion
 
 class TimelineViewController: UIViewController {
@@ -10,6 +8,8 @@ class TimelineViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
     
     private let notificationView = UINib.instantiate("URLNotificationView", ownerOrNil: TimelineViewController.self) as? URLNotificationView
+    
+    private let timelineManager = TimelineManager()
     
     private var timeline: [Bookmark] = []
 
@@ -35,9 +35,10 @@ class TimelineViewController: UIViewController {
             )
         }
         
-        URLNotificationManager.sharedInstance.listen(self, selector: #selector(TimelineViewController.didCopyURL(_:)), object: nil)
+        timeline = timelineManager.timeline
+        refresh()
         
-        refresh(refreshControl)
+        URLNotificationManager.sharedInstance.listen(self, selector: #selector(TimelineViewController.didCopyURL(_:)), object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -49,28 +50,14 @@ class TimelineViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    func refresh(control: UIControl?) {
-        Alamofire
-            .request(.GET, PinboardURLProvider.network ?? "")
-            .responseJSON { response in
-                guard let data = response.result.value else {
-                    if self.refreshControl.refreshing {
-                        self.refreshControl.endRefreshing()
-                    }
-                    return
-                }
-                
-                self.timeline.removeAll()
-                
-                JSON(data).forEach { (_, json) in
-                    self.timeline.append(Bookmark(json: json))
-                }
-                
-                self.timelineTableView.reloadData()
-                
-                if self.refreshControl.refreshing {
-                    self.refreshControl.endRefreshing()
-                }
+    func refresh() {
+        timelineManager.fetch {
+            if self.refreshControl.refreshing {
+                self.refreshControl.endRefreshing()
+            }
+
+            self.timeline = self.timelineManager.timeline
+            self.timelineTableView.reloadData()
         }
     }
     

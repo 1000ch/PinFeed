@@ -33,6 +33,10 @@
 		C7D3F05C1C7C97A200FDF058 /* WebViewPropertyObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D3F05B1C7C97A200FDF058 /* WebViewPropertyObserver.swift */; };
 		C7D3F05E1C7CA22600FDF058 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D3F05D1C7CA22600FDF058 /* WebKit.framework */; };
 		C7E439C11C815ABC0097B508 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E439C01C815ABC0097B508 /* Setting.swift */; };
+		C7E79C1E1CB8E55E00D26EB8 /* TimelineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E79C1D1CB8E55E00D26EB8 /* TimelineManager.swift */; };
+		C7E79C201CB8E5DC00D26EB8 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E79C1F1CB8E5DC00D26EB8 /* BookmarkManager.swift */; };
+		C7EA46B11CB48E6F00258B3A /* Recents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EA46B01CB48E6F00258B3A /* Recents.swift */; };
+		C7EA46B31CB48E7F00258B3A /* Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EA46B21CB48E7F00258B3A /* Bookmarks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +70,10 @@
 		C7D3F05D1C7CA22600FDF058 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C7D3F0611C7CAE6200FDF058 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		C7E439C01C815ABC0097B508 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		C7E79C1D1CB8E55E00D26EB8 /* TimelineManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineManager.swift; sourceTree = "<group>"; };
+		C7E79C1F1CB8E5DC00D26EB8 /* BookmarkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
+		C7EA46B01CB48E6F00258B3A /* Recents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recents.swift; sourceTree = "<group>"; };
+		C7EA46B21CB48E7F00258B3A /* Bookmarks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmarks.swift; sourceTree = "<group>"; };
 		F3791CECCBB519976862F604 /* Pods-PinFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinFeed.release.xcconfig"; path = "Pods/Target Support Files/Pods-PinFeed/Pods-PinFeed.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -160,6 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				C77C960D1CAA368600C315CF /* URLNotificationManager.swift */,
+				C7E79C1D1CB8E55E00D26EB8 /* TimelineManager.swift */,
+				C7E79C1F1CB8E5DC00D26EB8 /* BookmarkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -192,6 +202,8 @@
 			children = (
 				C72B65651C7FEB070061E6EE /* Bookmark.swift */,
 				C7E439C01C815ABC0097B508 /* Setting.swift */,
+				C7EA46B01CB48E6F00258B3A /* Recents.swift */,
+				C7EA46B21CB48E7F00258B3A /* Bookmarks.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -340,16 +352,20 @@
 				C7D3F04D1C7C935B00FDF058 /* BookmarkViewController.swift in Sources */,
 				C75E23A01C7AD73D00EBF80A /* AppDelegate.swift in Sources */,
 				1303B8BD1C8C495300386FFD /* AsyncDispatcher.swift in Sources */,
+				C7E79C201CB8E5DC00D26EB8 /* BookmarkManager.swift in Sources */,
 				C712FE961C8EF7A9001DCB79 /* UIStoryboardExtension.swift in Sources */,
 				C7D3F04C1C7C935B00FDF058 /* TimelineViewController.swift in Sources */,
 				C72B65641C7F240C0061E6EE /* BookmarkCell.swift in Sources */,
 				C77C960A1CAA33DD00C315CF /* URLNotificationView.swift in Sources */,
+				C7EA46B31CB48E7F00258B3A /* Bookmarks.swift in Sources */,
 				C7036B121CAA5CC100C6538A /* UINibExtension.swift in Sources */,
 				C7D3F05A1C7C976200FDF058 /* WebViewController.swift in Sources */,
+				C7E79C1E1CB8E55E00D26EB8 /* TimelineManager.swift in Sources */,
 				136FA1F91C833819002569D8 /* SettingTableViewController.swift in Sources */,
 				C77C96051CAA2F1A00C315CF /* NSDateExtension.swift in Sources */,
 				139D50021C874DD4008F672B /* BookmarkEditTableViewController.swift in Sources */,
 				C7D3F0541C7C93A900FDF058 /* SettingViewController.swift in Sources */,
+				C7EA46B11CB48E6F00258B3A /* Recents.swift in Sources */,
 				C72B65661C7FEB070061E6EE /* Bookmark.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

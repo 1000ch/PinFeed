@@ -1,6 +1,4 @@
 import UIKit
-import Alamofire
-import SwiftyJSON
 import MisterFusion
 
 class BookmarkViewController: UIViewController {
@@ -10,6 +8,8 @@ class BookmarkViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
 
     private let notificationView = UINib.instantiate("URLNotificationView", ownerOrNil: BookmarkViewController.self) as? URLNotificationView
+    
+    private var bookmarkManager = BookmarkManager()
 
     private var bookmark: [Bookmark] = []
     
@@ -35,9 +35,10 @@ class BookmarkViewController: UIViewController {
             )
         }
         
-        URLNotificationManager.sharedInstance.listen(self, selector: #selector(BookmarkViewController.didCopyURL(_:)), object: nil)
+        bookmark = bookmarkManager.bookmark
+        refresh()
 
-        refresh(refreshControl)
+        URLNotificationManager.sharedInstance.listen(self, selector: #selector(BookmarkViewController.didCopyURL(_:)), object: nil)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -49,28 +50,14 @@ class BookmarkViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    func refresh(control: UIControl?) {
-        Alamofire
-            .request(.GET, PinboardURLProvider.bookmark ?? "")
-            .responseJSON { response in
-                guard let data = response.result.value else {
-                    if self.refreshControl.refreshing {
-                        self.refreshControl.endRefreshing()
-                    }
-                    return
-                }
-                
-                self.bookmark.removeAll()
-                
-                JSON(data).forEach { (_, json) in
-                    self.bookmark.append(Bookmark(json: json))
-                }
-                
-                self.bookmarkTableView.reloadData()
-                
-                if self.refreshControl.refreshing {
-                    self.refreshControl.endRefreshing()
-                }
+    func refresh() {
+        bookmarkManager.fetch {
+            if self.refreshControl.refreshing {
+                self.refreshControl.endRefreshing()
+            }
+            
+            self.bookmark = self.bookmarkManager.bookmark
+            self.bookmarkTableView.reloadData()
         }
     }
     
