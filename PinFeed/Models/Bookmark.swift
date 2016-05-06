@@ -21,6 +21,28 @@ struct Bookmark {
         return NSDate.outputFormatter.stringFromDate(date);
     }
     
+    var relativeDateTime: String {
+        let calendar = NSCalendar.currentCalendar()
+        calendar.locale = NSLocale.currentLocale()
+        let now = NSDate()
+        let options = NSCalendarOptions()
+        let components = calendar.components([.Day], fromDate: date, toDate: now, options: options)
+
+        if (components.day == 0) {
+            return "Today"
+        }
+        
+        if (components.day == 1) {
+            return "Yesterday"
+        }
+        
+        if (components.day <= 7) {
+            return "\(components.day) days ago"
+        }
+
+        return dateTime
+    }
+    
     init(json: JSON) {
         self.init(
             title: json[Item.Title.rawValue].string,

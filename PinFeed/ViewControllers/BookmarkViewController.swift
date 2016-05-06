@@ -137,7 +137,7 @@ extension BookmarkViewController: UITableViewDataSource {
         let data = bookmark[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier("data", forIndexPath: indexPath) as! BookmarkCell
         cell.authorLabel?.text = data.author
-        cell.dateTimeLabel?.text = data.dateTime
+        cell.dateTimeLabel?.text = data.relativeDateTime
         cell.faviconImageView?.image = nil
         if let faviconURL = NSURL(string: "https://www.google.com/s2/favicons?domain=\(data.url.absoluteString)") {
             AsyncDispatcher.global {
