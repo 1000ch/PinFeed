@@ -27,6 +27,8 @@ class SettingTableViewController: UITableViewController {
         userId.text = Setting.sharedInstance.userId
         password.text = Setting.sharedInstance.password
         appVersion.text = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String
+        
+        tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapTableView(_:))))
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -72,6 +74,10 @@ class SettingTableViewController: UITableViewController {
             navigationController?.pushViewController(webViewController, animated: true)
             break
         }
+    }
+    
+    func didTapTableView(gestureRecognizer: UITapGestureRecognizer) {
+        tableView.endEditing(true)
     }
 }
 
