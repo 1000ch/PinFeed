@@ -31,6 +31,8 @@ class BookmarkEditTableViewController: UITableViewController {
         pageTitle.text = titleString
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: #selector(saveBookmark))
 
+        tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapTableView(_:))))
+        
         guard let requestString = PinboardURLProvider.getPost(
             nil,
             dt: nil,
@@ -55,6 +57,10 @@ class BookmarkEditTableViewController: UITableViewController {
                     self.isReadLater.on = post["toread"].stringValue == "yes"
                 }
         }
+    }
+    
+    func didTapTableView(gestureRecognizer: UITapGestureRecognizer) {
+        tableView.endEditing(true)
     }
     
     func saveBookmark(sender: UIButton) {
