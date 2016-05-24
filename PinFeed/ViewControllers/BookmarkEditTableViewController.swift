@@ -20,51 +20,6 @@ class BookmarkEditTableViewController: UITableViewController {
     
     @IBOutlet weak var isReadLater: UISwitch!
     
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
-    
-    @IBOutlet weak var deleteButton: UIBarButtonItem!
-    
-    @IBOutlet weak var addButton: UIBarButtonItem!
-    
-    @IBAction func cancelBookmark(sender: UIButton) {
-        self.navigationController?.popViewControllerAnimated(true)
-    }
-    
-    @IBAction func deleteBookmark(sender: UIButton) {
-        guard let requestString = PinboardURLProvider.deletePost(urlString) else {
-            return
-        }
-        
-        self.navigationController?.popViewControllerAnimated(true)
-
-        Alamofire.request(.GET, requestString)
-    }
-    
-    @IBAction func editBookmark(sender: UIButton) {
-        guard let urlString = url.text else {
-            return
-        }
-        
-        guard let titleString = pageTitle.text else {
-            return
-        }
-
-        guard let requestString = PinboardURLProvider.addPost(
-            urlString,
-            description: titleString,
-            extended: pageDescription.text,
-            tags: tags.text,
-            dt: nil, replace: nil,
-            isPrivate: isPrivate.on,
-            isReadLater: isReadLater.on) else {
-            return
-        }
-
-        self.navigationController?.popViewControllerAnimated(true)
-        
-        Alamofire.request(.GET, requestString)
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -74,6 +29,7 @@ class BookmarkEditTableViewController: UITableViewController {
         
         url.text = urlString
         pageTitle.text = titleString
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: #selector(saveBookmark))
 
         guard let requestString = PinboardURLProvider.getPost(
             nil,
@@ -91,7 +47,6 @@ class BookmarkEditTableViewController: UITableViewController {
                 }
 
                 if let post = JSON(data)["posts"].arrayValue.first {
-                    self.addButton.title = "Edit"
                     self.url.text = post["href"].stringValue
                     self.pageTitle.text = post["description"].stringValue
                     self.pageDescription.text = post["extended"].stringValue
@@ -100,5 +55,30 @@ class BookmarkEditTableViewController: UITableViewController {
                     self.isReadLater.on = post["toread"].stringValue == "yes"
                 }
         }
+    }
+    
+    func saveBookmark(sender: UIButton) {
+        guard let urlString = url.text else {
+            return
+        }
+        
+        guard let titleString = pageTitle.text else {
+            return
+        }
+        
+        guard let requestString = PinboardURLProvider.addPost(
+            urlString,
+            description: titleString,
+            extended: pageDescription.text,
+            tags: tags.text,
+            dt: nil, replace: nil,
+            isPrivate: isPrivate.on,
+            isReadLater: isReadLater.on) else {
+                return
+        }
+        
+        self.navigationController?.popViewControllerAnimated(true)
+        
+        Alamofire.request(.GET, requestString)
     }
 }
