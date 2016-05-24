@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
@@ -10,11 +10,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s2M-Q2-Gf0" id="Fc5-rb-HV8">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74J-ou-D42">
-                        <rect key="frame" x="8" y="8" width="47.5" height="17"/>
+                        <rect key="frame" x="8" y="8" width="48" height="17"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -26,19 +26,19 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKW-Cy-bdN">
-                        <rect key="frame" x="28" y="52.5" width="284" height="19.5"/>
+                        <rect key="frame" x="28" y="53" width="284" height="19"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSS-U4-B7U">
-                        <rect key="frame" x="8" y="29" width="304" height="19.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSS-U4-B7U">
+                        <rect key="frame" x="8" y="29" width="304" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GF7-jA-7KX">
-                        <rect key="frame" x="8" y="54.5" width="16" height="16"/>
+                        <rect key="frame" x="8" y="55" width="16" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="16" id="WLH-WO-Z81"/>
                             <constraint firstAttribute="height" constant="16" id="qyZ-ZU-GIl"/>
@@ -65,6 +65,7 @@
                     <constraint firstItem="HSS-U4-B7U" firstAttribute="leading" secondItem="Fc5-rb-HV8" secondAttribute="leading" constant="8" id="avJ-Ku-ock"/>
                     <constraint firstItem="JKW-Cy-bdN" firstAttribute="top" secondItem="Fc5-rb-HV8" secondAttribute="top" constant="8" id="d1x-sS-afO"/>
                     <constraint firstAttribute="bottom" secondItem="HSS-U4-B7U" secondAttribute="bottom" constant="8" id="egM-JI-e2R"/>
+                    <constraint firstAttribute="bottom" secondItem="JKW-Cy-bdN" secondAttribute="bottom" constant="8" id="f3G-YH-FWn"/>
                     <constraint firstItem="JKW-Cy-bdN" firstAttribute="leading" secondItem="Fc5-rb-HV8" secondAttribute="leading" constant="8" id="fmk-aD-zcq"/>
                     <constraint firstAttribute="trailing" secondItem="JKW-Cy-bdN" secondAttribute="trailing" constant="8" id="gTA-pb-FXV"/>
                     <constraint firstAttribute="trailing" secondItem="8yN-cH-XPo" secondAttribute="trailing" constant="8" id="jXA-4Y-MOi"/>
@@ -119,7 +120,7 @@
                 <outlet property="faviconImageView" destination="GF7-jA-7KX" id="suC-Fm-FEs"/>
                 <outlet property="titleLabel" destination="JKW-Cy-bdN" id="nMB-zJ-2kg"/>
             </connections>
-            <point key="canvasLocation" x="646" y="547"/>
+            <point key="canvasLocation" x="390" y="183"/>
         </tableViewCell>
     </objects>
 </document>

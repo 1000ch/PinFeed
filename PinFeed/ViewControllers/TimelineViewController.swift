@@ -23,6 +23,8 @@ class TimelineViewController: UIViewController {
         timelineTableView.registerNib(UINib(nibName: "BookmarkCell", bundle: nil), forCellReuseIdentifier: "data")
         timelineTableView.alwaysBounceVertical = true
         timelineTableView.addSubview(refreshControl)
+        timelineTableView.rowHeight = UITableViewAutomaticDimension
+        timelineTableView.estimatedRowHeight = 2
         
         if let notificationView = notificationView {
             notificationView.hidden = true

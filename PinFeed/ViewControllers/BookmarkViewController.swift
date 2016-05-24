@@ -23,6 +23,8 @@ class BookmarkViewController: UIViewController {
         bookmarkTableView.registerNib(UINib(nibName: "BookmarkCell", bundle: nil), forCellReuseIdentifier: "data")
         bookmarkTableView.alwaysBounceVertical = true
         bookmarkTableView.addSubview(refreshControl)
+        bookmarkTableView.rowHeight = UITableViewAutomaticDimension
+        bookmarkTableView.estimatedRowHeight = 2
         
         if let notificationView = notificationView {
             notificationView.hidden = true
