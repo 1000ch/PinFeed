@@ -31,7 +31,9 @@ class BookmarkEditTableViewController: UITableViewController {
         pageTitle.text = titleString
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: #selector(saveBookmark))
 
-        tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapTableView(_:))))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTableView(_:)))
+        tapGesture.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(tapGesture)
         
         guard let requestString = PinboardURLProvider.getPost(
             nil,

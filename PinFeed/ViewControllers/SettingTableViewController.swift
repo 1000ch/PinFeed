@@ -28,7 +28,9 @@ class SettingTableViewController: UITableViewController {
         password.text = Setting.sharedInstance.password
         appVersion.text = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String
         
-        tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapTableView(_:))))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTableView(_:)))
+        tapGesture.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(tapGesture)
     }
     
     override func viewWillAppear(animated: Bool) {
