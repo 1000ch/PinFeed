@@ -28,7 +28,7 @@ class TimelineViewController: UIViewController {
         
         if let notificationView = notificationView {
             notificationView.hidden = true
-            notificationView.addTarget(self, action: #selector(TimelineViewController.didTapNotification(_:)), forControlEvents: .TouchUpInside)
+            notificationView.addTarget(self, action: #selector(didTapNotification(_:)), forControlEvents: .TouchUpInside)
             view?.addLayoutSubview(notificationView, andConstraints:
                 notificationView.Top |==| self.view.Bottom |-| 103,
                 notificationView.Right,
@@ -40,7 +40,7 @@ class TimelineViewController: UIViewController {
         timeline = timelineManager.timeline
         refresh()
         
-        URLNotificationManager.sharedInstance.listen(self, selector: #selector(TimelineViewController.didCopyURL(_:)), object: nil)
+        URLNotificationManager.sharedInstance.listen(self, selector: #selector(didCopyURL(_:)), object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -85,7 +85,7 @@ class TimelineViewController: UIViewController {
             }
         }
         
-        NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(TimelineViewController.didTimeoutNotification), userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(didTimeoutNotification), userInfo: nil, repeats: false)
     }
     
     func didTapNotification(sender: UIControl) {
