@@ -9,9 +9,11 @@ class TimelineViewController: UIViewController {
     
     private let notificationView = UINib.instantiate("URLNotificationView", ownerOrNil: TimelineViewController.self) as? URLNotificationView
     
-    private let timelineManager = TimelineManager()
-    
-    private var timeline: [Bookmark] = []
+    private var timeline: [Bookmark] {
+        return (TimelineManager.sharedInstance.timeline + BookmarkManager.sharedInstance.bookmark).sort { a, b in
+            return a.date.compare(b.date).rawValue > 0
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +38,7 @@ class TimelineViewController: UIViewController {
                 notificationView.Bottom |==| self.view.Bottom |-| 49
             )
         }
-        
-        timeline = timelineManager.timeline
+
         refresh()
         
         URLNotificationManager.sharedInstance.listen(self, selector: #selector(didCopyURL(_:)), object: nil)
@@ -53,13 +54,14 @@ class TimelineViewController: UIViewController {
     }
     
     func refresh() {
-        timelineManager.fetch {
-            if self.refreshControl.refreshing {
-                self.refreshControl.endRefreshing()
+        TimelineManager.sharedInstance.fetch {
+            BookmarkManager.sharedInstance.fetch {
+                if self.refreshControl.refreshing {
+                    self.refreshControl.endRefreshing()
+                }
+                
+                self.timelineTableView.reloadData()
             }
-
-            self.timeline = self.timelineManager.timeline
-            self.timelineTableView.reloadData()
         }
     }
     

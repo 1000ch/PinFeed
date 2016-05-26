@@ -3,6 +3,13 @@ import SwiftyJSON
 import RealmSwift
 
 class BookmarkManager {
+    class var sharedInstance: BookmarkManager {
+        struct Static {
+            static let instance = BookmarkManager()
+        }
+        return Static.instance
+    }
+
     private let realm = try! Realm()
     
     var bookmark: [Bookmark] = []

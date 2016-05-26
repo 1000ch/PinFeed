@@ -8,10 +8,10 @@ class BookmarkViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
 
     private let notificationView = UINib.instantiate("URLNotificationView", ownerOrNil: BookmarkViewController.self) as? URLNotificationView
-    
-    private var bookmarkManager = BookmarkManager()
 
-    private var bookmark: [Bookmark] = []
+    private var bookmark: [Bookmark] {
+        return BookmarkManager.sharedInstance.bookmark
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,6 @@ class BookmarkViewController: UIViewController {
             )
         }
         
-        bookmark = bookmarkManager.bookmark
         refresh()
 
         URLNotificationManager.sharedInstance.listen(self, selector: #selector(didCopyURL(_:)), object: nil)
@@ -53,12 +52,11 @@ class BookmarkViewController: UIViewController {
     }
     
     func refresh() {
-        bookmarkManager.fetch {
+        BookmarkManager.sharedInstance.fetch {
             if self.refreshControl.refreshing {
                 self.refreshControl.endRefreshing()
             }
             
-            self.bookmark = self.bookmarkManager.bookmark
             self.bookmarkTableView.reloadData()
         }
     }
