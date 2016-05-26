@@ -54,4 +54,16 @@ class TimelineManager {
                 }
         }
     }
+    
+    func clear(block: () -> ()) {
+        AsyncDispatcher.background {
+            try! self.realm.write {
+                self.realm.delete(self.realm.objects(Recents))
+            }
+            
+            AsyncDispatcher.main {
+                block()
+            }
+        }
+    }
 }
