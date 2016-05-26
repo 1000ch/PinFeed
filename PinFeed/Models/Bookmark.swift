@@ -26,17 +26,32 @@ struct Bookmark {
         calendar.locale = NSLocale.currentLocale()
         let now = NSDate()
         let options = NSCalendarOptions()
-        let components = calendar.components([.Day], fromDate: date, toDate: now, options: options)
 
-        if (components.day == 0) {
+        let components = calendar.components([.Day, .Hour, .Minute], fromDate: date, toDate: now, options: options)
+        
+        if components.day == 0 {
+            if components.hour == 0 {
+                if components.minute == 1 {
+                    return "a minute ago"
+                }
+
+                return "\(components.minute) minutes ago"
+            } else if components.hour < 12 {
+                if components.hour == 1 {
+                    return "a hour ago"
+                }
+                
+                return "\(components.hour) hours ago"
+            }
+
             return "Today"
         }
         
-        if (components.day == 1) {
+        if components.day == 1 {
             return "Yesterday"
         }
         
-        if (components.day <= 7) {
+        if components.day <= 7 {
             return "\(components.day) days ago"
         }
 
