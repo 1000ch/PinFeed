@@ -110,24 +110,7 @@ class TimelineViewController: UIViewController {
     }
 }
 
-extension TimelineViewController: UITableViewDelegate {
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let editAction = UITableViewRowAction(style: .Normal, title: "★") { (rowAction, indexPath) -> Void in
-            guard let bookmarkEditTableVC = UIStoryboard.instantiateViewController("Main", identifier: "BookmarkEditTableViewController") as? BookmarkEditTableViewController else {
-                return
-            }
-            
-            let bookmark = self.timeline[indexPath.row]
-            bookmarkEditTableVC.urlString = bookmark.url.absoluteString
-            bookmarkEditTableVC.titleString = bookmark.title
-
-            self.navigationController?.pushViewController(bookmarkEditTableVC, animated: true)
-        }
-
-        editAction.backgroundColor = UIColor.lightGrayColor()
-        return [editAction]
-    }
-}
+extension TimelineViewController: UITableViewDelegate {}
 
 extension TimelineViewController: UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

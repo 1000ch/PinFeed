@@ -1,4 +1,5 @@
 import UIKit
+import Alamofire
 import MisterFusion
 
 class BookmarkViewController: UIViewController {
@@ -108,21 +109,22 @@ class BookmarkViewController: UIViewController {
 }
 
 extension BookmarkViewController: UITableViewDelegate {
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let editAction = UITableViewRowAction(style: .Normal, title: "★") { (rowAction, indexPath) -> Void in
-            guard let bookmarkEditTableVC = UIStoryboard.instantiateViewController("Main", identifier: "BookmarkEditTableViewController") as? BookmarkEditTableViewController else {
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            let urlString = bookmark[indexPath.row].url.absoluteString
+
+            guard let requestString = PinboardURLProvider.deletePost(urlString) else {
                 return
             }
-            
-            let bookmark = self.bookmark[indexPath.row]
-            bookmarkEditTableVC.urlString = bookmark.url.absoluteString
-            bookmarkEditTableVC.titleString = bookmark.title
 
-            self.navigationController?.pushViewController(bookmarkEditTableVC, animated: true)
+            bookmark.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            Alamofire.request(.GET, requestString)
         }
-
-        editAction.backgroundColor = UIColor.lightGrayColor()
-        return [editAction]
     }
 }
 
