@@ -9,11 +9,7 @@ class TimelineViewController: UIViewController {
     
     private let notificationView = UINib.instantiate("URLNotificationView", ownerOrNil: TimelineViewController.self) as? URLNotificationView
     
-    private var timeline: [Bookmark] {
-        return (TimelineManager.sharedInstance.timeline + BookmarkManager.sharedInstance.bookmark).sort { a, b in
-            return a.date.compare(b.date).rawValue > 0
-        }
-    }
+    private var timeline: [Bookmark] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +52,11 @@ class TimelineViewController: UIViewController {
     func refresh() {
         TimelineManager.sharedInstance.fetch {
             BookmarkManager.sharedInstance.fetch {
+                self.timeline = (TimelineManager.sharedInstance.timeline +
+                                 BookmarkManager.sharedInstance.bookmark).sort { a, b in
+                    return a.date.compare(b.date).rawValue > 0
+                }
+
                 if self.refreshControl.refreshing {
                     self.refreshControl.endRefreshing()
                 }

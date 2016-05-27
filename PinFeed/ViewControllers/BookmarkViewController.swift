@@ -9,9 +9,7 @@ class BookmarkViewController: UIViewController {
 
     private let notificationView = UINib.instantiate("URLNotificationView", ownerOrNil: BookmarkViewController.self) as? URLNotificationView
 
-    private var bookmark: [Bookmark] {
-        return BookmarkManager.sharedInstance.bookmark
-    }
+    private var bookmark: [Bookmark] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +51,10 @@ class BookmarkViewController: UIViewController {
     
     func refresh() {
         BookmarkManager.sharedInstance.fetch {
+            self.bookmark = BookmarkManager.sharedInstance.bookmark.sort { a, b in
+                return a.date.compare(b.date).rawValue > 0
+            }
+
             if self.refreshControl.refreshing {
                 self.refreshControl.endRefreshing()
             }
