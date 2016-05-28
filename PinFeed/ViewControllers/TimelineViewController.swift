@@ -14,7 +14,7 @@ class TimelineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Recent bookmarks"
+        title = "Timeline"
         refreshControl.addTarget(self, action: #selector(refresh), forControlEvents: UIControlEvents.ValueChanged)
         timelineTableView.delegate = self
         timelineTableView.dataSource = self

@@ -15,7 +15,7 @@ class BookmarkViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Your bookmarks"
+        title = "Bookmark"
         refreshControl.addTarget(self, action: #selector(refresh), forControlEvents: UIControlEvents.ValueChanged)
         bookmarkTableView.delegate = self
         bookmarkTableView.dataSource = self

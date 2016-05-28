@@ -30,7 +30,7 @@
                             <constraint firstItem="HOb-Lm-scB" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="vFN-og-rHe"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="recents" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Network" image="Globe" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="5i6-rI-YIf"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -298,7 +298,7 @@
             </objects>
             <point key="canvasLocation" x="446" y="0.0"/>
         </scene>
-        <!--Bookmark View Controller-->
+        <!--Bookmark-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="BookmarkViewController" customModule="PinFeed" customModuleProvider="target" sceneMemberID="viewController">
@@ -323,7 +323,7 @@
                             <constraint firstItem="aBN-Tl-to8" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="we0-5F-RDD"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" selectedImage="bookmark" systemItem="bookmarks" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Bookmark" image="Star" id="cPa-gy-q4n"/>
                     <navigationItem key="navigationItem" id="TYk-nr-Qoe"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -458,7 +458,7 @@
             </objects>
             <point key="canvasLocation" x="446" y="747"/>
         </scene>
-        <!--Setting View Controller-->
+        <!--Setting-->
         <scene sceneID="dbA-jS-2wR">
             <objects>
                 <viewController id="vSu-J9-kBD" customClass="SettingViewController" customModule="PinFeed" customModuleProvider="target" sceneMemberID="viewController">
@@ -471,7 +471,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="more" id="hB5-ky-7kf"/>
+                    <tabBarItem key="tabBarItem" title="Setting" image="Gear" id="hB5-ky-7kf"/>
                     <navigationItem key="navigationItem" id="Gjj-Xa-CLo"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
@@ -700,6 +700,8 @@
     <resources>
         <image name="ArrowLeft" width="20" height="24"/>
         <image name="ArrowRight" width="20" height="24"/>
-        <image name="bookmark" width="512" height="512"/>
+        <image name="Gear" width="30" height="30"/>
+        <image name="Globe" width="30" height="30"/>
+        <image name="Star" width="30" height="30"/>
     </resources>
 </document>
