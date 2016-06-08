@@ -7,6 +7,8 @@ class TimelineViewController: UIViewController {
     
     private let refreshControl = UIRefreshControl()
     
+    private let indicatorView = UIActivityIndicatorView()
+
     private let notificationView = UINib.instantiate("URLNotificationView", ownerOrNil: TimelineViewController.self) as? URLNotificationView
     
     private var timeline: [Bookmark] = []
@@ -16,6 +18,9 @@ class TimelineViewController: UIViewController {
         
         title = "Timeline"
         refreshControl.addTarget(self, action: #selector(refresh), forControlEvents: UIControlEvents.ValueChanged)
+        indicatorView.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+        indicatorView.activityIndicatorViewStyle = .Gray
+        view?.addSubview(indicatorView)
         timelineTableView.delegate = self
         timelineTableView.dataSource = self
         timelineTableView.registerNib(UINib(nibName: "BookmarkCell", bundle: nil), forCellReuseIdentifier: "data")
@@ -35,6 +40,7 @@ class TimelineViewController: UIViewController {
             )
         }
 
+        indicatorView.startAnimating()
         refresh()
         
         URLNotificationManager.sharedInstance.listen(self, selector: #selector(didCopyURL(_:)), object: nil)
@@ -59,6 +65,10 @@ class TimelineViewController: UIViewController {
 
                 if self.refreshControl.refreshing {
                     self.refreshControl.endRefreshing()
+                }
+                
+                if self.indicatorView.isAnimating() {
+                    self.indicatorView.stopAnimating()
                 }
                 
                 self.timelineTableView.reloadData()

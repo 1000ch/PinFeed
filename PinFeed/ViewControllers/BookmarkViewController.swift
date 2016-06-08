@@ -7,6 +7,8 @@ class BookmarkViewController: UIViewController {
     @IBOutlet weak var bookmarkTableView: UITableView!
 
     private let refreshControl = UIRefreshControl()
+    
+    private let indicatorView = UIActivityIndicatorView()
 
     private let notificationView = UINib.instantiate("URLNotificationView", ownerOrNil: BookmarkViewController.self) as? URLNotificationView
 
@@ -17,6 +19,9 @@ class BookmarkViewController: UIViewController {
         
         title = "Bookmark"
         refreshControl.addTarget(self, action: #selector(refresh), forControlEvents: UIControlEvents.ValueChanged)
+        indicatorView.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+        indicatorView.activityIndicatorViewStyle = .Gray
+        view?.addSubview(indicatorView)
         bookmarkTableView.delegate = self
         bookmarkTableView.dataSource = self
         bookmarkTableView.registerNib(UINib(nibName: "BookmarkCell", bundle: nil), forCellReuseIdentifier: "data")
@@ -36,6 +41,7 @@ class BookmarkViewController: UIViewController {
             )
         }
         
+        indicatorView.startAnimating()
         refresh()
 
         URLNotificationManager.sharedInstance.listen(self, selector: #selector(didCopyURL(_:)), object: nil)
@@ -58,6 +64,10 @@ class BookmarkViewController: UIViewController {
 
             if self.refreshControl.refreshing {
                 self.refreshControl.endRefreshing()
+            }
+            
+            if self.indicatorView.isAnimating() {
+                self.indicatorView.stopAnimating()
             }
             
             self.bookmarkTableView.reloadData()
