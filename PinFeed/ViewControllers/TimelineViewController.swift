@@ -17,7 +17,6 @@ class TimelineViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Timeline"
-        refreshControl.addTarget(self, action: #selector(refresh), forControlEvents: UIControlEvents.ValueChanged)
         indicatorView.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         indicatorView.activityIndicatorViewStyle = .Gray
         view?.addSubview(indicatorView)
@@ -41,7 +40,14 @@ class TimelineViewController: UIViewController {
         }
 
         indicatorView.startAnimating()
-        refresh()
+
+        refresh {
+            if self.indicatorView.isAnimating() {
+                self.indicatorView.stopAnimating()
+            }
+
+            self.refreshControl.addTarget(self, action: #selector(self.didRefresh), forControlEvents: UIControlEvents.ValueChanged)
+        }
         
         URLNotificationManager.sharedInstance.listen(self, selector: #selector(didCopyURL(_:)), object: nil)
     }
@@ -55,23 +61,25 @@ class TimelineViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    func refresh() {
+    func refresh(block: (() -> ())?) {
         TimelineManager.sharedInstance.fetch {
             BookmarkManager.sharedInstance.fetch {
                 self.timeline = (TimelineManager.sharedInstance.timeline +
                                  BookmarkManager.sharedInstance.bookmark).sort { a, b in
                     return a.date.compare(b.date).rawValue > 0
                 }
+                
+                block?()
 
-                if self.refreshControl.refreshing {
-                    self.refreshControl.endRefreshing()
-                }
-                
-                if self.indicatorView.isAnimating() {
-                    self.indicatorView.stopAnimating()
-                }
-                
                 self.timelineTableView.reloadData()
+            }
+        }
+    }
+    
+    func didRefresh() {
+        refresh {
+            if self.refreshControl.refreshing {
+                self.refreshControl.endRefreshing()
             }
         }
     }
