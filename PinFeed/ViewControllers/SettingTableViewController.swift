@@ -8,17 +8,14 @@ class SettingTableViewController: UITableViewController {
 
     @IBOutlet weak var password: UITextField!
     
-    @IBOutlet weak var clearButton: UIButton!
-    
     @IBOutlet weak var appVersion: UILabel!
         
     enum SettingTableViewCellType: Int {
         case UserId = 0
         case Password = 1
-        case LocalCache = 2
-        case AppVersion = 3
-        case Credits = 4
-        case GitHubRepository = 5
+        case AppVersion = 2
+        case Credits = 3
+        case GitHubRepository = 4
     }
     
     override func viewDidLoad() {
@@ -29,7 +26,6 @@ class SettingTableViewController: UITableViewController {
 
         userId.text = Setting.sharedInstance.userId
         password.text = Setting.sharedInstance.password
-        clearButton.addTarget(self, action: #selector(didTapClearButton), forControlEvents: .TouchUpInside)
         appVersion.text = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTableView(_:)))
@@ -58,8 +54,6 @@ class SettingTableViewController: UITableViewController {
         case .Password:
             cell.editing = true
             break
-        case .LocalCache:
-            break
         case .AppVersion:
             break
         case .Credits:
@@ -86,11 +80,6 @@ class SettingTableViewController: UITableViewController {
     
     func didTapTableView(gestureRecognizer: UITapGestureRecognizer) {
         tableView.endEditing(true)
-    }
-    
-    @IBAction func didTapClearButton(sender: UIButton) {
-        TimelineManager.sharedInstance.clear {}
-        BookmarkManager.sharedInstance.clear {}
     }
 }
 
