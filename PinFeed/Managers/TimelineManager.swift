@@ -15,7 +15,7 @@ class TimelineManager {
     var timeline: [Bookmark] = []
     
     init() {
-        for recent in realm.objects(Recents) {
+        for recent in realm.objects(Recents.self) {
             timeline.append(Bookmark(
                 title: recent.d,
                 tag: recent.t,
@@ -27,9 +27,9 @@ class TimelineManager {
         }
     }
     
-    func fetch(block: () -> ()) {
+    func fetch(block: @escaping () -> ()) {
         Alamofire
-            .request(.GET, PinboardURLProvider.network ?? "")
+            .request(PinboardURLProvider.network ?? "")
             .responseJSON { response in
                 guard let data = response.result.value else {
                     block()
@@ -44,24 +44,22 @@ class TimelineManager {
                 
                 block()
 
-                AsyncDispatcher.background {
-                    try! self.realm.write {
-                        self.realm.delete(self.realm.objects(Recents))
-                        for timeline in self.timeline {
-                            self.realm.add(Recents(bookmark: timeline))
-                        }
+                try! self.realm.write {
+                    self.realm.delete(self.realm.objects(Recents.self))
+                    for timeline in self.timeline {
+                        self.realm.add(Recents(bookmark: timeline))
                     }
                 }
         }
     }
     
-    func clear(block: () -> ()) {
-        AsyncDispatcher.background {
+    func clear(block: @escaping () -> ()) {
+        DispatchQueue.global().async {
             try! self.realm.write {
-                self.realm.delete(self.realm.objects(Recents))
+                self.realm.delete(self.realm.objects(Recents.self))
             }
             
-            AsyncDispatcher.main {
+            DispatchQueue.main.async {
                 block()
             }
         }

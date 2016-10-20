@@ -26,20 +26,20 @@ class SettingTableViewController: UITableViewController {
 
         userId.text = Setting.sharedInstance.userId
         password.text = Setting.sharedInstance.password
-        appVersion.text = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String
+        appVersion.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTableView(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTableView))
         tapGesture.cancelsTouchesInView = false
         tableView.addGestureRecognizer(tapGesture)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnSwipe = false
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        guard let cell = tableView.cellForRowAtIndexPath(indexPath) else {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else {
             return
         }
         
@@ -49,30 +49,30 @@ class SettingTableViewController: UITableViewController {
         
         switch cellType {
         case .UserId:
-            cell.editing = true
+            cell.isEditing = true
             break
         case .Password:
-            cell.editing = true
+            cell.isEditing = true
             break
         case .AppVersion:
             break
         case .Credits:
-            guard let webViewController = UIStoryboard.instantiateViewController("Main", identifier: "WebViewController") as? WebViewController else {
+            guard let webViewController = UIStoryboard.instantiateViewController(name: "Main", identifier: "WebViewController") as? WebViewController else {
                 return
             }
             
-            tableView.deselectRowAtIndexPath(indexPath, animated: false)
-            webViewController.url = NSBundle.mainBundle().URLForResource("credits", withExtension: "html")
+            tableView.deselectRow(at: indexPath, animated: false)
+            webViewController.url = Bundle.main.url(forResource: "credits", withExtension: "html")
             webViewController.hideToolbar = true
             navigationController?.pushViewController(webViewController, animated: true)
             break
         case .GitHubRepository:
-            guard let webViewController = UIStoryboard.instantiateViewController("Main", identifier: "WebViewController") as? WebViewController else {
+            guard let webViewController = UIStoryboard.instantiateViewController(name: "Main", identifier: "WebViewController") as? WebViewController else {
                 return
             }
 
-            tableView.deselectRowAtIndexPath(indexPath, animated: false)
-            webViewController.url = NSURL(string: "https://github.com/1000ch/PinFeed")
+            tableView.deselectRow(at: indexPath, animated: false)
+            webViewController.url = URL(string: "https://github.com/1000ch/PinFeed")
             navigationController?.pushViewController(webViewController, animated: true)
             break
         }
@@ -85,7 +85,7 @@ class SettingTableViewController: UITableViewController {
 
 extension SettingTableViewController: UITextFieldDelegate {
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
         case userId:
             Setting.sharedInstance.userId = textField.text ?? ""
@@ -102,7 +102,7 @@ extension SettingTableViewController: UITextFieldDelegate {
         
         if !userIdString.isEmpty && !passwordString.isEmpty {
             Alamofire
-                .request(.GET, PinboardURLProvider.secretToken ?? "")
+                .request(PinboardURLProvider.secretToken ?? "")
                 .responseJSON { response in
                     guard let data = response.result.value else {
                         return
@@ -113,7 +113,7 @@ extension SettingTableViewController: UITextFieldDelegate {
         }
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case userId:
             Setting.sharedInstance.userId = textField.text ?? ""
@@ -130,7 +130,7 @@ extension SettingTableViewController: UITextFieldDelegate {
         
         if !userIdString.isEmpty && !passwordString.isEmpty {
             Alamofire
-                .request(.GET, PinboardURLProvider.secretToken ?? "")
+                .request(PinboardURLProvider.secretToken ?? "")
                 .responseJSON { response in
                     guard let data = response.result.value else {
                         return

@@ -6,5 +6,5 @@ class URLNotificationView : UIControl {
 
     @IBOutlet weak var urlLabel: UILabel!
     
-    var url: NSURL?
+    var url: URL?
 }
