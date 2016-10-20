@@ -11,7 +11,7 @@ class Bookmarks: Object {
     convenience init(bookmark: Bookmark) {
         self.init()
         self.d = bookmark.title
-        self.t = bookmark.tags.joinWithSeparator(" ")
+        self.t = bookmark.tags.joined(separator: " ")
         self.u = bookmark.url.absoluteString
         self.dt = bookmark.dateTime
         self.a = bookmark.author

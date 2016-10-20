@@ -9,50 +9,50 @@ class TimelineViewController: UIViewController {
     
     private let indicatorView = UIActivityIndicatorView()
 
-    private let notificationView = UINib.instantiate("URLNotificationView", ownerOrNil: TimelineViewController.self) as? URLNotificationView
+    private let notificationView = UINib.instantiate(nibName: "URLNotificationView", ownerOrNil: TimelineViewController.self) as? URLNotificationView
     
-    private var timeline: [Bookmark] = []
+    var timeline: [Bookmark] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Timeline"
         indicatorView.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
-        indicatorView.activityIndicatorViewStyle = .Gray
+        indicatorView.activityIndicatorViewStyle = .gray
         view?.addSubview(indicatorView)
         timelineTableView.delegate = self
         timelineTableView.dataSource = self
-        timelineTableView.registerNib(UINib(nibName: "BookmarkCell", bundle: nil), forCellReuseIdentifier: "data")
+        timelineTableView.register(UINib(nibName: "BookmarkCell", bundle: nil), forCellReuseIdentifier: "data")
         timelineTableView.alwaysBounceVertical = true
         timelineTableView.addSubview(refreshControl)
         timelineTableView.rowHeight = UITableViewAutomaticDimension
         timelineTableView.estimatedRowHeight = 2
         
         if let notificationView = notificationView {
-            notificationView.hidden = true
-            notificationView.addTarget(self, action: #selector(didTapNotification(_:)), forControlEvents: .TouchUpInside)
+            notificationView.isHidden = true
+            notificationView.addTarget(self, action: #selector(didTapNotification), for: .touchUpInside)
             view?.addLayoutSubview(notificationView, andConstraints:
-                notificationView.Top |==| self.view.Bottom |-| 103,
-                notificationView.Right,
-                notificationView.Left,
-                notificationView.Bottom |==| self.view.Bottom |-| 49
+                notificationView.top |==| self.view.bottom |-| 103,
+                notificationView.right,
+                notificationView.left,
+                notificationView.bottom |==| self.view.bottom |-| 49
             )
         }
 
         indicatorView.startAnimating()
 
         refresh {
-            if self.indicatorView.isAnimating() {
+            if self.indicatorView.isAnimating {
                 self.indicatorView.stopAnimating()
             }
 
-            self.refreshControl.addTarget(self, action: #selector(self.didRefresh), forControlEvents: UIControlEvents.ValueChanged)
+            self.refreshControl.addTarget(self, action: #selector(self.didRefresh), for: UIControlEvents.valueChanged)
         }
         
-        URLNotificationManager.sharedInstance.listen(self, selector: #selector(didCopyURL(_:)), object: nil)
+        URLNotificationManager.sharedInstance.listen(observer: self, selector: #selector(didCopyURL), object: nil)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnSwipe = false
     }
@@ -65,7 +65,7 @@ class TimelineViewController: UIViewController {
         TimelineManager.sharedInstance.fetch {
             BookmarkManager.sharedInstance.fetch {
                 self.timeline = (TimelineManager.sharedInstance.timeline +
-                                 BookmarkManager.sharedInstance.bookmark).sort { a, b in
+                                 BookmarkManager.sharedInstance.bookmark).sorted { a, b in
                     return a.date.compare(b.date).rawValue > 0
                 }
                 
@@ -78,14 +78,14 @@ class TimelineViewController: UIViewController {
     
     func didRefresh() {
         refresh {
-            if self.refreshControl.refreshing {
+            if self.refreshControl.isRefreshing {
                 self.refreshControl.endRefreshing()
             }
         }
     }
     
-    func didCopyURL(notification: NSNotification?) {
-        guard let url = notification?.userInfo?["url"] as? NSURL else {
+    func didCopyURL(notification: Notification?) {
+        guard let url = notification?.userInfo?["url"] as? URL else {
             return
         }
         
@@ -93,24 +93,24 @@ class TimelineViewController: UIViewController {
             return
         }
         
-        notificationView.hidden = false
+        notificationView.isHidden = false
         notificationView.url = url
         notificationView.urlLabel.text = url.absoluteString
-        if let faviconURL = NSURL(string: "https://www.google.com/s2/favicons?domain=\(url.absoluteString)") {
-            AsyncDispatcher.global {
-                if let faviconData = NSData(contentsOfURL: faviconURL) {
-                    AsyncDispatcher.main {
+        if let faviconURL = URL(string: "https://www.google.com/s2/favicons?domain=\(url.absoluteString)") {
+            DispatchQueue.global().async {
+                if let faviconData = try? Data(contentsOf: faviconURL) {
+                    DispatchQueue.main.async {
                         notificationView.faviconImageView?.image = UIImage(data: faviconData)
                     }
                 }
             }
         }
         
-        NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(didTimeoutNotification), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(didTimeoutNotification), userInfo: nil, repeats: false)
     }
     
     func didTapNotification(sender: UIControl) {
-        guard let webViewController = UIStoryboard.instantiateViewController("Main", identifier: "WebViewController") as? WebViewController else {
+        guard let webViewController = UIStoryboard.instantiateViewController(name: "Main", identifier: "WebViewController") as? WebViewController else {
             return
         }
         
@@ -118,37 +118,37 @@ class TimelineViewController: UIViewController {
             return
         }
         
-        notificationView.hidden = true
+        notificationView.isHidden = true
         webViewController.url = notificationView.url
         navigationController?.pushViewController(webViewController, animated: true)
     }
     
     func didTimeoutNotification() {
-        notificationView?.hidden = true
+        notificationView?.isHidden = true
     }
 }
 
 extension TimelineViewController: UITableViewDelegate {}
 
 extension TimelineViewController: UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    private func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return timeline.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = timeline[indexPath.row]
-        let cell = tableView.dequeueReusableCellWithIdentifier("data", forIndexPath: indexPath) as! BookmarkCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "data", for: indexPath) as! BookmarkCell
         cell.authorLabel?.text = data.author
         cell.dateTimeLabel?.text = data.relativeDateTime
         cell.faviconImageView?.image = nil
-        if let faviconURL = NSURL(string: "https://www.google.com/s2/favicons?domain=\(data.url.absoluteString)") {
-            AsyncDispatcher.global {
-                if let faviconData = NSData(contentsOfURL: faviconURL) {
-                    AsyncDispatcher.main {
+        if let faviconURL = URL(string: "https://www.google.com/s2/favicons?domain=\(data.url.absoluteString)") {
+            DispatchQueue.global().async {
+                if let faviconData = try? Data(contentsOf: faviconURL) {
+                    DispatchQueue.main.async {
                         cell.faviconImageView?.image = UIImage(data: faviconData)
                     }
                 }
@@ -159,12 +159,12 @@ extension TimelineViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        guard let webViewController = UIStoryboard.instantiateViewController("Main", identifier: "WebViewController") as? WebViewController else {
+    @objc(tableView:didSelectRowAtIndexPath:) func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let webViewController = UIStoryboard.instantiateViewController(name: "Main", identifier: "WebViewController") as? WebViewController else {
             return
         }
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        tableView.deselectRow(at: indexPath, animated: false)
         webViewController.url = timeline[indexPath.row].url
         navigationController?.pushViewController(webViewController, animated: true)
     }

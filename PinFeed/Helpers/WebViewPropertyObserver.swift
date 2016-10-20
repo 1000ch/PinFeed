@@ -3,7 +3,7 @@ import WebKit
 class WebViewPropertyObserver: NSObject {
     enum WebViewProperty {
         static let keys = ["title", "URL", "estimatedProgress", "canGoBack", "canGoForward", "hasOnlySecureContent", "loading"]
-        case Title(String?), URL(NSURL?), CanGoBack(Bool), CanGoForward(Bool), EstimatedProgress(Float), Loading(Bool), HasOnlySecureContent(Bool)
+        case Title(String?), URL(URL?), CanGoBack(Bool), CanGoForward(Bool), EstimatedProgress(Float), Loading(Bool), HasOnlySecureContent(Bool)
         
         init?(webView: WKWebView, key: String) {
             switch key {
@@ -11,7 +11,7 @@ class WebViewPropertyObserver: NSObject {
                 self = .Title(webView.title)
                 
             case "URL":
-                self = .URL(webView.URL)
+                self = .URL(webView.url)
                 
             case "estimatedProgress":
                 var progress = Float(webView.estimatedProgress)
@@ -29,7 +29,7 @@ class WebViewPropertyObserver: NSObject {
                 self = .HasOnlySecureContent(webView.hasOnlySecureContent)
                 
             case "loading":
-                self = .Loading(webView.loading)
+                self = .Loading(webView.isLoading)
                 
             default:
                 return nil
@@ -41,7 +41,7 @@ class WebViewPropertyObserver: NSObject {
     private let handler: WebViewPropertyChangeHandler
     typealias WebViewPropertyChangeHandler = (WebViewProperty) -> ()
     
-    init(webView: WKWebView, handler: WebViewPropertyChangeHandler) {
+    init(webView: WKWebView, handler: @escaping WebViewPropertyChangeHandler) {
         self.webView = webView
         self.handler = handler
         super.init()
@@ -54,7 +54,7 @@ class WebViewPropertyObserver: NSObject {
     
     private func startObservingProperties() {
         for key in WebViewProperty.keys {
-            webView?.addObserver(self, forKeyPath: key, options: NSKeyValueObservingOptions.New, context: nil)
+            webView?.addObserver(self, forKeyPath: key, options: NSKeyValueObservingOptions.new, context: nil)
         }
     }
     
@@ -64,11 +64,11 @@ class WebViewPropertyObserver: NSObject {
         }
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        guard let wv = object as? WKWebView, keyPath = keyPath, property = WebViewProperty(webView: wv, key: keyPath) else {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard let wv = object as? WKWebView, let keyPath = keyPath, let property = WebViewProperty(webView: wv, key: keyPath) else {
             return
         }
-
+        
         handler(property)
     }
 }

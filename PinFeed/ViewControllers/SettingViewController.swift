@@ -3,47 +3,47 @@ import MisterFusion
 
 class SettingViewController: UIViewController {
     
-    private let notificationView = UINib.instantiate("URLNotificationView", ownerOrNil: BookmarkViewController.self) as? URLNotificationView
+    private let notificationView = UINib.instantiate(nibName: "URLNotificationView", ownerOrNil: BookmarkViewController.self) as? URLNotificationView
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Setting"
         
-        guard let settingTableViewController = UIStoryboard.instantiateViewController("Main", identifier: "SettingTableViewController") else {
+        guard let settingTableViewController = UIStoryboard.instantiateViewController(name: "Main", identifier: "SettingTableViewController") else {
             return
         }
         
-        settingTableViewController.didMoveToParentViewController(self)
+        settingTableViewController.didMove(toParentViewController: self)
 
         addChildViewController(settingTableViewController)
         view.addLayoutSubview(settingTableViewController.view, andConstraints:
-            settingTableViewController.view.Top,
-            settingTableViewController.view.Right,
-            settingTableViewController.view.Left,
-            settingTableViewController.view.Bottom
+            settingTableViewController.view.top,
+            settingTableViewController.view.right,
+            settingTableViewController.view.left,
+            settingTableViewController.view.bottom
         )
         
         if let notificationView = notificationView {
-            notificationView.hidden = true
-            notificationView.addTarget(self, action: #selector(didTapNotification(_:)), forControlEvents: .TouchUpInside)
+            notificationView.isHidden = true
+            notificationView.addTarget(self, action: #selector(self.didTapNotification), for: .touchUpInside)
             view?.addLayoutSubview(notificationView, andConstraints:
-                notificationView.Top |==| self.view.Bottom |-| 103,
-                notificationView.Right,
-                notificationView.Left,
-                notificationView.Bottom |==| self.view.Bottom |-| 49
+                notificationView.top |==| self.view.bottom |-| 103,
+                notificationView.right,
+                notificationView.left,
+                notificationView.bottom |==| self.view.bottom |-| 49
             )
         }
         
-        URLNotificationManager.sharedInstance.listen(self, selector: #selector(didCopyURL(_:)), object: nil)
+        URLNotificationManager.sharedInstance.listen(observer: self, selector: #selector(self.didCopyURL), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func didCopyURL(notification: NSNotification?) {
-        guard let url = notification?.userInfo?["url"] as? NSURL else {
+    func didCopyURL(notification: Notification?) {
+        guard let url = notification?.userInfo?["url"] as? URL else {
             return
         }
         
@@ -51,24 +51,24 @@ class SettingViewController: UIViewController {
             return
         }
         
-        notificationView.hidden = false
+        notificationView.isHidden = false
         notificationView.url = url
         notificationView.urlLabel.text = url.absoluteString
-        if let faviconURL = NSURL(string: "https://www.google.com/s2/favicons?domain=\(url.absoluteString)") {
-            AsyncDispatcher.global {
-                if let faviconData = NSData(contentsOfURL: faviconURL) {
-                    AsyncDispatcher.main {
+        if let faviconURL = URL(string: "https://www.google.com/s2/favicons?domain=\(url.absoluteString)") {
+            DispatchQueue.global().async {
+                if let faviconData = try? Data(contentsOf: faviconURL) {
+                    DispatchQueue.main.async {
                         notificationView.faviconImageView?.image = UIImage(data: faviconData)
                     }
                 }
             }
         }
 
-        NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(didTimeoutNotification), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.didTimeoutNotification), userInfo: nil, repeats: false)
     }
     
     func didTapNotification(sender: UIControl) {
-        guard let webViewController = UIStoryboard.instantiateViewController("Main", identifier: "WebViewController") as? WebViewController else {
+        guard let webViewController = UIStoryboard.instantiateViewController(name: "Main", identifier: "WebViewController") as? WebViewController else {
             return
         }
         
@@ -76,13 +76,13 @@ class SettingViewController: UIViewController {
             return
         }
         
-        notificationView.hidden = true
+        notificationView.isHidden = true
         webViewController.url = notificationView.url
         navigationController?.pushViewController(webViewController, animated: true)
     }
     
     func didTimeoutNotification() {
-        notificationView?.hidden = true
+        notificationView?.isHidden = true
     }
 }
 

@@ -12,47 +12,57 @@ struct Bookmark {
 
     let title: String
     let tags: [String]
-    let url: NSURL
-    let date: NSDate
+    let url: URL
+    let date: Date
     let author: String
     let description: String
     
     var dateTime: String {
-        return NSDate.outputFormatter.stringFromDate(date);
+        return Date.formatter.string(from: date);
     }
     
     var relativeDateTime: String {
-        let calendar = NSCalendar.currentCalendar()
-        calendar.locale = NSLocale.currentLocale()
-        let now = NSDate()
-        let options = NSCalendarOptions()
-
-        let components = calendar.components([.Day, .Hour, .Minute], fromDate: date, toDate: now, options: options)
+        var calendar = Calendar.current
+        calendar.locale = Locale.current
+        let now = Date()
+        let components = calendar.dateComponents([.day, .hour, .minute], from: date, to: now)
         
-        if components.day == 0 {
-            if components.hour == 0 {
-                if components.minute == 1 {
+        guard let day = components.day else {
+            return dateTime
+        }
+
+        guard let hour = components.hour else {
+            return dateTime
+        }
+
+        guard let minute = components.minute else {
+            return dateTime
+        }
+        
+        if day == 0 {
+            if hour == 0 {
+                if minute == 1 {
                     return "a minute ago"
                 }
 
-                return "\(components.minute) minutes ago"
-            } else if components.hour < 12 {
-                if components.hour == 1 {
+                return "\(minute) minutes ago"
+            } else if hour < 12 {
+                if hour == 1 {
                     return "a hour ago"
                 }
                 
-                return "\(components.hour) hours ago"
+                return "\(hour) hours ago"
             }
 
             return "Today"
         }
         
-        if components.day == 1 {
+        if day == 1 {
             return "Yesterday"
         }
         
-        if components.day <= 7 {
-            return "\(components.day) days ago"
+        if day <= 7 {
+            return "\(day) days ago"
         }
 
         return dateTime
@@ -71,9 +81,9 @@ struct Bookmark {
     
     init(title: String?, tag: String?, url: String?, dateTime: String?, author: String?, description: String?) {
         self.title = title ?? ""
-        self.tags = tag?.componentsSeparatedByString(" ") ?? []
-        self.url = url.flatMap(NSURL.init) ?? NSURL()
-        self.date = dateTime.flatMap(NSDate.inputFormatter.dateFromString) ?? NSDate()
+        self.tags = tag?.components(separatedBy: " ") ?? []
+        self.url = url.flatMap(URL.init) ?? URL(string: "https://apple.com")!
+        self.date = dateTime.flatMap(Date.iso8601.date) ?? dateTime.flatMap(Date.formatter.date) ?? Date()
         self.author = author ?? ""
         self.description = description ?? ""
     }

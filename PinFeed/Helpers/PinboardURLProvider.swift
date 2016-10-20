@@ -10,7 +10,7 @@ class PinboardURLProvider {
             components.scheme = "https"
             components.host = "feeds.pinboard.in"
             components.path = "/json/secret:\(secretToken)/u:\(userId)/network/"
-            components.queryItems = [NSURLQueryItem(name: "count", value: "400")]
+            components.queryItems = [URLQueryItem(name: "count", value: "400")]
             return components.string
         }
     }
@@ -24,7 +24,7 @@ class PinboardURLProvider {
             components.scheme = "https"
             components.host = "feeds.pinboard.in"
             components.path = "/json/secret:\(secretToken)/u:\(userId)/"
-            components.queryItems = [NSURLQueryItem(name: "count", value: "400")]
+            components.queryItems = [URLQueryItem(name: "count", value: "400")]
             return components.string
         }
     }
@@ -37,7 +37,7 @@ class PinboardURLProvider {
             components.path = "/v1/user/api_token/"
             components.user = Setting.sharedInstance.userId
             components.password = Setting.sharedInstance.password
-            components.queryItems = [NSURLQueryItem(name: "format", value: "json")]
+            components.queryItems = [URLQueryItem(name: "format", value: "json")]
             return components.string
         }
     }
@@ -50,7 +50,7 @@ class PinboardURLProvider {
             components.path = "/v1/user/secret/"
             components.user = Setting.sharedInstance.userId
             components.password = Setting.sharedInstance.password
-            components.queryItems = [NSURLQueryItem(name: "format", value: "json")]
+            components.queryItems = [URLQueryItem(name: "format", value: "json")]
             return components.string
         }
     }
@@ -62,18 +62,18 @@ class PinboardURLProvider {
         components.path = "/v1/posts/get"
         components.user = Setting.sharedInstance.userId
         components.password = Setting.sharedInstance.password
-        components.queryItems = [NSURLQueryItem(name: "format", value: "json")]
+        components.queryItems = [URLQueryItem(name: "format", value: "json")]
         if let tag = tag {
-            components.queryItems?.append(NSURLQueryItem(name: "tag", value: tag))
+            components.queryItems?.append(URLQueryItem(name: "tag", value: tag))
         }
         if let dt = dt {
-            components.queryItems?.append(NSURLQueryItem(name: "dt", value: dt))
+            components.queryItems?.append(URLQueryItem(name: "dt", value: dt))
         }
         if let url = url {
-            components.queryItems?.append(NSURLQueryItem(name: "url", value: url))
+            components.queryItems?.append(URLQueryItem(name: "url", value: url))
         }
         if let meta = meta {
-            components.queryItems?.append(NSURLQueryItem(name: "meta", value: meta ? "yes" : "no"))
+            components.queryItems?.append(URLQueryItem(name: "meta", value: meta ? "yes" : "no"))
         }
         return components.string
     }
@@ -86,27 +86,27 @@ class PinboardURLProvider {
         components.user = Setting.sharedInstance.userId
         components.password = Setting.sharedInstance.password
         components.queryItems = [
-            NSURLQueryItem(name: "format", value: "json"),
-            NSURLQueryItem(name: "url", value: url),
-            NSURLQueryItem(name: "description", value: description)
+            URLQueryItem(name: "format", value: "json"),
+            URLQueryItem(name: "url", value: url),
+            URLQueryItem(name: "description", value: description)
         ]
         if let extended = extended {
-            components.queryItems?.append(NSURLQueryItem(name: "extended", value: extended))
+            components.queryItems?.append(URLQueryItem(name: "extended", value: extended))
         }
         if let tags = tags {
-            components.queryItems?.append(NSURLQueryItem(name: "tags", value: tags))
+            components.queryItems?.append(URLQueryItem(name: "tags", value: tags))
         }
         if let dt = dt {
-            components.queryItems?.append(NSURLQueryItem(name: "dt", value: dt))
+            components.queryItems?.append(URLQueryItem(name: "dt", value: dt))
         }
         if let replace = replace {
-            components.queryItems?.append(NSURLQueryItem(name: "replace", value: replace ? "yes" : "no"))
+            components.queryItems?.append(URLQueryItem(name: "replace", value: replace ? "yes" : "no"))
         }
         if let isPrivate = isPrivate {
-            components.queryItems?.append(NSURLQueryItem(name: "shared", value: isPrivate ? "no" : "yes"))
+            components.queryItems?.append(URLQueryItem(name: "shared", value: isPrivate ? "no" : "yes"))
         }
         if let isReadLater = isReadLater {
-            components.queryItems?.append(NSURLQueryItem(name: "toread", value: isReadLater ? "yes" : "no"))
+            components.queryItems?.append(URLQueryItem(name: "toread", value: isReadLater ? "yes" : "no"))
         }
         return components.string
     }
@@ -119,8 +119,8 @@ class PinboardURLProvider {
         components.user = Setting.sharedInstance.userId
         components.password = Setting.sharedInstance.password
         components.queryItems = [
-            NSURLQueryItem(name: "format", value: "json"),
-            NSURLQueryItem(name: "url", value: url)
+            URLQueryItem(name: "format", value: "json"),
+            URLQueryItem(name: "url", value: url)
         ]
         return components.string
     }

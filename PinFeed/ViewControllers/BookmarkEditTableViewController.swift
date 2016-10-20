@@ -29,14 +29,14 @@ class BookmarkEditTableViewController: UITableViewController {
         
         url.text = urlString
         pageTitle.text = titleString
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: #selector(saveBookmark))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(saveBookmark))
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTableView(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapTableView))
         tapGesture.cancelsTouchesInView = false
         tableView.addGestureRecognizer(tapGesture)
         
         guard let requestString = PinboardURLProvider.getPost(
-            nil,
+            tag: nil,
             dt: nil,
             url: urlString,
             meta: nil) else {
@@ -44,7 +44,7 @@ class BookmarkEditTableViewController: UITableViewController {
         }
 
         Alamofire
-            .request(.GET, requestString)
+            .request(requestString)
             .responseJSON { response in
                 guard let data = response.result.value else {
                     return
@@ -55,8 +55,8 @@ class BookmarkEditTableViewController: UITableViewController {
                     self.pageTitle.text = post["description"].stringValue
                     self.pageDescription.text = post["extended"].stringValue
                     self.tags.text = post["tags"].stringValue
-                    self.isPrivate.on = post["shared"].stringValue == "no"
-                    self.isReadLater.on = post["toread"].stringValue == "yes"
+                    self.isPrivate.isOn = post["shared"].stringValue == "no"
+                    self.isReadLater.isOn = post["toread"].stringValue == "yes"
                 }
         }
     }
@@ -75,18 +75,20 @@ class BookmarkEditTableViewController: UITableViewController {
         }
         
         guard let requestString = PinboardURLProvider.addPost(
-            urlString,
+            url: urlString,
             description: titleString,
             extended: pageDescription.text,
             tags: tags.text,
             dt: nil, replace: nil,
-            isPrivate: isPrivate.on,
-            isReadLater: isReadLater.on) else {
+            isPrivate: isPrivate.isOn,
+            isReadLater: isReadLater.isOn) else {
                 return
         }
         
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
         
-        Alamofire.request(.GET, requestString)
+        Alamofire.request(requestString).responseJSON { response in
+            print(response.result)
+        }
     }
 }

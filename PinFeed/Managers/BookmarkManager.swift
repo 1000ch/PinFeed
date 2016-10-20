@@ -15,7 +15,7 @@ class BookmarkManager {
     var bookmark: [Bookmark] = []
     
     init() {
-        for recent in realm.objects(Bookmarks) {
+        for recent in realm.objects(Bookmarks.self) {
             bookmark.append(Bookmark(
                 title: recent.d,
                 tag: recent.t,
@@ -27,9 +27,9 @@ class BookmarkManager {
         }
     }
     
-    func fetch(block: () -> ()) {
+    func fetch(block: @escaping () -> ()) {
         Alamofire
-            .request(.GET, PinboardURLProvider.bookmark ?? "")
+            .request(PinboardURLProvider.bookmark ?? "")
             .responseJSON { response in
                 guard let data = response.result.value else {
                     block()
@@ -44,24 +44,22 @@ class BookmarkManager {
                 
                 block()
 
-                AsyncDispatcher.background {
-                    try! self.realm.write {
-                        self.realm.delete(self.realm.objects(Bookmarks))
-                        for bookmark in self.bookmark {
-                            self.realm.add(Bookmarks(bookmark: bookmark))
-                        }
+                try! self.realm.write {
+                    self.realm.delete(self.realm.objects(Bookmarks.self))
+                    for bookmark in self.bookmark {
+                        self.realm.add(Bookmarks(bookmark: bookmark))
                     }
                 }
         }
     }
     
-    func clear(block: () -> ()) {
-        AsyncDispatcher.background {
+    func clear(block: @escaping () -> ()) {
+        DispatchQueue.global().async {
             try! self.realm.write {
-                self.realm.delete(self.realm.objects(Bookmarks))
+                self.realm.delete(self.realm.objects(Bookmarks.self))
             }
             
-            AsyncDispatcher.main {
+            DispatchQueue.main.async {
                 block()
             }
         }

@@ -8,13 +8,13 @@ class WebViewController: UIViewController {
     
     var webView: WKWebView!
 
-    var url: NSURL? {
+    var url: URL? {
         didSet {
-            guard let url = url where !isViewLoaded() else {
+            guard let url = url , !isViewLoaded else {
                 return
             }
 
-            webView?.loadRequest(NSURLRequest(URL: url))
+            webView?.load(URLRequest(url: url))
         }
     }
     
@@ -26,7 +26,7 @@ class WebViewController: UIViewController {
 
     @IBOutlet weak var progressView: UIProgressView! {
         didSet {
-            progressView.hidden = true
+            progressView.isHidden = true
         }
     }
 
@@ -49,11 +49,11 @@ class WebViewController: UIViewController {
     }
     
     @IBAction func showEditView(sender: UIBarButtonItem) {
-        guard let bookmarkEditTableVC = UIStoryboard.instantiateViewController("Main", identifier: "BookmarkEditTableViewController") as? BookmarkEditTableViewController else {
+        guard let bookmarkEditTableVC = UIStoryboard.instantiateViewController(name: "Main", identifier: "BookmarkEditTableViewController") as? BookmarkEditTableViewController else {
             return
         }
         
-        guard let URL = webView.URL else {
+        guard let URL = webView.url else {
             return
         }
         
@@ -72,12 +72,12 @@ class WebViewController: UIViewController {
             return
         }
 
-        guard let url = webView.URL else {
+        guard let url = webView.url else {
             return
         }
         
         let activityVC = UIActivityViewController(activityItems: [text, url], applicationActivities: nil)
-        presentViewController(activityVC, animated: true, completion: nil)
+        present(activityVC, animated: true, completion: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -90,34 +90,34 @@ class WebViewController: UIViewController {
                 
         let config = WKWebViewConfiguration()
         config.processPool = WKProcessPool()
-        webView = WKWebView(frame: CGRectZero, configuration: config)
-        webView.UIDelegate = self
+        webView = WKWebView(frame: CGRect.zero, configuration: config)
+        webView.uiDelegate = self
         webView.navigationDelegate = self
         webView.allowsBackForwardNavigationGestures = true
-        toolbar.hidden = hideToolbar
-        progressView.hidden = hideToolbar
+        toolbar.isHidden = hideToolbar
+        progressView.isHidden = hideToolbar
 
         if hideToolbar {
             view.addLayoutSubview(webView, andConstraints:
-                webView.Top,
-                webView.Right,
-                webView.Left,
-                webView.Bottom
+                webView.top,
+                webView.right,
+                webView.left,
+                webView.bottom
             )
         } else {
             view.addLayoutSubview(webView, andConstraints:
-                webView.Top,
-                webView.Right,
-                webView.Left,
-                webView.Bottom |==| toolbar.Top
+                webView.top,
+                webView.right,
+                webView.left,
+                webView.bottom |==| toolbar.top
             )
         }
 
-        view.sendSubviewToBack(webView)
+        view.sendSubview(toBack: webView)
         view.layoutIfNeeded()
         
         if url != nil {
-            webView.loadRequest(NSURLRequest(URL: url!))
+            webView.load(URLRequest(url: url!))
         }
     }
     
@@ -125,23 +125,23 @@ class WebViewController: UIViewController {
         super.viewWillLayoutSubviews()
         
         if let navigationController = navigationController {
-            if navigationController.navigationBarHidden {
-                progressViewOffset.constant = UIApplication.sharedApplication().statusBarFrame.size.height
+            if navigationController.isNavigationBarHidden {
+                progressViewOffset.constant = UIApplication.shared.statusBarFrame.size.height
             }
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        tabBarController?.tabBar.hidden = true
+        tabBarController?.tabBar.isHidden = true
         navigationController?.hidesBarsOnSwipe = true
         navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.translucent = true
+        navigationController?.navigationBar.isTranslucent = true
         webViewPropertyObserver = WebViewPropertyObserver(webView: webView, handler: handleWebViewPropertyChange)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
         webViewPropertyObserver = nil
@@ -152,11 +152,11 @@ class WebViewController: UIViewController {
         case .Title(let title):
             navigationItem.title = title
         case .EstimatedProgress(let progress):
-            updateProgressView(progress)
+            updateProgressView(progress: progress)
         case .CanGoBack(let canGoback):
-            backButton.enabled = canGoback
+            backButton.isEnabled = canGoback
         case .CanGoForward(let canGoForward):
-            forwardButton.enabled = canGoForward
+            forwardButton.isEnabled = canGoForward
         default:
             break
         }
@@ -168,17 +168,15 @@ class WebViewController: UIViewController {
         }
 
         if 0.0 < progress && progress < 1.0 {
-            UIView.animateWithDuration(0.2) { [weak self] in
-                self?.progressView?.hidden = false
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                self?.progressView?.isHidden = false
                 self?.progressView?.progress = progress
                 self?.view.layoutIfNeeded()
             }
         } else if progress == 1.0 {
             progressView?.progress = progress
-            let delay = 0.2 * Double(NSEC_PER_SEC)
-            let time  = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-            dispatch_after(time, dispatch_get_main_queue()) { [weak self] in
-                self?.progressView?.hidden = true
+            DispatchQueue.main.async { [weak self] in
+                self?.progressView?.isHidden = true
                 self?.progressView?.progress = 0.0
             }
         }
@@ -192,8 +190,8 @@ class WebViewController: UIViewController {
 extension WebViewController: WKNavigationDelegate {}
 
 extension WebViewController: WKUIDelegate {
-    func webView(webView: WKWebView, createWebViewWithConfiguration configuration: WKWebViewConfiguration, forNavigationAction navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        webView.loadRequest(navigationAction.request)
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        webView.load(navigationAction.request)
         return nil
     }
 }

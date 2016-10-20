@@ -17,37 +17,31 @@ class Setting {
 
     var userId: String {
         get {
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            return userDefaults.valueForKey(SettingKey.userId.rawValue) as? String ?? ""
+            return UserDefaults.standard.value(forKey: SettingKey.userId.rawValue) as? String ?? ""
         }
         set {
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            userDefaults.setValue(newValue, forKey: SettingKey.userId.rawValue)
-            userDefaults.synchronize()
+            UserDefaults.standard.setValue(newValue, forKey: SettingKey.userId.rawValue)
+            UserDefaults.standard.synchronize()
         }
     }
 
     var password: String {
         get {
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            return userDefaults.valueForKey(SettingKey.password.rawValue) as? String ?? ""
+            return UserDefaults.standard.value(forKey: SettingKey.password.rawValue) as? String ?? ""
         }
         set {
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            userDefaults.setValue(newValue, forKey: SettingKey.password.rawValue)
-            userDefaults.synchronize()
+            UserDefaults.standard.setValue(newValue, forKey: SettingKey.password.rawValue)
+            UserDefaults.standard.synchronize()
         }
     }
     
     var secretToken: String {
         get {
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            return userDefaults.valueForKey(SettingKey.secretToken.rawValue) as? String ?? ""
+            return UserDefaults.standard.value(forKey: SettingKey.secretToken.rawValue) as? String ?? ""
         }
         set {
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            userDefaults.setValue(newValue, forKey: SettingKey.secretToken.rawValue)
-            userDefaults.synchronize()
+            UserDefaults.standard.setValue(newValue, forKey: SettingKey.secretToken.rawValue)
+            UserDefaults.standard.synchronize()
         }
     }
 }
