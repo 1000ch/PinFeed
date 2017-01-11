@@ -23,6 +23,6 @@ class URLNotificationManager {
     }
     
     func emit(object: AnyObject?, userInfo: [NSObject: AnyObject]?) {
-        center.post(name: NSNotification.Name(rawValue: notificationName), object: object)
+        center.post(name: NSNotification.Name(rawValue: notificationName), object: object, userInfo: userInfo)
     }
 }
