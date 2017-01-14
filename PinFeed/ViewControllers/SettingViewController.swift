@@ -26,16 +26,16 @@ class SettingViewController: UIViewController {
         
         if let notificationView = notificationView {
             notificationView.isHidden = true
-            notificationView.addTarget(self, action: #selector(self.didTapNotification), for: .touchUpInside)
+            notificationView.addTarget(self, action: #selector(didTapNotification), for: .touchUpInside)
             view?.addLayoutSubview(notificationView, andConstraints:
-                notificationView.top |==| self.view.bottom |-| 103,
+                notificationView.top |==| view.bottom |-| 103,
                 notificationView.right,
                 notificationView.left,
-                notificationView.bottom |==| self.view.bottom |-| 49
+                notificationView.bottom |==| view.bottom |-| 49
             )
         }
         
-        URLNotificationManager.sharedInstance.listen(observer: self, selector: #selector(self.didCopyURL), object: nil)
+        URLNotificationManager.sharedInstance.listen(observer: self, selector: #selector(didCopyURL), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,7 +64,7 @@ class SettingViewController: UIViewController {
             }
         }
 
-        Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.didTimeoutNotification), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(didTimeoutNotification), userInfo: nil, repeats: false)
     }
     
     func didTapNotification(sender: UIControl) {

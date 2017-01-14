@@ -32,10 +32,10 @@ class TimelineViewController: UIViewController {
             notificationView.isHidden = true
             notificationView.addTarget(self, action: #selector(didTapNotification), for: .touchUpInside)
             view?.addLayoutSubview(notificationView, andConstraints:
-                notificationView.top |==| self.view.bottom |-| 103,
+                notificationView.top |==| view.bottom |-| 103,
                 notificationView.right,
                 notificationView.left,
-                notificationView.bottom |==| self.view.bottom |-| 49
+                notificationView.bottom |==| view.bottom |-| 49
             )
         }
 

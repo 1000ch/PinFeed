@@ -31,7 +31,7 @@ class BookmarkEditTableViewController: UITableViewController {
         pageTitle.text = titleString
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(saveBookmark))
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.didTapTableView))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTableView))
         tapGesture.cancelsTouchesInView = false
         tableView.addGestureRecognizer(tapGesture)
         
@@ -85,7 +85,7 @@ class BookmarkEditTableViewController: UITableViewController {
                 return
         }
         
-        self.navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
         
         Alamofire.request(requestString).responseJSON { response in
             print(response.result)
