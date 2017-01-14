@@ -109,6 +109,9 @@ extension SettingTableViewController: UITextFieldDelegate {
                     }
                     
                     Setting.sharedInstance.secretToken = JSON(data)["result"].stringValue
+                    
+                    TimelineManager.sharedInstance.fetch {}
+                    BookmarkManager.sharedInstance.fetch {}
             }
         }
     }
