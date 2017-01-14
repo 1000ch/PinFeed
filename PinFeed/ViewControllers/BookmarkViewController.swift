@@ -40,17 +40,24 @@ class BookmarkViewController: UIViewController {
             )
         }
         
-        indicatorView.startAnimating()
-
-        refresh {
-            if self.indicatorView.isAnimating {
-                self.indicatorView.stopAnimating()
-            }
-
-            self.refreshControl.addTarget(self, action: #selector(self.didRefresh), for: UIControlEvents.valueChanged)
+        URLNotificationManager.sharedInstance.listen(observer: self, selector: #selector(didCopyURL), object: nil)
+        
+        refreshControl.addTarget(self, action: #selector(didRefresh), for: UIControlEvents.valueChanged)
+        
+        bookmark = BookmarkManager.sharedInstance.bookmark.sorted { a, b in
+            return a.date.compare(b.date).rawValue > 0
         }
-
-        URLNotificationManager.sharedInstance.listen(observer: self, selector: #selector(self.didCopyURL), object: nil)
+        
+        if bookmark.count == 0 {
+            indicatorView.startAnimating()
+            refresh {
+                if self.indicatorView.isAnimating {
+                    self.indicatorView.stopAnimating()
+                }
+            }
+        } else {
+            bookmarkTableView.reloadData()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

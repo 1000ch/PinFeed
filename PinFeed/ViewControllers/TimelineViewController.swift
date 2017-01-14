@@ -39,17 +39,25 @@ class TimelineViewController: UIViewController {
             )
         }
 
-        indicatorView.startAnimating()
-
-        refresh {
-            if self.indicatorView.isAnimating {
-                self.indicatorView.stopAnimating()
-            }
-
-            self.refreshControl.addTarget(self, action: #selector(self.didRefresh), for: UIControlEvents.valueChanged)
-        }
-        
         URLNotificationManager.sharedInstance.listen(observer: self, selector: #selector(didCopyURL), object: nil)
+        
+        refreshControl.addTarget(self, action: #selector(didRefresh), for: UIControlEvents.valueChanged)
+
+        timeline = (TimelineManager.sharedInstance.timeline +
+            BookmarkManager.sharedInstance.bookmark).sorted { a, b in
+                return a.date.compare(b.date).rawValue > 0
+        }
+
+        if timeline.count == 0 {
+            indicatorView.startAnimating()
+            refresh {
+                if self.indicatorView.isAnimating {
+                    self.indicatorView.stopAnimating()
+                }
+            }
+        } else {
+            timelineTableView.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
