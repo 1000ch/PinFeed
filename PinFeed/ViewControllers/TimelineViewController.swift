@@ -16,6 +16,10 @@ class TimelineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if traitCollection.forceTouchCapability == UIForceTouchCapability.available {
+            registerForPreviewing(with: self, sourceView: view)
+        }
+        
         title = "Timeline"
         indicatorView.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         indicatorView.activityIndicatorViewStyle = .gray
@@ -175,5 +179,28 @@ extension TimelineViewController: UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: false)
         webViewController.url = timeline[indexPath.row].url
         navigationController?.pushViewController(webViewController, animated: true)
+    }
+}
+
+extension TimelineViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let cellPosition = timelineTableView?.convert(location, from: view) else {
+            return nil
+        }
+        
+        guard let indexPath = timelineTableView.indexPathForRow(at: cellPosition) else {
+            return nil
+        }
+        
+        guard let webViewController = UIStoryboard.instantiateViewController(name: "Main", identifier: "WebViewController") as? WebViewController else {
+            return nil
+        }
+        
+        webViewController.url = timeline[indexPath.row].url
+        return webViewController
+    }
+
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 }

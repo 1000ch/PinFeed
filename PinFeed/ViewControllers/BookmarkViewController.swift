@@ -17,6 +17,10 @@ class BookmarkViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if traitCollection.forceTouchCapability == UIForceTouchCapability.available {
+            registerForPreviewing(with: self, sourceView: view)
+        }
+        
         title = "Bookmark"
         indicatorView.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
         indicatorView.activityIndicatorViewStyle = .gray
@@ -192,5 +196,28 @@ extension BookmarkViewController: UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: false)
         webViewController.url = bookmark[indexPath.row].url
         navigationController?.pushViewController(webViewController, animated: true)
+    }
+}
+
+extension BookmarkViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let cellPosition = bookmarkTableView?.convert(location, from: view) else {
+            return nil
+        }
+        
+        guard let indexPath = bookmarkTableView.indexPathForRow(at: cellPosition) else {
+            return nil
+        }
+        
+        guard let webViewController = UIStoryboard.instantiateViewController(name: "Main", identifier: "WebViewController") as? WebViewController else {
+            return nil
+        }
+        
+        webViewController.url = bookmark[indexPath.row].url
+        return webViewController
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 }
