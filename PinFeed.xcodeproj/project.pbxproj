@@ -21,7 +21,7 @@
 		C75E23A71C7AD73D00EBF80A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C75E23A51C7AD73D00EBF80A /* Main.storyboard */; };
 		C75E23A91C7AD73D00EBF80A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C75E23A81C7AD73D00EBF80A /* Assets.xcassets */; };
 		C75E23AC1C7AD73D00EBF80A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C75E23AA1C7AD73D00EBF80A /* LaunchScreen.storyboard */; };
-		C77C96051CAA2F1A00C315CF /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77C96041CAA2F1A00C315CF /* NSDateExtension.swift */; };
+		C77C96051CAA2F1A00C315CF /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77C96041CAA2F1A00C315CF /* DateExtension.swift */; };
 		C77C960A1CAA33DD00C315CF /* URLNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77C96081CAA33DD00C315CF /* URLNotificationView.swift */; };
 		C77C960B1CAA33DD00C315CF /* URLNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C77C96091CAA33DD00C315CF /* URLNotificationView.xib */; };
 		C77C960E1CAA368600C315CF /* URLNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77C960D1CAA368600C315CF /* URLNotificationManager.swift */; };
@@ -56,7 +56,7 @@
 		C75E23A81C7AD73D00EBF80A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C75E23AB1C7AD73D00EBF80A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C75E23AD1C7AD73D00EBF80A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C77C96041CAA2F1A00C315CF /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
+		C77C96041CAA2F1A00C315CF /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		C77C96081CAA33DD00C315CF /* URLNotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNotificationView.swift; sourceTree = "<group>"; };
 		C77C96091CAA33DD00C315CF /* URLNotificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = URLNotificationView.xib; sourceTree = "<group>"; };
 		C77C960D1CAA368600C315CF /* URLNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLNotificationManager.swift; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 			children = (
 				C712FE951C8EF7A9001DCB79 /* UIStoryboardExtension.swift */,
 				C7036B111CAA5CC100C6538A /* UINibExtension.swift */,
-				C77C96041CAA2F1A00C315CF /* NSDateExtension.swift */,
+				C77C96041CAA2F1A00C315CF /* DateExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -359,7 +359,7 @@
 				C7D3F05A1C7C976200FDF058 /* WebViewController.swift in Sources */,
 				C7E79C1E1CB8E55E00D26EB8 /* TimelineManager.swift in Sources */,
 				136FA1F91C833819002569D8 /* SettingTableViewController.swift in Sources */,
-				C77C96051CAA2F1A00C315CF /* NSDateExtension.swift in Sources */,
+				C77C96051CAA2F1A00C315CF /* DateExtension.swift in Sources */,
 				139D50021C874DD4008F672B /* BookmarkEditTableViewController.swift in Sources */,
 				C7D3F0541C7C93A900FDF058 /* SettingViewController.swift in Sources */,
 				C7EA46B11CB48E6F00258B3A /* Recents.swift in Sources */,

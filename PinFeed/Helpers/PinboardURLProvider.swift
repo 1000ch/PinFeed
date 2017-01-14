@@ -6,7 +6,7 @@ class PinboardURLProvider {
             let secretToken = Setting.sharedInstance.secretToken
             let userId = Setting.sharedInstance.userId
 
-            let components = NSURLComponents()
+            var components = URLComponents()
             components.scheme = "https"
             components.host = "feeds.pinboard.in"
             components.path = "/json/secret:\(secretToken)/u:\(userId)/network/"
@@ -20,7 +20,7 @@ class PinboardURLProvider {
             let secretToken = Setting.sharedInstance.secretToken
             let userId = Setting.sharedInstance.userId
 
-            let components = NSURLComponents()
+            var components = URLComponents()
             components.scheme = "https"
             components.host = "feeds.pinboard.in"
             components.path = "/json/secret:\(secretToken)/u:\(userId)/"
@@ -31,7 +31,7 @@ class PinboardURLProvider {
     
     static var apiToken: String? {
         get {
-            let components = NSURLComponents()
+            var components = URLComponents()
             components.scheme = "https"
             components.host = "api.pinboard.in"
             components.path = "/v1/user/api_token/"
@@ -44,7 +44,7 @@ class PinboardURLProvider {
     
     static var secretToken: String? {
         get {
-            let components = NSURLComponents()
+            var components = URLComponents()
             components.scheme = "https"
             components.host = "api.pinboard.in"
             components.path = "/v1/user/secret/"
@@ -56,7 +56,7 @@ class PinboardURLProvider {
     }
     
     static func getPost(tag: String?, dt: String?, url: String?, meta: Bool?) -> String? {
-        let components = NSURLComponents()
+        var components = URLComponents()
         components.scheme = "https"
         components.host = "api.pinboard.in"
         components.path = "/v1/posts/get"
@@ -79,7 +79,7 @@ class PinboardURLProvider {
     }
     
     static func addPost(url: String, description: String, extended: String?, tags: String?, dt: String?, replace: Bool?, isPrivate: Bool?, isReadLater: Bool?) -> String? {
-        let components = NSURLComponents()
+        var components = URLComponents()
         components.scheme = "https"
         components.host = "api.pinboard.in"
         components.path = "/v1/posts/add"
@@ -112,7 +112,7 @@ class PinboardURLProvider {
     }
     
     static func deletePost(url: String) -> String? {
-        let components = NSURLComponents()
+        var components = URLComponents()
         components.scheme = "https"
         components.host = "api.pinboard.in"
         components.path = "/v1/posts/delete"
