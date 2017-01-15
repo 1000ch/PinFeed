@@ -13,9 +13,10 @@ class SettingTableViewController: UITableViewController {
     enum SettingTableViewCellType: Int {
         case UserId = 0
         case Password = 1
-        case AppVersion = 2
-        case Credits = 3
-        case GitHubRepository = 4
+        case Version = 2
+        case AppStore = 3
+        case Credits = 4
+        case GitHubRepository = 5
     }
     
     override func viewDidLoad() {
@@ -54,7 +55,14 @@ class SettingTableViewController: UITableViewController {
         case .Password:
             cell.isEditing = true
             break
-        case .AppVersion:
+        case .Version:
+            break
+        case .AppStore:
+            guard let url = URL(string: "itms-apps://itunes.apple.com/app/id1090705533") else {
+                return
+            }
+
+            UIApplication.shared.openURL(url)
             break
         case .Credits:
             guard let webViewController = UIStoryboard.instantiateViewController(name: "Main", identifier: "WebViewController") as? WebViewController else {
