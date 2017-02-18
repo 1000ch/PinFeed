@@ -54,10 +54,13 @@ class BookmarkViewController: UIViewController {
         
         if bookmark.count == 0 {
             indicatorView.startAnimating()
+
             refresh {
                 if self.indicatorView.isAnimating {
                     self.indicatorView.stopAnimating()
                 }
+                
+                self.bookmarkTableView.reloadData()
             }
         } else {
             bookmarkTableView.reloadData()
@@ -80,8 +83,6 @@ class BookmarkViewController: UIViewController {
             }
             
             block?()
-
-            self.bookmarkTableView.reloadData()
         }
     }
     
@@ -90,6 +91,8 @@ class BookmarkViewController: UIViewController {
             if self.refreshControl.isRefreshing {
                 self.refreshControl.endRefreshing()
             }
+            
+            self.bookmarkTableView.reloadData()
         }
     }
     

@@ -54,10 +54,13 @@ class TimelineViewController: UIViewController {
 
         if timeline.count == 0 {
             indicatorView.startAnimating()
+            
             refresh {
                 if self.indicatorView.isAnimating {
                     self.indicatorView.stopAnimating()
                 }
+                
+                self.timelineTableView.reloadData()
             }
         } else {
             timelineTableView.reloadData()
@@ -82,8 +85,6 @@ class TimelineViewController: UIViewController {
                 }
                 
                 block?()
-
-                self.timelineTableView.reloadData()
             }
         }
     }
@@ -93,6 +94,8 @@ class TimelineViewController: UIViewController {
             if self.refreshControl.isRefreshing {
                 self.refreshControl.endRefreshing()
             }
+            
+            self.timelineTableView.reloadData()
         }
     }
     
