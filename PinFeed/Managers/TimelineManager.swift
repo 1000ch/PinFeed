@@ -27,12 +27,12 @@ class TimelineManager {
         }
     }
     
-    func fetch(block: @escaping () -> ()) {
+    func fetch(block: (() -> ())?) {
         Alamofire
             .request(PinboardURLProvider.network ?? "")
             .responseJSON { response in
                 guard let data = response.result.value else {
-                    block()
+                    block?()
                     return
                 }
                 
@@ -42,7 +42,7 @@ class TimelineManager {
                     self.timeline.append(Bookmark(json: json))
                 }
                 
-                block()
+                block?()
 
                 try! self.realm.write {
                     self.realm.delete(self.realm.objects(Recents.self))
