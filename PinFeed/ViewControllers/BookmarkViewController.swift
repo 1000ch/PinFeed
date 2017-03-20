@@ -52,9 +52,18 @@ class BookmarkViewController: UIViewController {
             return a.date.compare(b.date).rawValue > 0
         }
         
+        bookmarkTableView.reloadData()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.hidesBarsOnSwipe = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         if bookmark.count == 0 {
             indicatorView.startAnimating()
-
+            
             refresh {
                 if self.indicatorView.isAnimating {
                     self.indicatorView.stopAnimating()
@@ -62,14 +71,7 @@ class BookmarkViewController: UIViewController {
                 
                 self.bookmarkTableView.reloadData()
             }
-        } else {
-            bookmarkTableView.reloadData()
         }
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.hidesBarsOnSwipe = false
     }
 
     override func didReceiveMemoryWarning() {

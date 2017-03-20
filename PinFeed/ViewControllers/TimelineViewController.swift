@@ -52,6 +52,15 @@ class TimelineViewController: UIViewController {
                 return a.date.compare(b.date).rawValue > 0
         }
 
+        timelineTableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.hidesBarsOnSwipe = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         if timeline.count == 0 {
             indicatorView.startAnimating()
             
@@ -62,14 +71,7 @@ class TimelineViewController: UIViewController {
                 
                 self.timelineTableView.reloadData()
             }
-        } else {
-            timelineTableView.reloadData()
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.hidesBarsOnSwipe = false
     }
 
     override func didReceiveMemoryWarning() {
