@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -595,9 +595,9 @@
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="zV5-fc-f9l"/>
                                                             <exclude reference="KPj-X8-lj2"/>
                                                             <exclude reference="Z81-TB-wyZ"/>
+                                                            <exclude reference="zV5-fc-f9l"/>
                                                         </mask>
                                                     </variation>
                                                 </label>
@@ -614,10 +614,10 @@
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="8F1-Hu-gca"/>
-                                                    <exclude reference="QT9-pm-kxF"/>
-                                                    <exclude reference="MaL-Px-xhH"/>
-                                                    <exclude reference="Cxo-WD-Z3t"/>
                                                     <exclude reference="9H7-hx-ueX"/>
+                                                    <exclude reference="Cxo-WD-Z3t"/>
+                                                    <exclude reference="MaL-Px-xhH"/>
+                                                    <exclude reference="QT9-pm-kxF"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
