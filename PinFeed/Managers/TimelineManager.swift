@@ -9,21 +9,23 @@ class TimelineManager {
         }
         return Static.instance
     }
-
-    private let realm = try! Realm()
     
     var timeline: [Bookmark] = []
     
     init() {
-        for recent in realm.objects(Recents.self) {
-            timeline.append(Bookmark(
-                title: recent.d,
-                tag: recent.t,
-                url: recent.u,
-                dateTime: recent.dt,
-                author: recent.a,
-                description: recent.n
-            ))
+        autoreleasepool {
+            let realm = try! Realm()
+
+            for recent in realm.objects(Recents.self) {
+                timeline.append(Bookmark(
+                    title: recent.d,
+                    tag: recent.t,
+                    url: recent.u,
+                    dateTime: recent.dt,
+                    author: recent.a,
+                    description: recent.n
+                ))
+            }
         }
     }
     
@@ -43,11 +45,18 @@ class TimelineManager {
                 }
                 
                 block?()
+                
+                DispatchQueue.global().async {
+                    autoreleasepool {
+                        let realm = try! Realm()
 
-                try! self.realm.write {
-                    self.realm.delete(self.realm.objects(Recents.self))
-                    for timeline in self.timeline {
-                        self.realm.add(Recents(bookmark: timeline))
+                        try! realm.write {
+                            realm.delete(realm.objects(Recents.self))
+
+                            for timeline in self.timeline {
+                                realm.add(Recents(bookmark: timeline))
+                            }
+                        }
                     }
                 }
         }
@@ -55,8 +64,12 @@ class TimelineManager {
     
     func clear(block: @escaping () -> ()) {
         DispatchQueue.global().async {
-            try! self.realm.write {
-                self.realm.delete(self.realm.objects(Recents.self))
+            autoreleasepool {
+                let realm = try! Realm()
+
+                try! realm.write {
+                    realm.delete(realm.objects(Recents.self))
+                }
             }
             
             DispatchQueue.main.async {

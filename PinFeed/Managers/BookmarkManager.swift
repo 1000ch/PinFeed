@@ -9,21 +9,23 @@ class BookmarkManager {
         }
         return Static.instance
     }
-
-    private let realm = try! Realm()
     
     var bookmark: [Bookmark] = []
     
     init() {
-        for recent in realm.objects(Bookmarks.self) {
-            bookmark.append(Bookmark(
-                title: recent.d,
-                tag: recent.t,
-                url: recent.u,
-                dateTime: recent.dt,
-                author: recent.a,
-                description: recent.n
-            ))
+        autoreleasepool {
+            let realm = try! Realm()
+            
+            for recent in realm.objects(Bookmarks.self) {
+                bookmark.append(Bookmark(
+                    title: recent.d,
+                    tag: recent.t,
+                    url: recent.u,
+                    dateTime: recent.dt,
+                    author: recent.a,
+                    description: recent.n
+                ))
+            }
         }
     }
     
@@ -44,10 +46,16 @@ class BookmarkManager {
                 
                 block?()
 
-                try! self.realm.write {
-                    self.realm.delete(self.realm.objects(Bookmarks.self))
-                    for bookmark in self.bookmark {
-                        self.realm.add(Bookmarks(bookmark: bookmark))
+                DispatchQueue.global().async {
+                    autoreleasepool {
+                        let realm = try! Realm()
+
+                        try! realm.write {
+                            realm.delete(realm.objects(Bookmarks.self))
+                            for bookmark in self.bookmark {
+                                realm.add(Bookmarks(bookmark: bookmark))
+                            }
+                        }
                     }
                 }
         }
@@ -55,8 +63,12 @@ class BookmarkManager {
     
     func clear(block: @escaping () -> ()) {
         DispatchQueue.global().async {
-            try! self.realm.write {
-                self.realm.delete(self.realm.objects(Bookmarks.self))
+            autoreleasepool {
+                let realm = try! Realm()
+
+                try! realm.write {
+                    realm.delete(realm.objects(Bookmarks.self))
+                }
             }
             
             DispatchQueue.main.async {
