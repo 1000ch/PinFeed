@@ -61,6 +61,12 @@ class BookmarkEditTableViewController: UITableViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.hidesBarsOnSwipe = false
+    }
+    
     func didTapTableView(gestureRecognizer: UITapGestureRecognizer) {
         tableView.endEditing(true)
     }

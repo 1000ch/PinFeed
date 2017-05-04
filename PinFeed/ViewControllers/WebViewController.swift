@@ -18,7 +18,9 @@ class WebViewController: UIViewController {
         }
     }
     
-    var hideToolbar: Bool = false
+    var hidesToolbar: Bool = false
+
+    var hidesBarsOnSwipe: Bool = true
 
     private var webViewPropertyObserver: WebViewPropertyObserver!
     
@@ -87,17 +89,17 @@ class WebViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         let config = WKWebViewConfiguration()
         config.processPool = WKProcessPool()
         webView = WKWebView(frame: CGRect.zero, configuration: config)
         webView.uiDelegate = self
         webView.navigationDelegate = self
         webView.allowsBackForwardNavigationGestures = true
-        toolbar.isHidden = hideToolbar
-        progressView.isHidden = hideToolbar
+        toolbar.isHidden = hidesToolbar
+        progressView.isHidden = hidesToolbar
 
-        if hideToolbar {
+        if hidesToolbar {
             view.addLayoutSubview(webView, andConstraints:
                 webView.top,
                 webView.right,
@@ -135,7 +137,7 @@ class WebViewController: UIViewController {
         super.viewWillAppear(animated)
         
         tabBarController?.tabBar.isHidden = true
-        navigationController?.hidesBarsOnSwipe = true
+        navigationController?.hidesBarsOnSwipe = hidesBarsOnSwipe
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.isTranslucent = true
         webViewPropertyObserver = WebViewPropertyObserver(webView: webView, handler: handleWebViewPropertyChange)
@@ -163,7 +165,7 @@ class WebViewController: UIViewController {
     }
     
     private func updateProgressView(progress: Float) {
-        if hideToolbar {
+        if hidesToolbar {
             return
         }
 

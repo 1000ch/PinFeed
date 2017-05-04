@@ -36,6 +36,7 @@ class SettingTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         navigationController?.hidesBarsOnSwipe = false
     }
     
@@ -71,7 +72,8 @@ class SettingTableViewController: UITableViewController {
             
             tableView.deselectRow(at: indexPath, animated: false)
             webViewController.url = Bundle.main.url(forResource: "credits", withExtension: "html")
-            webViewController.hideToolbar = true
+            webViewController.hidesToolbar = true
+            webViewController.hidesBarsOnSwipe = false
             navigationController?.pushViewController(webViewController, animated: true)
             break
         case .GitHubRepository:
@@ -81,6 +83,7 @@ class SettingTableViewController: UITableViewController {
 
             tableView.deselectRow(at: indexPath, animated: false)
             webViewController.url = URL(string: "https://github.com/1000ch/PinFeed")
+            webViewController.hidesBarsOnSwipe = false
             navigationController?.pushViewController(webViewController, animated: true)
             break
         }
