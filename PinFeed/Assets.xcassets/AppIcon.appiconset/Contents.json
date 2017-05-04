@@ -37,13 +37,13 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "PinFeed@2x.png",
+      "filename" : "PinFeed-60@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "PinFeed@3x.png",
+      "filename" : "PinFeed-60@3x.png",
       "scale" : "3x"
     },
     {
@@ -95,7 +95,7 @@
     {
       "size" : "83.5x83.5",
       "idiom" : "ipad",
-      "filename" : "PinFeed-83.5@2x.png",
+      "filename" : "PinFeed83.5@2x.png",
       "scale" : "2x"
     }
   ],
