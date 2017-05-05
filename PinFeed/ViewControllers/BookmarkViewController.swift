@@ -51,8 +51,6 @@ class BookmarkViewController: UIViewController {
         bookmark = BookmarkManager.sharedInstance.bookmark.sorted { a, b in
             return a.date.compare(b.date).rawValue > 0
         }
-        
-        bookmarkTableView.reloadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -62,7 +60,11 @@ class BookmarkViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
         if bookmark.count == 0 {
+            bookmarkTableView.reloadData()
+        } else {
             indicatorView.startAnimating()
             
             refresh {

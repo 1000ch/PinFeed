@@ -51,8 +51,6 @@ class TimelineViewController: UIViewController {
             BookmarkManager.sharedInstance.bookmark).sorted { a, b in
                 return a.date.compare(b.date).rawValue > 0
         }
-
-        timelineTableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,9 +60,13 @@ class TimelineViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if timeline.count == 0 {
+        super.viewDidAppear(animated)
+
+        if timeline.count != 0 {
+            timelineTableView.reloadData()
+        } else {
             indicatorView.startAnimating()
-            
+
             refresh {
                 if self.indicatorView.isAnimating {
                     self.indicatorView.stopAnimating()
