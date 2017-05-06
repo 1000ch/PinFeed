@@ -3,16 +3,18 @@ import Alamofire
 import MisterFusion
 
 class BookmarkViewController: UIViewController {
-
+    
     @IBOutlet weak var bookmarkTableView: UITableView!
-
+    
     private let refreshControl = UIRefreshControl()
     
     private let indicatorView = UIActivityIndicatorView()
-
+    
     private let notificationView = UINib.instantiate(nibName: "URLNotificationView", ownerOrNil: BookmarkViewController.self) as? URLNotificationView
-
+    
     var bookmark: [Bookmark] = []
+    
+    var faviconCache: [URL: Data] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -191,7 +193,13 @@ extension BookmarkViewController: UITableViewDataSource {
         cell.faviconImageView?.image = nil
         if let faviconURL = URL(string: "https://www.google.com/s2/favicons?domain=\(data.url.absoluteString)") {
             DispatchQueue.global().async {
-                if let faviconData = try? Data(contentsOf: faviconURL) {
+                if let cachedData = self.faviconCache[faviconURL] {
+                    DispatchQueue.main.async {
+                        cell.faviconImageView?.image = UIImage(data: cachedData)
+                    }
+                } else if let faviconData = try? Data(contentsOf: faviconURL) {
+                    self.faviconCache[faviconURL] = faviconData
+
                     DispatchQueue.main.async {
                         cell.faviconImageView?.image = UIImage(data: faviconData)
                     }
