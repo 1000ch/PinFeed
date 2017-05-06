@@ -29,12 +29,14 @@ class BookmarkManager {
         }
     }
     
-    func fetch(block: (() -> ())?) {
+    func fetch(group: DispatchGroup?) {
+        group?.enter()
+
         Alamofire
             .request(PinboardURLProvider.bookmark ?? "")
-            .responseJSON { response in
+            .responseJSON(queue: .global()) { response in
                 guard let data = response.result.value else {
-                    block?()
+                    group?.leave()
                     return
                 }
                 
@@ -44,35 +46,29 @@ class BookmarkManager {
                     self.bookmark.append(Bookmark(json: json))
                 }
                 
-                block?()
-
-                DispatchQueue.global().async {
-                    autoreleasepool {
-                        let realm = try! Realm()
-
-                        try! realm.write {
-                            realm.delete(realm.objects(Bookmarks.self))
-                            for bookmark in self.bookmark {
-                                realm.add(Bookmarks(bookmark: bookmark))
-                            }
-                        }
-                    }
+                group?.leave()
+            }
+    }
+    
+    func sync() {
+        autoreleasepool {
+            let realm = try! Realm()
+            
+            try! realm.write {
+                realm.delete(realm.objects(Bookmarks.self))
+                for bookmark in self.bookmark {
+                    realm.add(Bookmarks(bookmark: bookmark))
                 }
+            }
         }
     }
     
-    func clear(block: @escaping () -> ()) {
-        DispatchQueue.global().async {
-            autoreleasepool {
-                let realm = try! Realm()
+    func clear() {
+        autoreleasepool {
+            let realm = try! Realm()
 
-                try! realm.write {
-                    realm.delete(realm.objects(Bookmarks.self))
-                }
-            }
-            
-            DispatchQueue.main.async {
-                block()
+            try! realm.write {
+                realm.delete(realm.objects(Bookmarks.self))
             }
         }
     }

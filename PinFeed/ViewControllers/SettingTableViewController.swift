@@ -114,15 +114,23 @@ extension SettingTableViewController: UITextFieldDelegate {
         if !userIdString.isEmpty && !passwordString.isEmpty {
             Alamofire
                 .request(PinboardURLProvider.secretToken ?? "")
-                .responseJSON { response in
+                .responseJSON(queue: .global()) { response in
                     guard let data = response.result.value else {
                         return
                     }
                     
                     Setting.sharedInstance.secretToken = JSON(data)["result"].stringValue
                     
-                    TimelineManager.sharedInstance.fetch {}
-                    BookmarkManager.sharedInstance.fetch {}
+                    let concurrent = DispatchGroup()
+                    TimelineManager.sharedInstance.fetch(group: concurrent)
+                    BookmarkManager.sharedInstance.fetch(group: concurrent)
+                    
+                    concurrent.notify(queue: .global()) {
+                        DispatchQueue.global().async {
+                            TimelineManager.sharedInstance.sync()
+                            BookmarkManager.sharedInstance.sync()
+                        }
+                    }
             }
         }
     }

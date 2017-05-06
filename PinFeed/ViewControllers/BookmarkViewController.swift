@@ -82,12 +82,19 @@ class BookmarkViewController: UIViewController {
     }
     
     func refresh(block: (() -> ())?) {
-        BookmarkManager.sharedInstance.fetch {
+        let concurrent = DispatchGroup()
+        BookmarkManager.sharedInstance.fetch(group: concurrent)
+
+        concurrent.notify(queue: .global()) {
             self.bookmark = BookmarkManager.sharedInstance.bookmark.sorted { a, b in
                 return a.date.compare(b.date).rawValue > 0
             }
             
             block?()
+            
+            DispatchQueue.global().async {
+                BookmarkManager.sharedInstance.sync()
+            }
         }
     }
     

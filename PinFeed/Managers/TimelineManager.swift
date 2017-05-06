@@ -29,12 +29,14 @@ class TimelineManager {
         }
     }
     
-    func fetch(block: (() -> ())?) {
+    func fetch(group: DispatchGroup?) {
+        group?.enter()
+
         Alamofire
             .request(PinboardURLProvider.network ?? "")
-            .responseJSON { response in
+            .responseJSON(queue: .global()) { response in
                 guard let data = response.result.value else {
-                    block?()
+                    group?.leave()
                     return
                 }
                 
@@ -44,36 +46,30 @@ class TimelineManager {
                     self.timeline.append(Bookmark(json: json))
                 }
                 
-                block?()
-                
-                DispatchQueue.global().async {
-                    autoreleasepool {
-                        let realm = try! Realm()
-
-                        try! realm.write {
-                            realm.delete(realm.objects(Recents.self))
-
-                            for timeline in self.timeline {
-                                realm.add(Recents(bookmark: timeline))
-                            }
-                        }
-                    }
-                }
+                group?.leave()
         }
     }
     
-    func clear(block: @escaping () -> ()) {
-        DispatchQueue.global().async {
-            autoreleasepool {
-                let realm = try! Realm()
-
-                try! realm.write {
-                    realm.delete(realm.objects(Recents.self))
+    func sync() {
+        autoreleasepool {
+            let realm = try! Realm()
+            
+            try! realm.write {
+                realm.delete(realm.objects(Recents.self))
+                
+                for timeline in self.timeline {
+                    realm.add(Recents(bookmark: timeline))
                 }
             }
+        }
+    }
+    
+    func clear() {
+        autoreleasepool {
+            let realm = try! Realm()
             
-            DispatchQueue.main.async {
-                block()
+            try! realm.write {
+                realm.delete(realm.objects(Recents.self))
             }
         }
     }

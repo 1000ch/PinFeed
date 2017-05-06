@@ -82,14 +82,21 @@ class TimelineViewController: UIViewController {
     }
     
     func refresh(block: (() -> ())?) {
-        TimelineManager.sharedInstance.fetch {
-            BookmarkManager.sharedInstance.fetch {
-                self.timeline = (TimelineManager.sharedInstance.timeline +
-                                 BookmarkManager.sharedInstance.bookmark).sorted { a, b in
+        let concurrent = DispatchGroup()
+        TimelineManager.sharedInstance.fetch(group: concurrent)
+        BookmarkManager.sharedInstance.fetch(group: concurrent)
+        
+        concurrent.notify(queue: .global()) {
+            self.timeline = (TimelineManager.sharedInstance.timeline +
+                BookmarkManager.sharedInstance.bookmark).sorted { a, b in
                     return a.date.compare(b.date).rawValue > 0
-                }
-                
-                block?()
+            }
+            
+            block?()
+            
+            DispatchQueue.global().async {
+                TimelineManager.sharedInstance.sync()
+                BookmarkManager.sharedInstance.sync()
             }
         }
     }
