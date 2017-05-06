@@ -65,6 +65,10 @@ class BookmarkViewController: UIViewController {
         super.viewDidAppear(animated)
 
         if bookmark.count == 0 {
+            if self.indicatorView.isAnimating {
+                self.indicatorView.stopAnimating()
+            }
+
             bookmarkTableView.reloadData()
         } else {
             indicatorView.startAnimating()
@@ -92,7 +96,9 @@ class BookmarkViewController: UIViewController {
                 return a.date.compare(b.date).rawValue > 0
             }
             
-            block?()
+            DispatchQueue.main.async {
+                block?()
+            }
             
             DispatchQueue.global().async {
                 BookmarkManager.sharedInstance.sync()
@@ -122,6 +128,7 @@ class BookmarkViewController: UIViewController {
         notificationView.isHidden = false
         notificationView.url = url
         notificationView.urlLabel.text = url.absoluteString
+
         if let faviconURL = URL(string: "https://www.google.com/s2/favicons?domain=\(url.absoluteString)") {
             DispatchQueue.global().async {
                 if let faviconData = try? Data(contentsOf: faviconURL) {
@@ -155,21 +162,21 @@ class BookmarkViewController: UIViewController {
 }
 
 extension BookmarkViewController: UITableViewDelegate {
-    @objc(tableView:canFocusRowAtIndexPath:) func tableView(_ canFocusRowAttableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    private func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let urlString = bookmark[indexPath.row].url.absoluteString
-
+            
             guard let requestString = PinboardURLProvider.deletePost(url: urlString) else {
                 return
             }
-
+            
             self.bookmark.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            Alamofire.request(requestString).responseJSON { response in
+            Alamofire.request(requestString).responseJSON(queue: .global()) { response in
                 print(response.result)
             }
         }
@@ -191,6 +198,9 @@ extension BookmarkViewController: UITableViewDataSource {
         cell.authorLabel?.text = data.author
         cell.dateTimeLabel?.text = data.relativeDateTime
         cell.faviconImageView?.image = nil
+        cell.descriptionLabel?.text = data.description
+        cell.titleLabel?.text = data.title
+
         if let faviconURL = URL(string: "https://www.google.com/s2/favicons?domain=\(data.url.absoluteString)") {
             DispatchQueue.global().async {
                 if let cachedData = self.faviconCache[faviconURL] {
@@ -206,8 +216,7 @@ extension BookmarkViewController: UITableViewDataSource {
                 }
             }
         }
-        cell.descriptionLabel?.text = data.description
-        cell.titleLabel?.text = data.title
+
         return cell
     }
     

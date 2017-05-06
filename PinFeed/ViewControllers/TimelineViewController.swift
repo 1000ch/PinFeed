@@ -65,6 +65,10 @@ class TimelineViewController: UIViewController {
         super.viewDidAppear(animated)
 
         if timeline.count != 0 {
+            if indicatorView.isAnimating {
+                indicatorView.stopAnimating()
+            }
+
             timelineTableView.reloadData()
         } else {
             indicatorView.startAnimating()
@@ -94,7 +98,9 @@ class TimelineViewController: UIViewController {
                     return a.date.compare(b.date).rawValue > 0
             }
             
-            block?()
+            DispatchQueue.main.async {
+                block?()
+            }            
             
             DispatchQueue.global().async {
                 TimelineManager.sharedInstance.sync()
@@ -125,6 +131,7 @@ class TimelineViewController: UIViewController {
         notificationView.isHidden = false
         notificationView.url = url
         notificationView.urlLabel.text = url.absoluteString
+
         if let faviconURL = URL(string: "https://www.google.com/s2/favicons?domain=\(url.absoluteString)") {
             DispatchQueue.global().async {
                 if let faviconData = try? Data(contentsOf: faviconURL) {
@@ -174,6 +181,9 @@ extension TimelineViewController: UITableViewDataSource {
         cell.authorLabel?.text = data.author
         cell.dateTimeLabel?.text = data.relativeDateTime
         cell.faviconImageView?.image = nil
+        cell.descriptionLabel?.text = data.description
+        cell.titleLabel?.text = data.title
+
         if let faviconURL = URL(string: "https://www.google.com/s2/favicons?domain=\(data.url.absoluteString)") {
             DispatchQueue.global().async {
                 if let cachedData = self.faviconCache[faviconURL] {
@@ -189,8 +199,7 @@ extension TimelineViewController: UITableViewDataSource {
                 }
             }
         }
-        cell.descriptionLabel?.text = data.description
-        cell.titleLabel?.text = data.title
+
         return cell
     }
     
