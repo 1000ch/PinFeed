@@ -13,6 +13,12 @@ class TimelineViewController: UIViewController {
     
     var timeline: [Bookmark] = []
     
+    var timelineDisplayed: [Bookmark] = []
+    
+    var limit: Int {
+        return timeline.count >= 50 ? 50 : timeline.count
+    }
+
     var faviconCache: [URL: Data] = [:]
     
     override func viewDidLoad() {
@@ -68,8 +74,8 @@ class TimelineViewController: UIViewController {
             if indicatorView.isAnimating {
                 indicatorView.stopAnimating()
             }
-
-            timelineTableView.reloadData()
+            
+            loadNext(clear: true)
         } else {
             indicatorView.startAnimating()
 
@@ -78,13 +84,25 @@ class TimelineViewController: UIViewController {
                     self.indicatorView.stopAnimating()
                 }
                 
-                self.timelineTableView.reloadData()
+                self.loadNext(clear: true)
             }
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func loadNext(clear: Bool) {
+        DispatchQueue.main.async {
+            if clear {
+                self.timelineDisplayed.removeAll()
+            }
+
+            self.timelineDisplayed.append(contentsOf: self.timeline[0..<self.limit])
+            self.timeline.removeFirst(self.limit)
+            self.timelineTableView.reloadData()
+        }
     }
     
     func refresh(block: (() -> ())?) {
@@ -98,14 +116,12 @@ class TimelineViewController: UIViewController {
                     return a.date.compare(b.date).rawValue > 0
             }
             
-            DispatchQueue.main.async {
-                block?()
-            }            
-            
             DispatchQueue.global().async {
                 TimelineManager.sharedInstance.sync()
                 BookmarkManager.sharedInstance.sync()
             }
+            
+            block?()
         }
     }
     
@@ -115,7 +131,7 @@ class TimelineViewController: UIViewController {
                 self.refreshControl.endRefreshing()
             }
             
-            self.timelineTableView.reloadData()
+            self.loadNext(clear: true)
         }
     }
     
@@ -164,7 +180,25 @@ class TimelineViewController: UIViewController {
     }
 }
 
-extension TimelineViewController: UITableViewDelegate {}
+extension TimelineViewController: UITableViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !timelineTableView.isDragging {
+            return
+        }
+        
+        if timeline.count == 0 {
+            return
+        }
+        
+        let offsetY = timelineTableView.contentOffset.y
+        let contentHeight = timelineTableView.contentSize.height
+        let frameHeight = timelineTableView.bounds.size.height
+        
+        if offsetY >= contentHeight - frameHeight {
+            loadNext(clear: false)
+        }
+    }
+}
 
 extension TimelineViewController: UITableViewDataSource {
     private func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -172,11 +206,11 @@ extension TimelineViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return timeline.count
+        return timelineDisplayed.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = timeline[indexPath.row]
+        let data = timelineDisplayed[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "data", for: indexPath) as! BookmarkCell
         cell.authorLabel?.text = data.author
         cell.dateTimeLabel?.text = data.relativeDateTime
@@ -209,7 +243,7 @@ extension TimelineViewController: UITableViewDataSource {
         }
         
         tableView.deselectRow(at: indexPath, animated: false)
-        webViewController.url = timeline[indexPath.row].url
+        webViewController.url = timelineDisplayed[indexPath.row].url
         navigationController?.pushViewController(webViewController, animated: true)
     }
 }
@@ -228,7 +262,7 @@ extension TimelineViewController: UIViewControllerPreviewingDelegate {
             return nil
         }
         
-        webViewController.url = timeline[indexPath.row].url
+        webViewController.url = timelineDisplayed[indexPath.row].url
         return webViewController
     }
 

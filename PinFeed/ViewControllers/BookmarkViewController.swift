@@ -14,6 +14,12 @@ class BookmarkViewController: UIViewController {
     
     var bookmark: [Bookmark] = []
     
+    var bookmarkDisplayed: [Bookmark] = []
+    
+    var limit: Int {
+        return bookmark.count >= 50 ? 50 : bookmark.count
+    }
+
     var faviconCache: [URL: Data] = [:]
     
     override func viewDidLoad() {
@@ -64,12 +70,12 @@ class BookmarkViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if bookmark.count == 0 {
+        if bookmark.count != 0 {
             if self.indicatorView.isAnimating {
                 self.indicatorView.stopAnimating()
             }
 
-            bookmarkTableView.reloadData()
+            loadNext(clear: true)
         } else {
             indicatorView.startAnimating()
             
@@ -78,13 +84,25 @@ class BookmarkViewController: UIViewController {
                     self.indicatorView.stopAnimating()
                 }
                 
-                self.bookmarkTableView.reloadData()
+                self.loadNext(clear: true)
             }
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func loadNext(clear: Bool) {
+        DispatchQueue.main.async {
+            if (clear) {
+                self.bookmarkDisplayed.removeAll()
+            }
+
+            self.bookmarkDisplayed.append(contentsOf: self.bookmark[0..<self.limit])
+            self.bookmark.removeFirst(self.limit)
+            self.bookmarkTableView.reloadData()
+        }
     }
     
     func refresh(block: (() -> ())?) {
@@ -96,13 +114,11 @@ class BookmarkViewController: UIViewController {
                 return a.date.compare(b.date).rawValue > 0
             }
             
-            DispatchQueue.main.async {
-                block?()
-            }
-            
             DispatchQueue.global().async {
                 BookmarkManager.sharedInstance.sync()
             }
+            
+            block?()
         }
     }
     
@@ -112,7 +128,7 @@ class BookmarkViewController: UIViewController {
                 self.refreshControl.endRefreshing()
             }
             
-            self.bookmarkTableView.reloadData()
+            self.loadNext(clear: true)
         }
     }
     
@@ -168,17 +184,35 @@ extension BookmarkViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let urlString = bookmark[indexPath.row].url.absoluteString
+            let urlString = bookmarkDisplayed[indexPath.row].url.absoluteString
             
             guard let requestString = PinboardURLProvider.deletePost(url: urlString) else {
                 return
             }
             
-            self.bookmark.remove(at: indexPath.row)
+            self.bookmarkDisplayed.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             Alamofire.request(requestString).responseJSON(queue: .global()) { response in
                 print(response.result)
             }
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !bookmarkTableView.isDragging {
+            return
+        }
+        
+        if bookmark.count == 0 {
+            return
+        }
+        
+        let contentHeight = scrollView.contentSize.height
+        let frameHeight = scrollView.frame.size.height
+        let offsetY = scrollView.contentOffset.y
+        
+        if offsetY + frameHeight > contentHeight {
+            loadNext(clear: false)
         }
     }
 }
@@ -189,11 +223,11 @@ extension BookmarkViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookmark.count
+        return bookmarkDisplayed.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = bookmark[indexPath.row]
+        let data = bookmarkDisplayed[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "data", for: indexPath) as! BookmarkCell
         cell.authorLabel?.text = data.author
         cell.dateTimeLabel?.text = data.relativeDateTime
@@ -226,7 +260,7 @@ extension BookmarkViewController: UITableViewDataSource {
         }
         
         tableView.deselectRow(at: indexPath, animated: false)
-        webViewController.url = bookmark[indexPath.row].url
+        webViewController.url = bookmarkDisplayed[indexPath.row].url
         navigationController?.pushViewController(webViewController, animated: true)
     }
 }
@@ -245,7 +279,7 @@ extension BookmarkViewController: UIViewControllerPreviewingDelegate {
             return nil
         }
         
-        webViewController.url = bookmark[indexPath.row].url
+        webViewController.url = bookmarkDisplayed[indexPath.row].url
         return webViewController
     }
     
