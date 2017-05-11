@@ -3,8 +3,8 @@ import Foundation
 class PinboardURLProvider {
     static var network: String? {
         get {
-            let secretToken = Setting.sharedInstance.secretToken
-            let userId = Setting.sharedInstance.userId
+            let secretToken = Setting.shared.secretToken
+            let userId = Setting.shared.userId
 
             var components = URLComponents()
             components.scheme = "https"
@@ -17,8 +17,8 @@ class PinboardURLProvider {
     
     static var bookmark: String? {
         get {
-            let secretToken = Setting.sharedInstance.secretToken
-            let userId = Setting.sharedInstance.userId
+            let secretToken = Setting.shared.secretToken
+            let userId = Setting.shared.userId
 
             var components = URLComponents()
             components.scheme = "https"
@@ -35,8 +35,8 @@ class PinboardURLProvider {
             components.scheme = "https"
             components.host = "api.pinboard.in"
             components.path = "/v1/user/api_token/"
-            components.user = Setting.sharedInstance.userId
-            components.password = Setting.sharedInstance.password
+            components.user = Setting.shared.userId
+            components.password = Setting.shared.password
             components.queryItems = [URLQueryItem(name: "format", value: "json")]
             return components.string
         }
@@ -48,8 +48,8 @@ class PinboardURLProvider {
             components.scheme = "https"
             components.host = "api.pinboard.in"
             components.path = "/v1/user/secret/"
-            components.user = Setting.sharedInstance.userId
-            components.password = Setting.sharedInstance.password
+            components.user = Setting.shared.userId
+            components.password = Setting.shared.password
             components.queryItems = [URLQueryItem(name: "format", value: "json")]
             return components.string
         }
@@ -60,8 +60,8 @@ class PinboardURLProvider {
         components.scheme = "https"
         components.host = "api.pinboard.in"
         components.path = "/v1/posts/get"
-        components.user = Setting.sharedInstance.userId
-        components.password = Setting.sharedInstance.password
+        components.user = Setting.shared.userId
+        components.password = Setting.shared.password
         components.queryItems = [URLQueryItem(name: "format", value: "json")]
         if let tag = tag {
             components.queryItems?.append(URLQueryItem(name: "tag", value: tag))
@@ -83,8 +83,8 @@ class PinboardURLProvider {
         components.scheme = "https"
         components.host = "api.pinboard.in"
         components.path = "/v1/posts/add"
-        components.user = Setting.sharedInstance.userId
-        components.password = Setting.sharedInstance.password
+        components.user = Setting.shared.userId
+        components.password = Setting.shared.password
         components.queryItems = [
             URLQueryItem(name: "format", value: "json"),
             URLQueryItem(name: "url", value: url),
@@ -116,8 +116,8 @@ class PinboardURLProvider {
         components.scheme = "https"
         components.host = "api.pinboard.in"
         components.path = "/v1/posts/delete"
-        components.user = Setting.sharedInstance.userId
-        components.password = Setting.sharedInstance.password
+        components.user = Setting.shared.userId
+        components.password = Setting.shared.password
         components.queryItems = [
             URLQueryItem(name: "format", value: "json"),
             URLQueryItem(name: "url", value: url)

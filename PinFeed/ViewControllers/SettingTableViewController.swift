@@ -25,8 +25,8 @@ class SettingTableViewController: UITableViewController {
         userId.delegate = self
         password.delegate = self
 
-        userId.text = Setting.sharedInstance.userId
-        password.text = Setting.sharedInstance.password
+        userId.text = Setting.shared.userId
+        password.text = Setting.shared.password
         appVersion.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTableView))
@@ -99,17 +99,17 @@ extension SettingTableViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
         case userId:
-            Setting.sharedInstance.userId = textField.text ?? ""
+            Setting.shared.userId = textField.text ?? ""
             break
         case password:
-            Setting.sharedInstance.password = textField.text ?? ""
+            Setting.shared.password = textField.text ?? ""
             break
         default:
             break
         }
         
-        let userIdString = Setting.sharedInstance.userId
-        let passwordString = Setting.sharedInstance.password
+        let userIdString = Setting.shared.userId
+        let passwordString = Setting.shared.password
         
         if !userIdString.isEmpty && !passwordString.isEmpty {
             Alamofire
@@ -119,16 +119,16 @@ extension SettingTableViewController: UITextFieldDelegate {
                         return
                     }
                     
-                    Setting.sharedInstance.secretToken = JSON(data)["result"].stringValue
+                    Setting.shared.secretToken = JSON(data)["result"].stringValue
                     
                     let concurrent = DispatchGroup()
-                    TimelineManager.sharedInstance.fetch(group: concurrent)
-                    BookmarkManager.sharedInstance.fetch(group: concurrent)
+                    TimelineManager.shared.fetch(group: concurrent)
+                    BookmarkManager.shared.fetch(group: concurrent)
                     
                     concurrent.notify(queue: .global()) {
                         DispatchQueue.global().async {
-                            TimelineManager.sharedInstance.sync()
-                            BookmarkManager.sharedInstance.sync()
+                            TimelineManager.shared.sync()
+                            BookmarkManager.shared.sync()
                         }
                     }
             }
@@ -138,17 +138,17 @@ extension SettingTableViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case userId:
-            Setting.sharedInstance.userId = textField.text ?? ""
+            Setting.shared.userId = textField.text ?? ""
             break
         case password:
-            Setting.sharedInstance.password = textField.text ?? ""
+            Setting.shared.password = textField.text ?? ""
             break
         default:
             break
         }
         
-        let userIdString = Setting.sharedInstance.userId
-        let passwordString = Setting.sharedInstance.password
+        let userIdString = Setting.shared.userId
+        let passwordString = Setting.shared.password
         
         if !userIdString.isEmpty && !passwordString.isEmpty {
             Alamofire
@@ -158,7 +158,7 @@ extension SettingTableViewController: UITextFieldDelegate {
                         return
                     }
                     
-                    Setting.sharedInstance.secretToken = JSON(data)["result"].stringValue
+                    Setting.shared.secretToken = JSON(data)["result"].stringValue
                 }
         }
         

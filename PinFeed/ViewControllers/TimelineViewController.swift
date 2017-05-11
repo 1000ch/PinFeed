@@ -51,12 +51,12 @@ class TimelineViewController: UIViewController {
             )
         }
 
-        URLNotificationManager.sharedInstance.listen(observer: self, selector: #selector(didCopyURL), object: nil)
+        URLNotificationManager.shared.listen(observer: self, selector: #selector(didCopyURL), object: nil)
         
         refreshControl.addTarget(self, action: #selector(didRefresh), for: UIControlEvents.valueChanged)
 
-        timeline = (TimelineManager.sharedInstance.timeline +
-            BookmarkManager.sharedInstance.bookmark).sorted { a, b in
+        timeline = (TimelineManager.shared.timeline +
+            BookmarkManager.shared.bookmark).sorted { a, b in
                 return a.date.compare(b.date).rawValue > 0
         }
     }
@@ -107,18 +107,18 @@ class TimelineViewController: UIViewController {
     
     func refresh(block: (() -> ())?) {
         let concurrent = DispatchGroup()
-        TimelineManager.sharedInstance.fetch(group: concurrent)
-        BookmarkManager.sharedInstance.fetch(group: concurrent)
+        TimelineManager.shared.fetch(group: concurrent)
+        BookmarkManager.shared.fetch(group: concurrent)
         
         concurrent.notify(queue: .global()) {
-            self.timeline = (TimelineManager.sharedInstance.timeline +
-                BookmarkManager.sharedInstance.bookmark).sorted { a, b in
+            self.timeline = (TimelineManager.shared.timeline +
+                BookmarkManager.shared.bookmark).sorted { a, b in
                     return a.date.compare(b.date).rawValue > 0
             }
             
             DispatchQueue.global().async {
-                TimelineManager.sharedInstance.sync()
-                BookmarkManager.sharedInstance.sync()
+                TimelineManager.shared.sync()
+                BookmarkManager.shared.sync()
             }
             
             block?()

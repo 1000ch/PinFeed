@@ -35,7 +35,7 @@ class SettingViewController: UIViewController {
             )
         }
         
-        URLNotificationManager.sharedInstance.listen(observer: self, selector: #selector(didCopyURL), object: nil)
+        URLNotificationManager.shared.listen(observer: self, selector: #selector(didCopyURL), object: nil)
     }
     
     override func didReceiveMemoryWarning() {

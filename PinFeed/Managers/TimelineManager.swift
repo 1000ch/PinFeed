@@ -3,12 +3,7 @@ import SwiftyJSON
 import RealmSwift
 
 class TimelineManager {
-    class var sharedInstance: TimelineManager {
-        struct Static {
-            static let instance = TimelineManager()
-        }
-        return Static.instance
-    }
+    static let shared = TimelineManager()
     
     var timeline: [Bookmark] = []
     

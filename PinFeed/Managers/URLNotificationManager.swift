@@ -1,12 +1,7 @@
 import Foundation
 
 class URLNotificationManager {
-    class var sharedInstance: URLNotificationManager {
-        struct Static {
-            static let instance = URLNotificationManager()
-        }
-        return Static.instance
-    }
+    static let shared = URLNotificationManager()
     
     let notificationName = "url-notification"
     

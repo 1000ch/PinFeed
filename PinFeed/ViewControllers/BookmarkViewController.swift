@@ -52,11 +52,11 @@ class BookmarkViewController: UIViewController {
             )
         }
         
-        URLNotificationManager.sharedInstance.listen(observer: self, selector: #selector(didCopyURL), object: nil)
+        URLNotificationManager.shared.listen(observer: self, selector: #selector(didCopyURL), object: nil)
         
         refreshControl.addTarget(self, action: #selector(didRefresh), for: UIControlEvents.valueChanged)
         
-        bookmark = BookmarkManager.sharedInstance.bookmark.sorted { a, b in
+        bookmark = BookmarkManager.shared.bookmark.sorted { a, b in
             return a.date.compare(b.date).rawValue > 0
         }
     }
@@ -107,15 +107,15 @@ class BookmarkViewController: UIViewController {
     
     func refresh(block: (() -> ())?) {
         let concurrent = DispatchGroup()
-        BookmarkManager.sharedInstance.fetch(group: concurrent)
+        BookmarkManager.shared.fetch(group: concurrent)
 
         concurrent.notify(queue: .global()) {
-            self.bookmark = BookmarkManager.sharedInstance.bookmark.sorted { a, b in
+            self.bookmark = BookmarkManager.shared.bookmark.sorted { a, b in
                 return a.date.compare(b.date).rawValue > 0
             }
             
             DispatchQueue.global().async {
-                BookmarkManager.sharedInstance.sync()
+                BookmarkManager.shared.sync()
             }
             
             block?()

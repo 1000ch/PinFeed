@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         
-        URLNotificationManager.sharedInstance.emit(object: self, userInfo: ["url" as NSObject: url as AnyObject])
+        URLNotificationManager.shared.emit(object: self, userInfo: ["url" as NSObject: url as AnyObject])
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

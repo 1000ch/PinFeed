@@ -1,12 +1,7 @@
 import Foundation
 
 class Setting {
-    class var sharedInstance: Setting {
-        struct Static {
-            static let instance = Setting()
-        }
-        return Static.instance
-    }
+    static let shared = Setting()
     
     enum SettingKey: String {
         case userId = "userId"
