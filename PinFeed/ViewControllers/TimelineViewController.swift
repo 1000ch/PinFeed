@@ -18,6 +18,8 @@ class TimelineViewController: UIViewController {
     var limit: Int {
         return timeline.count >= 50 ? 50 : timeline.count
     }
+    
+    var isLoading = false
 
     var faviconCache: [URL: Data] = [:]
     
@@ -93,15 +95,36 @@ class TimelineViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    func loadNext(clear: Bool) {
+    func loadNext(clear: Bool = false) {
+        if isLoading {
+            return
+        }
+        
+        isLoading = true
+
         DispatchQueue.main.async {
             if clear {
                 self.timelineDisplayed.removeAll()
             }
 
+            var insertList: [IndexPath] = [];
+            let from = self.timelineDisplayed.count
+            let to = self.timelineDisplayed.count + self.limit
+            
+            for i in from..<to {
+                insertList.append(IndexPath(row: i, section: 0))
+            }
+
             self.timelineDisplayed.append(contentsOf: self.timeline[0..<self.limit])
             self.timeline.removeFirst(self.limit)
-            self.timelineTableView.reloadData()
+            
+            if clear {
+                self.timelineTableView.reloadData()
+            } else {
+                self.timelineTableView.insertRows(at: insertList, with: .none)
+            }
+            
+            self.isLoading = false
         }
     }
     
@@ -181,8 +204,8 @@ class TimelineViewController: UIViewController {
 }
 
 extension TimelineViewController: UITableViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if !timelineTableView.isDragging {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if isLoading {
             return
         }
         
@@ -190,13 +213,11 @@ extension TimelineViewController: UITableViewDelegate {
             return
         }
         
-        let offsetY = timelineTableView.contentOffset.y
-        let contentHeight = timelineTableView.contentSize.height
-        let frameHeight = timelineTableView.bounds.size.height
-        
-        if offsetY >= contentHeight - frameHeight {
-            loadNext(clear: false)
+        if indexPath.row != timelineDisplayed.count - 1 {
+            return
         }
+        
+        loadNext()
     }
 }
 

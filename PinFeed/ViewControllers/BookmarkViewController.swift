@@ -19,6 +19,8 @@ class BookmarkViewController: UIViewController {
     var limit: Int {
         return bookmark.count >= 50 ? 50 : bookmark.count
     }
+    
+    var isLoading = false
 
     var faviconCache: [URL: Data] = [:]
     
@@ -93,15 +95,36 @@ class BookmarkViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    func loadNext(clear: Bool) {
+    func loadNext(clear: Bool = false) {
+        if isLoading {
+            return
+        }
+        
+        isLoading = true
+
         DispatchQueue.main.async {
-            if (clear) {
+            if clear {
                 self.bookmarkDisplayed.removeAll()
+            }
+            
+            var insertList: [IndexPath] = [];
+            let from = self.bookmarkDisplayed.count
+            let to = self.bookmarkDisplayed.count + self.limit
+            
+            for i in from..<to {
+                insertList.append(IndexPath(row: i, section: 0))
             }
 
             self.bookmarkDisplayed.append(contentsOf: self.bookmark[0..<self.limit])
             self.bookmark.removeFirst(self.limit)
-            self.bookmarkTableView.reloadData()
+            
+            if clear {
+                self.bookmarkTableView.reloadData()
+            } else {
+                self.bookmarkTableView.insertRows(at: insertList, with: .none)
+            }
+            
+            self.isLoading = false
         }
     }
     
@@ -198,8 +221,8 @@ extension BookmarkViewController: UITableViewDelegate {
         }
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if !bookmarkTableView.isDragging {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if isLoading {
             return
         }
         
@@ -207,13 +230,11 @@ extension BookmarkViewController: UITableViewDelegate {
             return
         }
         
-        let contentHeight = scrollView.contentSize.height
-        let frameHeight = scrollView.frame.size.height
-        let offsetY = scrollView.contentOffset.y
-        
-        if offsetY + frameHeight > contentHeight {
-            loadNext(clear: false)
+        if indexPath.row != bookmarkDisplayed.count - 1 {
+            return
         }
+        
+        loadNext()
     }
 }
 
