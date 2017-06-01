@@ -61,22 +61,12 @@ class BookmarkViewController: UIViewController {
         bookmark = BookmarkManager.shared.bookmark.sorted { a, b in
             return a.date.compare(b.date).rawValue > 0
         }
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        navigationController?.hidesBarsOnSwipe = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
+        
         if bookmark.count != 0 {
             if self.indicatorView.isAnimating {
                 self.indicatorView.stopAnimating()
             }
-
+            
             loadNext(clear: true)
         } else {
             indicatorView.startAnimating()
@@ -90,9 +80,11 @@ class BookmarkViewController: UIViewController {
             }
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        navigationController?.hidesBarsOnSwipe = false
     }
     
     func loadNext(clear: Bool = false) {
@@ -192,6 +184,7 @@ class BookmarkViewController: UIViewController {
         
         notificationView.isHidden = true
         webViewController.url = notificationView.url
+
         navigationController?.pushViewController(webViewController, animated: true)
     }
     
@@ -282,6 +275,7 @@ extension BookmarkViewController: UITableViewDataSource {
         
         tableView.deselectRow(at: indexPath, animated: false)
         webViewController.url = bookmarkDisplayed[indexPath.row].url
+
         navigationController?.pushViewController(webViewController, animated: true)
     }
 }
@@ -301,6 +295,7 @@ extension BookmarkViewController: UIViewControllerPreviewingDelegate {
         }
         
         webViewController.url = bookmarkDisplayed[indexPath.row].url
+
         return webViewController
     }
     

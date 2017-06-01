@@ -38,10 +38,6 @@ class SettingViewController: UIViewController {
         URLNotificationManager.shared.listen(observer: self, selector: #selector(didCopyURL), object: nil)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     func didCopyURL(notification: Notification?) {
         guard let url = notification?.userInfo?["url"] as? URL else {
             return

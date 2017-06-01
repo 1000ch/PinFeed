@@ -73,7 +73,6 @@ class SettingTableViewController: UITableViewController {
             tableView.deselectRow(at: indexPath, animated: false)
             webViewController.url = Bundle.main.url(forResource: "credits", withExtension: "html")
             webViewController.hidesToolbar = true
-            webViewController.hidesBarsOnSwipe = false
             navigationController?.pushViewController(webViewController, animated: true)
             break
         case .GitHubRepository:
@@ -83,7 +82,6 @@ class SettingTableViewController: UITableViewController {
 
             tableView.deselectRow(at: indexPath, animated: false)
             webViewController.url = URL(string: "https://github.com/1000ch/PinFeed")
-            webViewController.hidesBarsOnSwipe = false
             navigationController?.pushViewController(webViewController, animated: true)
             break
         }

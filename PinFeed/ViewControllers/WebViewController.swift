@@ -20,8 +20,6 @@ class WebViewController: UIViewController {
     
     var hidesToolbar: Bool = false
 
-    var hidesBarsOnSwipe: Bool = true
-
     private var webViewPropertyObserver: WebViewPropertyObserver!
     
     @IBOutlet weak var progressViewOffset: NSLayoutConstraint!
@@ -137,7 +135,7 @@ class WebViewController: UIViewController {
         super.viewWillAppear(animated)
         
         tabBarController?.tabBar.isHidden = true
-        navigationController?.hidesBarsOnSwipe = hidesBarsOnSwipe
+        navigationController?.hidesBarsOnSwipe = false
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.isTranslucent = true
         webViewPropertyObserver = WebViewPropertyObserver(webView: webView, handler: handleWebViewPropertyChange)

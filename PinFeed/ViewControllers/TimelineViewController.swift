@@ -61,17 +61,7 @@ class TimelineViewController: UIViewController {
             BookmarkManager.shared.bookmark).sorted { a, b in
                 return a.date.compare(b.date).rawValue > 0
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        navigationController?.hidesBarsOnSwipe = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
+        
         if timeline.count != 0 {
             if indicatorView.isAnimating {
                 indicatorView.stopAnimating()
@@ -80,7 +70,7 @@ class TimelineViewController: UIViewController {
             loadNext(clear: true)
         } else {
             indicatorView.startAnimating()
-
+            
             refresh {
                 if self.indicatorView.isAnimating {
                     self.indicatorView.stopAnimating()
@@ -90,9 +80,11 @@ class TimelineViewController: UIViewController {
             }
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.hidesBarsOnSwipe = false
     }
     
     func loadNext(clear: Bool = false) {
@@ -195,6 +187,7 @@ class TimelineViewController: UIViewController {
         
         notificationView.isHidden = true
         webViewController.url = notificationView.url
+
         navigationController?.pushViewController(webViewController, animated: true)
     }
     
@@ -265,6 +258,7 @@ extension TimelineViewController: UITableViewDataSource {
         
         tableView.deselectRow(at: indexPath, animated: false)
         webViewController.url = timelineDisplayed[indexPath.row].url
+
         navigationController?.pushViewController(webViewController, animated: true)
     }
 }
@@ -284,6 +278,7 @@ extension TimelineViewController: UIViewControllerPreviewingDelegate {
         }
         
         webViewController.url = timelineDisplayed[indexPath.row].url
+
         return webViewController
     }
 
