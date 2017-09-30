@@ -4,6 +4,8 @@ import MisterFusion
 
 class BookmarkViewController: UIViewController {
     
+    @IBOutlet weak var bookmarkTabBarItem: UITabBarItem!
+
     @IBOutlet weak var bookmarkTableView: UITableView!
     
     private let refreshControl = UIRefreshControl()
@@ -137,7 +139,7 @@ class BookmarkViewController: UIViewController {
         }
     }
     
-    func didRefresh() {
+    @objc func didRefresh() {
         refresh {
             if self.refreshControl.isRefreshing {
                 self.refreshControl.endRefreshing()
@@ -147,7 +149,7 @@ class BookmarkViewController: UIViewController {
         }
     }
     
-    func didCopyURL(notification: Notification?) {
+    @objc func didCopyURL(notification: Notification?) {
         guard let url = notification?.userInfo?["url"] as? URL else {
             return
         }
@@ -173,7 +175,7 @@ class BookmarkViewController: UIViewController {
         Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(didTimeoutNotification), userInfo: nil, repeats: false)
     }
     
-    func didTapNotification(sender: UIControl) {
+    @objc func didTapNotification(sender: UIControl) {
         guard let webViewController = UIStoryboard.instantiateViewController(name: "Main", identifier: "WebViewController") as? WebViewController else {
             return
         }
@@ -188,7 +190,7 @@ class BookmarkViewController: UIViewController {
         navigationController?.pushViewController(webViewController, animated: true)
     }
     
-    func didTimeoutNotification() {
+    @objc func didTimeoutNotification() {
         notificationView?.isHidden = true
     }
 }

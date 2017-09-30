@@ -38,7 +38,7 @@ class SettingViewController: UIViewController {
         URLNotificationManager.shared.listen(observer: self, selector: #selector(didCopyURL), object: nil)
     }
     
-    func didCopyURL(notification: Notification?) {
+    @objc func didCopyURL(notification: Notification?) {
         guard let url = notification?.userInfo?["url"] as? URL else {
             return
         }
@@ -63,7 +63,7 @@ class SettingViewController: UIViewController {
         Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(didTimeoutNotification), userInfo: nil, repeats: false)
     }
     
-    func didTapNotification(sender: UIControl) {
+    @objc func didTapNotification(sender: UIControl) {
         guard let webViewController = UIStoryboard.instantiateViewController(name: "Main", identifier: "WebViewController") as? WebViewController else {
             return
         }
@@ -77,7 +77,7 @@ class SettingViewController: UIViewController {
         navigationController?.pushViewController(webViewController, animated: true)
     }
     
-    func didTimeoutNotification() {
+    @objc func didTimeoutNotification() {
         notificationView?.isHidden = true
     }
 }

@@ -140,7 +140,7 @@ class TimelineViewController: UIViewController {
         }
     }
     
-    func didRefresh() {
+    @objc func didRefresh() {
         refresh {
             if self.refreshControl.isRefreshing {
                 self.refreshControl.endRefreshing()
@@ -150,7 +150,7 @@ class TimelineViewController: UIViewController {
         }
     }
     
-    func didCopyURL(notification: Notification?) {
+    @objc func didCopyURL(notification: Notification?) {
         guard let url = notification?.userInfo?["url"] as? URL else {
             return
         }
@@ -176,7 +176,7 @@ class TimelineViewController: UIViewController {
         Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(didTimeoutNotification), userInfo: nil, repeats: false)
     }
     
-    func didTapNotification(sender: UIControl) {
+    @objc func didTapNotification(sender: UIControl) {
         guard let webViewController = UIStoryboard.instantiateViewController(name: "Main", identifier: "WebViewController") as? WebViewController else {
             return
         }
@@ -191,7 +191,7 @@ class TimelineViewController: UIViewController {
         navigationController?.pushViewController(webViewController, animated: true)
     }
     
-    func didTimeoutNotification() {
+    @objc func didTimeoutNotification() {
         notificationView?.isHidden = true
     }
 }
@@ -284,5 +284,11 @@ extension TimelineViewController: UIViewControllerPreviewingDelegate {
 
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
+    }
+}
+
+extension TimelineViewController: UITabBarDelegate {
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        print(item)
     }
 }

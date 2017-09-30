@@ -87,7 +87,7 @@ class SettingTableViewController: UITableViewController {
         }
     }
     
-    func didTapTableView(gestureRecognizer: UITapGestureRecognizer) {
+    @objc func didTapTableView(gestureRecognizer: UITapGestureRecognizer) {
         tableView.endEditing(true)
     }
 }

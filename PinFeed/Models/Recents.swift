@@ -1,12 +1,12 @@
 import RealmSwift
 
 class Recents: Object {
-    dynamic var d: String = ""
-    dynamic var t: String = ""
-    dynamic var u: String = ""
-    dynamic var dt: String = ""
-    dynamic var a: String = ""
-    dynamic var n: String = ""
+    @objc dynamic var d: String = ""
+    @objc dynamic var t: String = ""
+    @objc dynamic var u: String = ""
+    @objc dynamic var dt: String = ""
+    @objc dynamic var a: String = ""
+    @objc dynamic var n: String = ""
     
     convenience init(bookmark: Bookmark) {
         self.init()

@@ -67,11 +67,11 @@ class BookmarkEditTableViewController: UITableViewController {
         navigationController?.hidesBarsOnSwipe = false
     }
     
-    func didTapTableView(gestureRecognizer: UITapGestureRecognizer) {
+    @objc func didTapTableView(gestureRecognizer: UITapGestureRecognizer) {
         tableView.endEditing(true)
     }
     
-    func saveBookmark(sender: UIButton) {
+    @objc func saveBookmark(sender: UIButton) {
         guard let urlString = url.text else {
             return
         }
