@@ -1,3 +1,4 @@
+import Foundation
 import RealmSwift
 
 class Recents: Object {

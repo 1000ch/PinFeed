@@ -1,0 +1,4 @@
+github "Alamofire/Alamofire"
+github "marty-suzuki/MisterFusion"
+github "realm/realm-cocoa"
+github "SwiftyJSON/SwiftyJSON"
