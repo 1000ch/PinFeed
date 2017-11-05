@@ -8,9 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		136FA1F91C833819002569D8 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136FA1F81C833819002569D8 /* SettingTableViewController.swift */; };
+		1391CA501FAF2E3D0017E7DA /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1391CA4F1FAF2E3D0017E7DA /* Alamofire.framework */; };
+		1391CA541FAF2E470017E7DA /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1391CA531FAF2E470017E7DA /* RealmSwift.framework */; };
+		1391CA561FAF2E590017E7DA /* MisterFusion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1391CA551FAF2E590017E7DA /* MisterFusion.framework */; };
+		1391CA581FAF31C60017E7DA /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1391CA571FAF31C60017E7DA /* SwiftyJSON.framework */; };
+		1391CA591FAF3BA90017E7DA /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1391CA511FAF2E420017E7DA /* Realm.framework */; };
 		139D50021C874DD4008F672B /* BookmarkEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139D50011C874DD4008F672B /* BookmarkEditTableViewController.swift */; };
 		13CCBE731C88AE7100E6600F /* PinboardURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CCBE721C88AE7100E6600F /* PinboardURLProvider.swift */; };
-		52B3CBE26508F9850F37E7A2 /* Pods_PinFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 644D325D02A85EFD3B16AC1D /* Pods_PinFeed.framework */; };
 		C7036B121CAA5CC100C6538A /* UINibExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7036B111CAA5CC100C6538A /* UINibExtension.swift */; };
 		C706A58A1CA1680A0070908D /* credits.html in Resources */ = {isa = PBXBuildFile; fileRef = C706A5891CA1680A0070908D /* credits.html */; };
 		C712FE961C8EF7A9001DCB79 /* UIStoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C712FE951C8EF7A9001DCB79 /* UIStoryboardExtension.swift */; };
@@ -40,10 +44,13 @@
 
 /* Begin PBXFileReference section */
 		136FA1F81C833819002569D8 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		1391CA4F1FAF2E3D0017E7DA /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		1391CA511FAF2E420017E7DA /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		1391CA531FAF2E470017E7DA /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		1391CA551FAF2E590017E7DA /* MisterFusion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MisterFusion.framework; path = Carthage/Build/iOS/MisterFusion.framework; sourceTree = "<group>"; };
+		1391CA571FAF31C60017E7DA /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		139D50011C874DD4008F672B /* BookmarkEditTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkEditTableViewController.swift; sourceTree = "<group>"; };
 		13CCBE721C88AE7100E6600F /* PinboardURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinboardURLProvider.swift; sourceTree = "<group>"; };
-		5E6553A0D4C638A7D101CA52 /* Pods-PinFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinFeed.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PinFeed/Pods-PinFeed.debug.xcconfig"; sourceTree = "<group>"; };
-		644D325D02A85EFD3B16AC1D /* Pods_PinFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PinFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7036B111CAA5CC100C6538A /* UINibExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINibExtension.swift; sourceTree = "<group>"; };
 		C706A5891CA1680A0070908D /* credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = credits.html; sourceTree = "<group>"; };
 		C712FE951C8EF7A9001DCB79 /* UIStoryboardExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtension.swift; sourceTree = "<group>"; };
@@ -72,7 +79,6 @@
 		C7E79C1F1CB8E5DC00D26EB8 /* BookmarkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 		C7EA46B01CB48E6F00258B3A /* Recents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recents.swift; sourceTree = "<group>"; };
 		C7EA46B21CB48E7F00258B3A /* Bookmarks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmarks.swift; sourceTree = "<group>"; };
-		F3791CECCBB519976862F604 /* Pods-PinFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinFeed.release.xcconfig"; path = "Pods/Target Support Files/Pods-PinFeed/Pods-PinFeed.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,26 +87,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7D3F05E1C7CA22600FDF058 /* WebKit.framework in Frameworks */,
-				52B3CBE26508F9850F37E7A2 /* Pods_PinFeed.framework in Frameworks */,
+				1391CA501FAF2E3D0017E7DA /* Alamofire.framework in Frameworks */,
+				1391CA561FAF2E590017E7DA /* MisterFusion.framework in Frameworks */,
+				1391CA591FAF3BA90017E7DA /* Realm.framework in Frameworks */,
+				1391CA541FAF2E470017E7DA /* RealmSwift.framework in Frameworks */,
+				1391CA581FAF31C60017E7DA /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0702DF90EAE7ACF06BF33E53 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				5E6553A0D4C638A7D101CA52 /* Pods-PinFeed.debug.xcconfig */,
-				F3791CECCBB519976862F604 /* Pods-PinFeed.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		48E99C54B44D6B097220D589 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				644D325D02A85EFD3B16AC1D /* Pods_PinFeed.framework */,
+				1391CA571FAF31C60017E7DA /* SwiftyJSON.framework */,
+				1391CA551FAF2E590017E7DA /* MisterFusion.framework */,
+				1391CA531FAF2E470017E7DA /* RealmSwift.framework */,
+				1391CA511FAF2E420017E7DA /* Realm.framework */,
+				1391CA4F1FAF2E3D0017E7DA /* Alamofire.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -130,7 +135,6 @@
 				C7D3F05D1C7CA22600FDF058 /* WebKit.framework */,
 				C75E239E1C7AD73D00EBF80A /* PinFeed */,
 				C75E239D1C7AD73D00EBF80A /* Products */,
-				0702DF90EAE7ACF06BF33E53 /* Pods */,
 				48E99C54B44D6B097220D589 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -223,12 +227,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C75E23B01C7AD73D00EBF80A /* Build configuration list for PBXNativeTarget "PinFeed" */;
 			buildPhases = (
-				6BC2D90B2D440FE9D286CA86 /* [CP] Check Pods Manifest.lock */,
 				C75E23981C7AD73D00EBF80A /* Sources */,
 				C75E23991C7AD73D00EBF80A /* Frameworks */,
 				C75E239A1C7AD73D00EBF80A /* Resources */,
-				DE620AA3F54142E377102C44 /* [CP] Embed Pods Frameworks */,
-				88B0144BFB2BCD374DCEF62F /* [CP] Copy Pods Resources */,
+				1391CA4E1FAF2C990017E7DA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -291,64 +293,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6BC2D90B2D440FE9D286CA86 /* [CP] Check Pods Manifest.lock */ = {
+		1391CA4E1FAF2C990017E7DA /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/MisterFusion.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
-			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PinFeed-checkManifestLockResult.txt",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/MisterFusion.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Realm.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RealmSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		88B0144BFB2BCD374DCEF62F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PinFeed/Pods-PinFeed-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DE620AA3F54142E377102C44 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PinFeed/Pods-PinFeed-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/MisterFusion/MisterFusion.framework",
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MisterFusion.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PinFeed/Pods-PinFeed-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -508,7 +474,6 @@
 		};
 		C75E23B11C7AD73D00EBF80A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5E6553A0D4C638A7D101CA52 /* Pods-PinFeed.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -518,6 +483,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = PinFeed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -533,7 +499,6 @@
 		};
 		C75E23B21C7AD73D00EBF80A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3791CECCBB519976862F604 /* Pods-PinFeed.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -543,6 +508,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = PinFeed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
