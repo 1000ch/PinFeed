@@ -35,14 +35,14 @@ class BookmarkViewController: UIViewController {
         
         title = "Bookmark"
         indicatorView.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
-        indicatorView.activityIndicatorViewStyle = .gray
+        indicatorView.style = .gray
         view?.addSubview(indicatorView)
         bookmarkTableView.delegate = self
         bookmarkTableView.dataSource = self
         bookmarkTableView.register(UINib(nibName: "BookmarkCell", bundle: nil), forCellReuseIdentifier: "data")
         bookmarkTableView.alwaysBounceVertical = true
         bookmarkTableView.addSubview(refreshControl)
-        bookmarkTableView.rowHeight = UITableViewAutomaticDimension
+        bookmarkTableView.rowHeight = UITableView.automaticDimension
         bookmarkTableView.estimatedRowHeight = 2
         
         if let notificationView = notificationView {
@@ -58,7 +58,7 @@ class BookmarkViewController: UIViewController {
         
         URLNotificationManager.shared.listen(observer: self, selector: #selector(didCopyURL), object: nil)
         
-        refreshControl.addTarget(self, action: #selector(didRefresh), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(didRefresh), for: UIControl.Event.valueChanged)
         
         bookmark = BookmarkManager.shared.bookmark.sorted { a, b in
             return a.date.compare(b.date).rawValue > 0
@@ -200,7 +200,7 @@ extension BookmarkViewController: UITableViewDelegate {
         return true
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let urlString = bookmarkDisplayed[indexPath.row].url.absoluteString
             

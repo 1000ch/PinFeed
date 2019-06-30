@@ -14,9 +14,9 @@ class SettingViewController: UIViewController {
             return
         }
         
-        settingTableViewController.didMove(toParentViewController: self)
+        settingTableViewController.didMove(toParent: self)
 
-        addChildViewController(settingTableViewController)
+        addChild(settingTableViewController)
         view.addLayoutSubview(settingTableViewController.view, andConstraints:
             settingTableViewController.view.top,
             settingTableViewController.view.right,

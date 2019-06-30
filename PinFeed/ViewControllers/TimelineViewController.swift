@@ -32,14 +32,14 @@ class TimelineViewController: UIViewController {
         
         title = "Timeline"
         indicatorView.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
-        indicatorView.activityIndicatorViewStyle = .gray
+        indicatorView.style = .gray
         view?.addSubview(indicatorView)
         timelineTableView.delegate = self
         timelineTableView.dataSource = self
         timelineTableView.register(UINib(nibName: "BookmarkCell", bundle: nil), forCellReuseIdentifier: "data")
         timelineTableView.alwaysBounceVertical = true
         timelineTableView.addSubview(refreshControl)
-        timelineTableView.rowHeight = UITableViewAutomaticDimension
+        timelineTableView.rowHeight = UITableView.automaticDimension
         timelineTableView.estimatedRowHeight = 2
         
         if let notificationView = notificationView {
@@ -55,7 +55,7 @@ class TimelineViewController: UIViewController {
 
         URLNotificationManager.shared.listen(observer: self, selector: #selector(didCopyURL), object: nil)
         
-        refreshControl.addTarget(self, action: #selector(didRefresh), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(didRefresh), for: UIControl.Event.valueChanged)
 
         timeline = (TimelineManager.shared.timeline +
             BookmarkManager.shared.bookmark).sorted { a, b in

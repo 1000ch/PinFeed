@@ -29,7 +29,7 @@ class BookmarkEditTableViewController: UITableViewController {
         
         url.text = urlString
         pageTitle.text = titleString
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(saveBookmark))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.save, target: self, action: #selector(saveBookmark))
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTableView))
         tapGesture.cancelsTouchesInView = false
